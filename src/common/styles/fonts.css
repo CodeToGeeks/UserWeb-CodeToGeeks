@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "san";
+  src: url("/fonts/SFUIDisplay-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "san";
+  src: url("/fonts/SFUIDisplay-Medium.ttf");
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "san";
+  src: url("/fonts/SFUIDisplay-Semibold.ttf");
+  font-style: bold;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "san";
+  src: url("/fonts/SFUIDisplay-Bold.ttf");
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+}

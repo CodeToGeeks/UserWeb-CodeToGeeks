@@ -1,0 +1,27 @@
+.headerWrapper {
+  position: sticky;
+  top: 0;
+  max-width: 1280px;
+  width: 100%;
+  background-color: #fafafa;
+  z-index: 1;
+  margin: auto;
+
+  .header {
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+    padding: 2rem;
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.logo {
+  margin-inline-end: 1rem;
+}

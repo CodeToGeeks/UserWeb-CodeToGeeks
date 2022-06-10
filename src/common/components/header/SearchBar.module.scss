@@ -1,0 +1,24 @@
+.searchContainer {
+  display: flex;
+  position: relative;
+
+  .input {
+    border-radius: 6px;
+    height: 42px;
+    max-width: 500px;
+    width: 100%;
+    min-width: 300px;
+    outline: none;
+    border: 1px solid rgb(201, 201, 201);
+    padding: 1rem;
+    font-size: 16px;
+    &:focus {
+      border: 2px solid var(--primary-color);
+    }
+  }
+  .img {
+    position: absolute;
+    right: 10px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,24 @@
+.blogHeader {
+  display: flex;
+  flex-direction: row;
+  img {
+    border-radius: 50%;
+    max-width: 50px;
+    max-height: 50px;
+    margin-inline-end: 1rem;
+    object-fit: cover;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    justify-content: space-around;
+  }
+}
+
+.blogHeader,
+.blogHeader .info h3 {
+  font-weight: 400;
+  font-size: 16px;
+  color: #3d3d3d;
+}

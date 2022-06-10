@@ -1,0 +1,31 @@
+.popularTags {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem 0;
+  max-width: 240px;
+  width: 100%;
+}
+
+.popularTags h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--base-90);
+  padding: 0.5rem 1rem;
+}
+/* 
+.popularTags ul {
+} */
+
+.popularTags ul li {
+  padding: 0.5rem 1rem;
+  color: var(--grey-100);
+  border-radius: 4px;
+}
+
+.popularTags li:hover {
+  background-color: rgba(59, 73, 223, 0.1);
+  text-decoration: underline;
+  cursor: pointer;
+  /* color: #fff; */
+}
