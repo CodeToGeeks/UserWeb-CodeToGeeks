@@ -1,0 +1,19 @@
+.authorContainer {
+  max-width: 400px;
+  padding: 2rem;
+  margin-inline-start: 1rem;
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+  }
+  div {
+    padding-top: 0.5rem;
+  }
+  p {
+    margin-top: 1rem;
+    font-size: 14px;
+  }
+}

@@ -7,9 +7,10 @@ export interface Post {
   author_name: string
   author_profile_image: string
   count_minutes_read: number
-  cover_image_link: number
+  cover_image_link: string
   excerpt: string
   love_count: number
   tags: Tag[]
   created_at: Date
+  md?: string
 }
