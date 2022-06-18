@@ -10,7 +10,11 @@ type PostCardProps = { post: Post }
 const PostCard = ({ post }: PostCardProps) => {
   return (
     <section className={styles.container}>
-      <AuthorHeader author={post.author} date={post.created_at} />
+      <AuthorHeader
+        name={post.author_name}
+        profileImage={post.author_profile_image}
+        date={post.created_at}
+      />
 
       <div className={styles.blogBody}>
         <div className={styles.blogTitle}>
@@ -29,19 +33,13 @@ const PostCard = ({ post }: PostCardProps) => {
               src="/assets/home/heart.svg"
               alt="comment"
             />
-            <span>1800 Reactions</span>
-          </button>
-          <button className={styles.interactionBtn}>
-            <img
-              className={styles.icon}
-              src="/assets/home/comment.svg"
-              alt="comment"
-            />
-            <span>180 comments</span>
+            <span>{post.love_count} Reactions</span>
           </button>
         </div>
         <div>
-          <span className={styles.readingInfo}> 15 mins read</span>
+          <span className={styles.readingInfo}>
+            {post.count_minutes_read || 10} mins read
+          </span>
           <button className={styles.saveButton}>Save</button>
         </div>
       </div>

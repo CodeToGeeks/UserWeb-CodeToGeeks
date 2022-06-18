@@ -1,10 +1,13 @@
 import React from 'react'
 import styles from './AuthorHeader.module.scss'
-import { Author } from '@models/Author.model'
 
-type AuthorHeaderProps = { author: Author; date: Date }
+type AuthorHeaderProps = {
+  name: string
+  profileImage: string
+  date: Date
+}
 
-const AuthorHeader = ({ author, date }: AuthorHeaderProps) => {
+const AuthorHeader = ({ name, profileImage, date }: AuthorHeaderProps) => {
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -12,14 +15,9 @@ const AuthorHeader = ({ author, date }: AuthorHeaderProps) => {
   })
   return (
     <div className={styles.blogHeader}>
-      <img
-        src={author.profile_image}
-        alt={author.name}
-        width="200"
-        height="200"
-      />
+      <img src={profileImage} alt={name} width="200" height="200" />
       <div className={styles.info}>
-        <div>{author.name}</div>
+        <div>{name}</div>
         <div>{formattedDate}</div>
       </div>
     </div>
