@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import styles from './AuthorHeader.module.scss'
 
 type AuthorHeaderProps = {
@@ -15,7 +16,9 @@ const AuthorHeader = ({ name, profileImage, date }: AuthorHeaderProps) => {
   })
   return (
     <div className={styles.blogHeader}>
-      <img src={profileImage} alt={name} width="200" height="200" />
+      <div className={styles.imgContainer}>
+        <Image src={profileImage} alt={name} width="200" height="200" />
+      </div>
       <div className={styles.info}>
         <div>{name}</div>
         <div>{formattedDate}</div>

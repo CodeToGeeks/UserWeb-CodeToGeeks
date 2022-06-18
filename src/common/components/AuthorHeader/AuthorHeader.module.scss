@@ -1,12 +1,14 @@
 .blogHeader {
   display: flex;
   flex-direction: row;
-  img {
-    border-radius: 50%;
+  .imgContainer {
     max-width: 50px;
     max-height: 50px;
     margin-inline-end: 1rem;
     object-fit: cover;
+    img {
+      border-radius: 50%;
+    }
   }
   .info {
     display: flex;

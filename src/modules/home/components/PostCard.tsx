@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import PostTags from '@components/PostTags/PostTags'
 import AuthorHeader from '@components/AuthorHeader/AuthorHeader'
 import styles from '../styles/PostCard.module.scss'
@@ -28,10 +29,12 @@ const PostCard = ({ post }: PostCardProps) => {
       <div className={styles.blogFooter}>
         <div className={styles.interactionContainer}>
           <button className={styles.interactionBtn}>
-            <img
+            <Image
               className={styles.icon}
               src="/assets/home/heart.svg"
               alt="comment"
+              width={'30'}
+              height={'30'}
             />
             <span>{post.love_count} Reactions</span>
           </button>
