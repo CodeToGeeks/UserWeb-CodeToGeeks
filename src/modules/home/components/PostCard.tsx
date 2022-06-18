@@ -18,7 +18,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
       <div className={styles.blogBody}>
         <div className={styles.blogTitle}>
-          <Link href={`/articles/${post.slug}`}>
+          <Link href={`/posts/${post.slug}`}>
             <a href="#">{post.title}</a>
           </Link>
         </div>
