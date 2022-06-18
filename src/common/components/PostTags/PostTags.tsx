@@ -5,10 +5,10 @@ import Tag from './Tag'
 
 type AppProps = {
   tags: TagModel[]
-  style?: React.CSSProperties
+  style?: string
 }
 
-const PostTags = ({ tags, style = {} }: AppProps) => {
+const PostTags = ({ tags, style = '' }: AppProps) => {
   return (
     <ul className={`${styles.blogTags} ${style}`}>
       {tags.map((tag: TagModel) => (
