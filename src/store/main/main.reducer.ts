@@ -2,23 +2,27 @@ import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
 
-import { getPosts, getTags } from './main.actions'
+import { getPosts, getTags, getPostDetails } from './main.actions'
 export type mainState = {
   posts: Post[]
+  post: Post | null
   tags: Tag[]
   isLoading: boolean
   error: unknown
   page: number
   limit: number
+  totalPostsCount: number
 }
 
 const initialState: mainState = {
   isLoading: false,
   posts: [],
+  post: null,
   tags: [],
   error: null,
   page: 0,
   limit: 0,
+  totalPostsCount: 0,
 }
 
 export const mainSlice = createSlice({
@@ -46,9 +50,13 @@ export const mainSlice = createSlice({
       })
       .addCase(
         getPosts.fulfilled,
-        (state: mainState, action: PayloadAction<Post[]>) => {
+        (
+          state: mainState,
+          action: PayloadAction<{ posts: Post[]; total: number }>,
+        ) => {
           state.isLoading = false
-          state.posts = action.payload
+          state.posts = [...state.posts, ...action.payload.posts]
+          state.totalPostsCount = action.payload.total
         },
       )
       .addCase(getPosts.rejected, (state: mainState) => {
@@ -66,6 +74,20 @@ export const mainSlice = createSlice({
         },
       )
       .addCase(getTags.rejected, (state: mainState) => {
+        state.isLoading = true
+      })
+
+      .addCase(getPostDetails.pending, (state: mainState) => {
+        state.isLoading = true
+      })
+      .addCase(
+        getPostDetails.fulfilled,
+        (state: mainState, action: PayloadAction<Post>) => {
+          state.isLoading = false
+          state.post = action.payload
+        },
+      )
+      .addCase(getPostDetails.rejected, (state: mainState) => {
         state.isLoading = true
       })
   },
