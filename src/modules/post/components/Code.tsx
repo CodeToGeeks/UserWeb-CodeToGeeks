@@ -8,7 +8,7 @@ import styles from '../styles/Code.module.scss'
 
 const Code = ({ inline, className, children, ...props }: any) => {
   const [isCopied, setIsCopied] = useState(false)
-  const match = /language-(\w+)/.exec(className || '')
+  const match = /language-(\w+)/.exec(className || '') || 'language-javascript'
 
   const onCopyHandler = () => {
     setIsCopied(true)

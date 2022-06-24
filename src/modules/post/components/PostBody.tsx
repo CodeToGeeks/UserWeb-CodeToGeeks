@@ -13,7 +13,13 @@ const PostBody = ({ content }: PostBodyProps) => {
       <article className={styles.content}>
         <ReactMarkdown
           components={{
-            code({ node, inline, className, children, ...props }) {
+            code({
+              node,
+              inline,
+              className = 'language-javascript',
+              children,
+              ...props
+            }) {
               return (
                 <Code
                   node={node}
@@ -27,7 +33,7 @@ const PostBody = ({ content }: PostBodyProps) => {
             },
           }}
         >
-          {content ? content.replace(/"/, '').replace(/"$/, '') : ''}
+          {content ? content : ''}
         </ReactMarkdown>
       </article>
     </div>
