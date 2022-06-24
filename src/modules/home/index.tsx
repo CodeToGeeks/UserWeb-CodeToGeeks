@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
@@ -12,14 +13,24 @@ import {
   mainSelector,
 } from '../../store/main'
 
+// TODO:
+//  - fix issue of getting the 1st data twice
+//  - add loading state -view
+//  - add skeleton
+
 export default function Home() {
+  const [pageNumber, setPageNumber] = useState(1)
   const dispatch = useAppDispatch()
-  const { posts, tags } = useAppSelector(mainSelector)
+  const { posts, tags, totalPostsCount } = useAppSelector(mainSelector)
 
   useEffect(() => {
-    if (!posts.length) dispatch(getPosts())
+    dispatch(getPosts({ pageSize: 3, pageNumber }))
+  }, [pageNumber])
+
+  useEffect(() => {
     if (!tags.length) dispatch(getTags())
   }, [])
+
   useEffect(() => {
     if (posts.length && tags.length) {
       dispatch(populatePostsTags())
@@ -33,7 +44,19 @@ export default function Home() {
           <Community />
           <PopularTags />
         </div>
-        <PostsList posts={posts} />
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={() => setPageNumber((prev) => prev + 1)}
+          hasMore={totalPostsCount > posts.length}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <PostsList posts={posts} />
+        </InfiniteScroll>
       </main>
     </div>
   )
