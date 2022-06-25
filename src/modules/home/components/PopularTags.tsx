@@ -1,23 +1,20 @@
 import React from 'react'
+import Link from 'next/link'
 import styles from '../styles/PopularTags.module.scss'
-
-const tags = [
-  '#CSS',
-  '#JavaScript',
-  '#TypeScript',
-  '#HTML',
-  '#MongoDB',
-  '#SQL',
-  '#NextJS',
-]
+import { useAppSelector } from '../../../store/hooks'
+import { mainSelector } from '../../../store/main'
+import { Tag } from '@models/Tag.model'
 
 const PopularTags = () => {
+  const { tags } = useAppSelector(mainSelector)
   return (
     <section className={styles.popularTags}>
       <h2 className={styles.title}> Popular Tags </h2>
       <ul>
-        {tags.map((tag) => (
-          <li key={tag}>{tag}</li>
+        {tags?.map((tag: Tag) => (
+          <li key={tag._id}>
+            <Link href={`/tags/${tag._id}`}>{tag.name}</Link>
+          </li>
         ))}
       </ul>
     </section>
