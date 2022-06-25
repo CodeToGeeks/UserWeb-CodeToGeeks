@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import {
   getPosts,
   getTags,
+  resetPosts,
   populatePostsTags,
   mainSelector,
 } from '../../store/main'
@@ -24,12 +25,13 @@ export default function Home() {
   const { posts, tags, totalPostsCount } = useAppSelector(mainSelector)
 
   useEffect(() => {
-    dispatch(getPosts({ pageSize: 3, pageNumber }))
-  }, [pageNumber])
-
-  useEffect(() => {
+    dispatch(resetPosts)
     if (!tags.length) dispatch(getTags())
   }, [])
+
+  useEffect(() => {
+    dispatch(getPosts({ pageSize: 3, pageNumber }))
+  }, [pageNumber])
 
   useEffect(() => {
     if (posts.length && tags.length) {
