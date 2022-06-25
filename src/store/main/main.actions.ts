@@ -1,10 +1,9 @@
 import axios from 'axios'
-
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const BASE_URL = 'https://codetogeeksapi.herokuapp.com/api/v1'
 
-interface query {
+interface Query {
   pageSize: number
   pageNumber: number
   search?: string
@@ -12,7 +11,7 @@ interface query {
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
-  async (payload: query) => {
+  async (payload: Query) => {
     try {
       const { pageSize, pageNumber, search } = payload
       const res = await axios.get(`${BASE_URL}/post`, {
@@ -46,7 +45,24 @@ export const getPostDetails = createAsyncThunk(
       const res = await axios.get(`${BASE_URL}/post/${slug}`)
       return res.data.post
     } catch (e) {
-      throw new Error('Error getting tags')
+      throw new Error('Error getting post details')
+    }
+  },
+)
+
+export const getPostsByTagId = createAsyncThunk(
+  'posts/getPostsByTagId',
+  async (payload: { query: Query; tagId: string }) => {
+    try {
+      const { tagId } = payload
+      const res = await axios.get(`${BASE_URL}/post/tag/${tagId}`, {
+        params: {
+          ...payload.query,
+        },
+      })
+      return res.data
+    } catch (e) {
+      throw new Error('Error getting tag post')
     }
   },
 )
