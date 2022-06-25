@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Link from 'next/link'
 import styles from './PostTags.module.scss'
 import { Tag } from '@models/Tag.model'
 
@@ -25,10 +26,12 @@ const Tag = ({ tag }: TagProps) => {
         ...(onHover ? getHoverStyle(tag) : ``),
       }}
     >
-      <a href="#">
-        <span style={{ color: tag.color }}>#</span>
-        {tag.name}
-      </a>
+      <Link href={`/tags/${tag._id}`}>
+        <div>
+          <span style={{ color: tag.color }}>#</span>
+          {tag.name}
+        </div>
+      </Link>
     </li>
   )
 }
