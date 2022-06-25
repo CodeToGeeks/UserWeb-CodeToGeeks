@@ -22,16 +22,26 @@ import {
 export default function Home() {
   const [pageNumber, setPageNumber] = useState(1)
   const dispatch = useAppDispatch()
-  const { posts, tags, totalPostsCount } = useAppSelector(mainSelector)
+  const { posts, tags, totalPostsCount, searchKeyword } =
+    useAppSelector(mainSelector)
 
   useEffect(() => {
-    dispatch(resetPosts)
+    dispatch(resetPosts())
+  }, [searchKeyword])
+
+  useEffect(() => {
     if (!tags.length) dispatch(getTags())
   }, [])
 
   useEffect(() => {
-    dispatch(getPosts({ pageSize: 3, pageNumber }))
-  }, [pageNumber])
+    dispatch(
+      getPosts({
+        pageSize: 3,
+        pageNumber,
+        ...(searchKeyword && { search: searchKeyword }),
+      }),
+    )
+  }, [pageNumber, searchKeyword])
 
   useEffect(() => {
     if (posts.length && tags.length) {

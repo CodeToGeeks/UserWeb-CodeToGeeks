@@ -7,7 +7,8 @@
       "@models/*": ["src/common/models/*"],
       "@styles/*": ["src/common/styles/*"],
       "@utils/*": ["src/common/utils/*"],
-      "@modules/*": ["src/modules/*"]
+      "@modules/*": ["src/modules/*"],
+      "@store/*": ["src/store/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

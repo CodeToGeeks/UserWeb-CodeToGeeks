@@ -11,19 +11,21 @@ import {
 export type mainState = {
   posts: Post[]
   post: Post | null
+  totalPostsCount: number
   tags: Tag[]
+  searchKeyword: string
   isLoading: boolean
   error: unknown
-  totalPostsCount: number
 }
 
 const initialState: mainState = {
-  isLoading: false,
   posts: [],
   post: null,
-  tags: [],
-  error: null,
   totalPostsCount: 0,
+  tags: [],
+  searchKeyword: '',
+  isLoading: false,
+  error: null,
 }
 
 export const mainSlice = createSlice({
@@ -45,6 +47,9 @@ export const mainSlice = createSlice({
     resetPosts: (state) => {
       state.posts = []
       state.totalPostsCount = 0
+    },
+    setSearchKeyword: (state, action) => {
+      state.searchKeyword = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -115,5 +120,6 @@ export const mainSlice = createSlice({
   },
 })
 
-export const { populatePostsTags, resetPosts } = mainSlice.actions
+export const { populatePostsTags, resetPosts, setSearchKeyword } =
+  mainSlice.actions
 export default mainSlice.reducer
