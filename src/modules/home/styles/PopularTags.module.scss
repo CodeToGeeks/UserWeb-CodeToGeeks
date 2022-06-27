@@ -13,9 +13,6 @@
   color: var(--base-90);
   padding: 0.5rem 1rem;
 }
-/* 
-.popularTags ul {
-} */
 
 .popularTags ul li {
   padding: 0.5rem 1rem;
@@ -28,4 +25,8 @@
   text-decoration: underline;
   cursor: pointer;
   /* color: #fff; */
+}
+
+.loader {
+  padding: 0.5rem 1rem;
 }

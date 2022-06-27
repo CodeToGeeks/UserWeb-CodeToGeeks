@@ -4,7 +4,7 @@ import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
 import styles from './styles/index.module.scss'
-
+import Loader from './components/PostCardLoader'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import {
   getPosts,
@@ -26,6 +26,7 @@ export default function Home() {
     useAppSelector(mainSelector)
 
   useEffect(() => {
+    setPageNumber(1)
     dispatch(resetPosts())
   }, [searchKeyword])
 
@@ -60,7 +61,13 @@ export default function Home() {
           dataLength={posts.length}
           next={() => setPageNumber((prev) => prev + 1)}
           hasMore={totalPostsCount > posts.length}
-          loader={<h4>Loading...</h4>}
+          loader={
+            <>
+              <Loader />
+              <Loader />
+              <Loader />
+            </>
+          }
           endMessage={
             <p style={{ textAlign: 'center' }}>
               <b>Yay! You have seen it all</b>
