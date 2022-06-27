@@ -7,6 +7,9 @@ import styles from './styles/index.module.scss'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { getPostDetails, mainSelector } from '../../store/main'
+import PostLoader from './components/PostLoader'
+import AuthorDetailsLoader from './components/AuthorDetailsLoader'
+import InteractionLoader from './components/InteractionsLoader'
 
 type PostDetailsProps = {
   slug: string | string[] | undefined
@@ -14,26 +17,36 @@ type PostDetailsProps = {
 
 const PostDetails = ({ slug }: PostDetailsProps) => {
   const dispatch = useAppDispatch()
-  const { post } = useAppSelector(mainSelector)
+  const { post, isLoading } = useAppSelector(mainSelector)
 
   useEffect(() => {
     if (typeof slug == 'string') dispatch(getPostDetails({ slug }))
   }, [])
 
-  return post ? (
+  return (
     <div className={`${styles.mainWrapper} ${styles.post}`}>
-      <Interactions />
-      <PostContainer post={post} />
-      <AuthorDetails
-        author={{
-          _id: '',
-          name: post.author_name,
-          profile_image: post.author_profile_image,
-        }}
-        date={new Date(post.created_at)}
-      />
+      {post && !isLoading ? (
+        <>
+          <Interactions />
+          <PostContainer post={post} />
+          <AuthorDetails
+            author={{
+              _id: '',
+              name: post.author_name,
+              profile_image: post.author_profile_image,
+            }}
+            date={new Date(post.created_at)}
+          />
+        </>
+      ) : (
+        <>
+          <InteractionLoader />
+          <PostLoader />
+          <AuthorDetailsLoader />
+        </>
+      )}
     </div>
-  ) : null
+  )
 }
 
 export default PostDetails
