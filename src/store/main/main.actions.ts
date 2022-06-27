@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-const BASE_URL = 'https://codetogeeksapi.herokuapp.com/api/v1'
+const BASE_URL = 'http://3.8.56.231/api/v1'
 
 interface Query {
   pageSize: number

@@ -21,7 +21,7 @@ export type mainState = {
 const initialState: mainState = {
   posts: [],
   post: null,
-  totalPostsCount: 0,
+  totalPostsCount: 1,
   tags: [],
   searchKeyword: '',
   isLoading: false,
@@ -46,7 +46,7 @@ export const mainSlice = createSlice({
     },
     resetPosts: (state) => {
       state.posts = []
-      state.totalPostsCount = 0
+      state.totalPostsCount = 1
     },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload
