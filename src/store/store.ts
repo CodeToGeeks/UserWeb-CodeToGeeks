@@ -1,10 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { mainSlice } from './main'
+import { authSlice } from './auth'
+
 export const store = configureStore({
   reducer: {
     posts: mainSlice.reducer,
-    // This is where we add reducers.
-    // Since we don't have any yet, leave this empty
+    auth: authSlice.reducer,
   },
 })
 
