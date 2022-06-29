@@ -2,12 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './Navigation.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import {
-  authSelector,
-  openLoginModal,
-  openSignUpModal,
-  resetModals,
-} from '@store/auth'
+import { authSelector, openLoginModal, openSignUpModal } from '@store/auth'
 import Login from '@modules/auth/components/Login'
 import SignUp from '@modules/auth/components/SignUp'
 
@@ -20,7 +15,7 @@ const Navigation = () => {
     <>
       <ul className={styles.nav}>
         <li>
-          <Link href="#">Home</Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
           <Link href="#">About Us</Link>
@@ -38,22 +33,8 @@ const Navigation = () => {
           </button>
         </li>
       </ul>
-      {isLoginModalOpened && (
-        <Login
-          onCloseHandler={() => {
-            dispatch(resetModals())
-            console.log('aja')
-          }}
-        />
-      )}
-      {isSignUpModalOpened && (
-        <SignUp
-          onCloseHandler={() => {
-            dispatch(resetModals())
-            console.log('aja')
-          }}
-        />
-      )}
+      {isLoginModalOpened && <Login />}
+      {isSignUpModalOpened && <SignUp />}
     </>
   )
 }
