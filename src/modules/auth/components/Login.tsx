@@ -15,7 +15,7 @@ const Login = () => {
   const { isLoading } = useAppSelector(authSelector)
 
   useEffect(() => {
-    // Add validations required for the form
+    // Todo: Add more validations
     setIsValidForm(email != '' && password != '')
   }, [email, password])
 
@@ -73,9 +73,7 @@ const Login = () => {
             Forgot your Password?
           </button>
           <button
-            className={`${styles.login} ${
-              isLoading || !isValidForm ? styles.btnDisabled : ''
-            }`}
+            className={`${styles.login} ${isLoading ? styles.btnDisabled : ''}`}
             onClick={onLoginHandler}
             disabled={isLoading || !isValidForm}
           >
