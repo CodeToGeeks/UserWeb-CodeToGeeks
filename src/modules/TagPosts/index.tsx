@@ -5,7 +5,7 @@ import PostsList from '@modules/home/components/PostsList'
 import Community from '@modules/home/components/Community'
 import PopularTags from '@modules/home/components/PopularTags'
 import styles from '@modules/home/styles/index.module.scss'
-
+import Loader from '@modules/home/components/PostCardLoader'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import {
   getTags,
@@ -17,8 +17,6 @@ import {
 
 // TODO:
 //  - fix issue of getting the 1st data twice
-//  - add loading state -view
-//  - add skeleton
 
 const TagPosts = ({ router }: { router: NextRouter }) => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -56,7 +54,13 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
           dataLength={posts.length}
           next={() => setPageNumber((prev) => prev + 1)}
           hasMore={totalPostsCount > posts.length}
-          loader={<h4>Loading...</h4>}
+          loader={
+            <>
+              <Loader />
+              <Loader />
+              <Loader />
+            </>
+          }
           endMessage={
             <p style={{ textAlign: 'center' }}>
               <b>Yay! You have seen it all</b>
