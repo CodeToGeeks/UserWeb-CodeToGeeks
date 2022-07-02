@@ -1,20 +1,26 @@
-import React from 'react'
-import { useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '@components/ui/Modal'
+import Spinner from '@components/ui/Spinner'
 import styles from '../styles/_.module.scss'
 
-import { useAppDispatch } from '@store/hooks'
-import { login, openSignUpModal, resetModals } from '@store/auth'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+import { login, openSignUpModal, resetModals, authSelector } from '@store/auth'
 
 const Login = () => {
-  const emailRef = useRef<HTMLInputElement>(document.createElement('input'))
-  const passwordRef = useRef<HTMLInputElement>(document.createElement('input'))
   const dispatch = useAppDispatch()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isValidForm, setIsValidForm] = useState(false)
+  const { isLoading } = useAppSelector(authSelector)
+
+  useEffect(() => {
+    // Add validations required for the form
+    setIsValidForm(email != '' && password != '')
+  }, [email, password])
 
   const onLoginHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    const email = emailRef.current.value
-    const password = passwordRef.current.value
     dispatch(
       login({
         email,
@@ -39,10 +45,12 @@ const Login = () => {
             <input
               id="email"
               type={'email'}
-              ref={emailRef}
               autoComplete="off"
               placeholder="Enter your email"
-              value=""
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setEmail(e.currentTarget.value)
+              }
+              value={email}
             />
           </div>
           <div className={styles.formControl}>
@@ -50,10 +58,12 @@ const Login = () => {
             <input
               id="password"
               type={'password'}
-              ref={passwordRef}
               autoComplete="new-password"
               placeholder="Enter your password"
-              value=""
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setPassword(e.currentTarget.value)
+              }
+              value={password}
             />
           </div>
           <button
@@ -62,8 +72,14 @@ const Login = () => {
           >
             Forgot your Password?
           </button>
-          <button className={styles.login} onClick={onLoginHandler}>
-            Login
+          <button
+            className={`${styles.login} ${
+              isLoading || !isValidForm ? styles.btnDisabled : ''
+            }`}
+            onClick={onLoginHandler}
+            disabled={isLoading || !isValidForm}
+          >
+            {isLoading ? <Spinner /> : `Login`}
           </button>
           <div className={styles.signUpContainer}>
             <span> Do not Have an account? </span>

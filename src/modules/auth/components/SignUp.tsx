@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-
 import Modal from '@components/ui/Modal'
+import Spinner from '@components/ui/Spinner'
 import PasswordValidations from './PasswordValidation'
 import styles from '../styles/_.module.scss'
-import { useAppDispatch } from '@store/hooks'
-import { signUp, openLoginModal, resetModals } from '@store/auth'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+import { signUp, openLoginModal, resetModals, authSelector } from '@store/auth'
 
 const Login = () => {
   const dispatch = useAppDispatch()
+  const { isLoading } = useAppSelector(authSelector)
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -107,9 +109,9 @@ const Login = () => {
               isPasswordValid ? '' : styles.btnDisabled
             }`}
             onClick={onSignUpHandler}
-            disabled={!isPasswordValid}
+            disabled={!isPasswordValid || isLoading}
           >
-            Sign Up
+            {isLoading ? <Spinner /> : `SignUp`}
           </button>
           <div className={styles.signUpContainer}>
             <span> Do you have an account? </span>
