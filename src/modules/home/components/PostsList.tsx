@@ -8,8 +8,8 @@ type PostListProps = { posts: Post[] }
 const PostsList = ({ posts }: PostListProps) => {
   return (
     <div className={styles.list}>
-      {posts.map((post) => (
-        <PostCard key={post._id} post={post} />
+      {posts.map((post, i) => (
+        <PostCard key={post._id} post={post} hasCover={i == 0} />
       ))}
     </div>
   )
