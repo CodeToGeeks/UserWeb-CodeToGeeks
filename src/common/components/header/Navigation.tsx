@@ -15,7 +15,7 @@ import {
 
 const Navigation = () => {
   const dispatch = useAppDispatch()
-  const { isLoginModalOpened, isSignUpModalOpened, user } =
+  const { isLoginModalOpened, isSignUpModalOpened, user, token } =
     useAppSelector(authSelector)
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Navigation = () => {
         <li>
           <Link href="#">About Us</Link>
         </li>
-        {!user ? (
+        {!user || !token ? (
           <>
             <li> | </li>
             <li>
