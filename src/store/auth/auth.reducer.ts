@@ -73,6 +73,7 @@ export const authSlice = createSlice({
           state.user = action.payload
           state.token = action.payload.token
           state.isLoginModalOpened = false
+          state.isLoading = false
         },
       )
       .addCase(login.rejected, (state: authState) => {
