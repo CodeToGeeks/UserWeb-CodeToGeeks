@@ -32,6 +32,19 @@
   }
 }
 
-.avatar {
+.userInfo {
   cursor: pointer;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  height: 40px;
+  img {
+    border-radius: 50%;
+  }
+  .userName {
+    font-size: 16px;
+    font-weight: 500;
+    margin-inline-start: 1rem;
+    text-transform: capitalize;
+  }
 }

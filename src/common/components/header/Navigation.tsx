@@ -1,26 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Navigation.module.scss'
 import Login from '@modules/auth/components/Login'
 import SignUp from '@modules/auth/components/SignUp'
-
+import DropDown from '@components/ui/DropDown'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
   authSelector,
   openLoginModal,
   openSignUpModal,
   autoLogin,
+  signOut,
 } from '@store/auth'
 
 const Navigation = () => {
   const dispatch = useAppDispatch()
   const { isLoginModalOpened, isSignUpModalOpened, user, token } =
     useAppSelector(authSelector)
+  const [imgSrc, setImgSrc] = useState('')
 
   useEffect(() => {
     dispatch(autoLogin())
   }, [])
+
+  useEffect(() => {
+    if (user) setImgSrc(user.profileImageLink)
+  }, [user])
 
   const handleOpenLoginModal = () => {
     dispatch(openLoginModal())
@@ -53,9 +59,30 @@ const Navigation = () => {
           </>
         ) : (
           <li>
-            <button className={styles.avatar}>
-              <Image src={'/assets/auth/user.png'} width="45" height="45" />
-            </button>
+            <DropDown
+              btnJSX={
+                <button className={styles.userInfo}>
+                  <Image
+                    src={imgSrc}
+                    width="40"
+                    height="40"
+                    onError={() => {
+                      setImgSrc('/assets/auth/user.png')
+                    }}
+                  />
+                  <span className={styles.userName}>
+                    {user.firstName} {user.lastName}
+                  </span>
+                </button>
+              }
+              listItems={[
+                {
+                  label: 'Logout',
+                  icon: 'user',
+                  onClick: () => dispatch(signOut()),
+                },
+              ]}
+            />
           </li>
         )}
       </ul>

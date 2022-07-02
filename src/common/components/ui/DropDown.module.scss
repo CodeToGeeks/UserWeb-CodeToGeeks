@@ -1,0 +1,40 @@
+.dropBtn {
+  color: var();
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: var(--base-0);
+  min-width: 160px;
+  border-radius: 6px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.dropdownContent button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-radius: 6px;
+}
+
+.dropdownContent button:hover {
+  background-color: var(--primary-color-500);
+  border-radius: 6px;
+  text-decoration: underline;
+  color: var(--white);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
