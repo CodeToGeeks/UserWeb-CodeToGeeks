@@ -20,6 +20,7 @@ export const signUp = createAsyncThunk(
   async (payload: SignUpPayload) => {
     try {
       const res = await axios.post(`${BASE_URL}/auth/signup`, payload)
+      // redirect to verification Page
       return res.data
     } catch (e) {
       throw new Error('Error creating new account')
@@ -33,7 +34,10 @@ export const login = createAsyncThunk(
     try {
       const res = await axios.post(`${BASE_URL}/auth/signin`, payload)
       // save to local storage
-      return res.data
+      localStorage.setItem('token', res.data.payload.token)
+      localStorage.setItem('user', JSON.stringify(res.data.payload))
+
+      return res.data.payload
     } catch (e) {
       throw new Error('Error while signing in')
     }

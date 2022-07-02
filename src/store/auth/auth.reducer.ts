@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { login, signUp } from './auth.actions'
+import { User } from '@models/user.model'
 export type authState = {
-  user: object
+  user: User | null
   token: string
   isLoginModalOpened: boolean
   isSignUpModalOpened: boolean
@@ -10,23 +11,23 @@ export type authState = {
 }
 
 const initialState: authState = {
-  user: {},
+  user: null,
   token: '',
   isLoginModalOpened: false,
   isSignUpModalOpened: false,
   isLoading: false,
 }
 
-interface User {
-  firstName: string
-  lastName: string
-  email: string
-}
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    autoLogin: (state) => {
+      const token = localStorage.getItem('token')
+      const user = localStorage.getItem('user')
+      state.token = token || ''
+      state.user = JSON.parse(user || '{}') as User
+    },
     openLoginModal: (state) => {
       state.isLoginModalOpened = true
       state.isSignUpModalOpened = false
@@ -54,12 +55,14 @@ export const authSlice = createSlice({
       })
       .addCase(
         signUp.fulfilled,
-        (state: authState, action: PayloadAction<{ user: User }>) => {
-          state.user = action.payload.user
+        (state: authState, action: PayloadAction<User>) => {
+          state.user = action.payload
+          state.token = action.payload.token
+          state.isLoading = false
         },
       )
       .addCase(signUp.rejected, (state: authState) => {
-        state.isLoading = true
+        state.isLoading = false
       })
 
       .addCase(login.pending, (state: authState) => {
@@ -67,16 +70,23 @@ export const authSlice = createSlice({
       })
       .addCase(
         login.fulfilled,
-        (state: authState, action: PayloadAction<{ user: User }>) => {
-          state.user = action.payload.user
+        (state: authState, action: PayloadAction<User>) => {
+          state.user = action.payload
+          state.token = action.payload.token
+          state.isLoginModalOpened = false
         },
       )
       .addCase(login.rejected, (state: authState) => {
-        state.isLoading = true
+        state.isLoading = false
       })
   },
 })
 
-export const { openLoginModal, openSignUpModal, resetModals, signOut } =
-  authSlice.actions
+export const {
+  openLoginModal,
+  openSignUpModal,
+  resetModals,
+  signOut,
+  autoLogin,
+} = authSlice.actions
 export default authSlice.reducer
