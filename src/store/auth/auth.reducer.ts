@@ -41,10 +41,9 @@ export const authSlice = createSlice({
       state.isLoginModalOpened = false
     },
     signOut: (state) => {
-      // Clear state
-      // Clear local storage
-      state.isSignUpModalOpened = false
-      state.isLoginModalOpened = false
+      localStorage.clear()
+      state.user = null
+      state.token = ''
     },
   },
   extraReducers: (builder) => {
