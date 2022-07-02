@@ -5,8 +5,8 @@ import Interactions from './components/Interactions'
 import PostContainer from './components/PostContainer'
 import styles from './styles/index.module.scss'
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { getPostDetails, mainSelector } from '../../store/main'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+import { getPostDetails, mainSelector } from '@store/main'
 import PostLoader from './components/PostLoader'
 import AuthorDetailsLoader from './components/AuthorDetailsLoader'
 import InteractionLoader from './components/InteractionsLoader'
@@ -21,7 +21,7 @@ const PostDetails = ({ slug }: PostDetailsProps) => {
 
   useEffect(() => {
     if (typeof slug == 'string') dispatch(getPostDetails({ slug }))
-  }, [])
+  }, [slug])
 
   return (
     <div className={`${styles.mainWrapper} ${styles.post}`}>

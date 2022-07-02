@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import PostDetails from '@modules/post'
 
 const Post: NextPage = () => {
   const router = useRouter()
-  const slug = router.query.slug
+  let slug = router.query.slug
+
+  useEffect(() => {
+    slug = router.query.slug
+  }, [router.isReady])
+
   return <PostDetails slug={slug} />
 }
 
