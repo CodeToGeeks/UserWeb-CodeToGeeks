@@ -18,7 +18,7 @@ const Navigation = () => {
   const dispatch = useAppDispatch()
   const { isLoginModalOpened, isSignUpModalOpened, user, token } =
     useAppSelector(authSelector)
-  const [imgSrc, setImgSrc] = useState('')
+  const [imgSrc, setImgSrc] = useState('/assets/auth/user.png')
 
   useEffect(() => {
     dispatch(autoLogin())
@@ -66,9 +66,7 @@ const Navigation = () => {
                     src={imgSrc}
                     width="40"
                     height="40"
-                    onError={() => {
-                      setImgSrc('/assets/auth/user.png')
-                    }}
+                    onError={() => setImgSrc('/assets/auth/user.png')}
                   />
                   <span className={styles.userName}>
                     {user.firstName} {user.lastName}

@@ -12,10 +12,10 @@ const Logo = (props: AppProps) => {
   return (
     <div className={styles || ''}>
       <Image
-        src="/assets/logo/favicon.png"
+        src="/assets/logo.png"
         alt="Code To Geeks"
-        width="80"
-        height="60"
+        width="100"
+        height="80"
         {...imageProps}
       />
     </div>
