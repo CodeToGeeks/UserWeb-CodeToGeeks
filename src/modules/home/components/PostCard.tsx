@@ -5,10 +5,22 @@ import PostTags from '@components/PostTags/PostTags'
 import AuthorHeader from '@components/AuthorHeader/AuthorHeader'
 import styles from '../styles/PostCard.module.scss'
 import { Post } from '@models/Post.model'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+import { openLoginModal, authSelector } from '@store/auth'
 
 type PostCardProps = { post: Post; hasCover: boolean }
 
 const PostCard = ({ post, hasCover }: PostCardProps) => {
+  const dispatch = useAppDispatch()
+  const { isAuthenticated } = useAppSelector(authSelector)
+
+  const onClickSaveHandler = () => {
+    if (!isAuthenticated) dispatch(openLoginModal())
+  }
+  const onClickLoveHandler = () => {
+    if (!isAuthenticated) dispatch(openLoginModal())
+  }
+
   return (
     <>
       {hasCover && (
@@ -43,7 +55,10 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
 
         <div className={styles.blogFooter}>
           <div className={styles.interactionContainer}>
-            <button className={styles.interactionBtn}>
+            <button
+              className={styles.interactionBtn}
+              onClick={onClickLoveHandler}
+            >
               <Image
                 className={styles.icon}
                 src="/assets/home/heart.svg"
@@ -58,7 +73,9 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
             <span className={styles.readingInfo}>
               {post.count_minutes_read || 10} mins read
             </span>
-            <button className={styles.saveButton}>Save</button>
+            <button className={styles.saveButton} onClick={onClickSaveHandler}>
+              Save
+            </button>
           </div>
         </div>
       </section>
