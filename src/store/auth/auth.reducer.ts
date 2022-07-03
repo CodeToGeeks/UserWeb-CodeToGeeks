@@ -5,6 +5,7 @@ import { User } from '@models/user.model'
 export type authState = {
   user: User | null
   token: string
+  isAuthenticated: boolean
   isLoginModalOpened: boolean
   isSignUpModalOpened: boolean
   isLoading: boolean
@@ -13,6 +14,7 @@ export type authState = {
 const initialState: authState = {
   user: null,
   token: '',
+  isAuthenticated: false,
   isLoginModalOpened: false,
   isSignUpModalOpened: false,
   isLoading: false,
@@ -27,6 +29,7 @@ export const authSlice = createSlice({
       const user = localStorage.getItem('user')
       state.token = token || ''
       state.user = JSON.parse(user || '{}') as User
+      state.isAuthenticated = !!token
     },
     openLoginModal: (state) => {
       state.isLoginModalOpened = true
@@ -44,6 +47,7 @@ export const authSlice = createSlice({
       localStorage.clear()
       state.user = null
       state.token = ''
+      state.isAuthenticated = false
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +76,7 @@ export const authSlice = createSlice({
         (state: authState, action: PayloadAction<User>) => {
           state.user = action.payload
           state.token = action.payload.token
+          state.isAuthenticated = true
           state.isLoginModalOpened = false
           state.isLoading = false
         },
