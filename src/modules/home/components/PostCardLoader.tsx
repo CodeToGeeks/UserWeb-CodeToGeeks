@@ -5,7 +5,9 @@ import { useWindowSize } from '@hooks/userWindowWidth'
 import styles from '../styles/PostCard.module.scss'
 const PostCardLoader = () => {
   const { width } = useWindowSize()
-  const [startPadding, setStartPadding] = useState(width < 950 ? 0 : 65)
+  const [startPadding, setStartPadding] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 950 ? 0 : 65,
+  )
   useEffect(() => {
     setStartPadding(width < 950 ? 0 : 65)
   }, [width])
