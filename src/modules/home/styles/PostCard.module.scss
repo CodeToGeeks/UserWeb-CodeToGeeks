@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 650px;
   margin: 0 auto 1rem auto;
   padding: 1rem 1.5rem 1rem 1.5rem;
   background-color: #fff;
@@ -65,9 +64,8 @@
 .loader {
   display: flex;
   flex-direction: column;
-  width: 650px;
-  height: 230px;
-  margin: 0 1rem 1rem 1rem;
+  width: unset;
+  margin-bottom: 2rem;
   padding: 1rem 1.5rem 1rem 1.5rem;
   background-color: #fff;
   border-radius: 8px;
@@ -92,4 +90,49 @@
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+@media screen and(max-width: 950px) {
+  .blogTitle {
+    padding-top: 1rem;
+    padding-inline-start: 0.5rem;
+    a {
+      font-size: 1.4rem;
+    }
+  }
+
+  .blogBody {
+    margin-inline-start: 0rem;
+    * {
+      font-size: 13px;
+    }
+  }
+
+  .blogFooter {
+    margin-inline-start: 0rem;
+  }
+  .interactionBtn {
+    margin-inline-end: 1rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .icon {
+    margin-inline-end: 4px;
+    &:nth-child(2) {
+      margin-inline-start: 1rem;
+    }
+  }
+  .saveButton {
+    margin-inline-start: 8px;
+    padding: 6px 12px;
+  }
+
+  .postCover {
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    transform: translateY(10px);
+    img {
+      transform: translateY(10px);
+    }
+  }
 }

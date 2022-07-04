@@ -12,7 +12,7 @@ const Logo = (props: AppProps) => {
   return (
     <div className={styles || ''}>
       <Image
-        src="/assets/logo.png"
+        src="/assets/logo2.png"
         alt="Code To Geeks"
         width="100"
         height="80"

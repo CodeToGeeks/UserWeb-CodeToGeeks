@@ -1,10 +1,12 @@
 .popularTags {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
-  padding: 1rem 0;
-  max-width: 240px;
-  width: 100%;
+  width: 15rem;
+  max-width: 15rem;
+  min-width: 12.5rem;
+  padding: 1rem;
+  padding-right: 0;
+  margin-bottom: 1rem;
 }
 
 .popularTags h2 {
@@ -24,9 +26,14 @@
   background-color: rgba(59, 73, 223, 0.1);
   text-decoration: underline;
   cursor: pointer;
-  /* color: #fff; */
 }
 
 .loader {
   padding: 0.5rem 1rem;
+}
+
+@media screen and(max-width:750px) {
+  .popularTags {
+    display: none;
+  }
 }

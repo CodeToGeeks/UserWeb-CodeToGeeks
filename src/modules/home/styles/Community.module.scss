@@ -4,8 +4,9 @@
   align-self: flex-start;
   width: 100%;
   max-width: 15rem;
+  min-width: 12.5rem;
   padding: 1rem;
-  margin: 1rem;
+  margin-bottom: 1rem;
   border: 1px solid var(--base-10);
   border-radius: 4px;
   background-color: #fff;
@@ -43,6 +44,7 @@
   padding: 0.3rem 1rem !important;
   margin: 0.5rem 0;
   font-size: 18px;
+  width: 100%;
 }
 
 .logIn {
@@ -58,4 +60,24 @@
   padding: 0.3rem 1rem !important;
   margin: 0.5rem 0;
   font-size: 18px;
+  width: 100%;
+}
+
+@media screen and(max-width:750px) {
+  .card {
+    max-width: unset;
+    width: unset;
+    margin-bottom: 1rem;
+  }
+  .BtnContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .signUp {
+    width: 10rem;
+  }
+
+  .logIn {
+    width: 10rem;
+  }
 }

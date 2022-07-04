@@ -32,7 +32,7 @@ const Community = () => {
         careers.
       </p>
       {!isAuthenticated && (
-        <>
+        <div className={styles.BtnContainer}>
           <button
             className={styles.signUp}
             onClick={() => dispatch(openSignUpModal())}
@@ -45,7 +45,7 @@ const Community = () => {
           >
             Log in
           </button>
-        </>
+        </div>
       )}
     </aside>
   )

@@ -34,8 +34,26 @@
     font-weight: 500;
   }
 }
-.contact .logo {
-  z-index: 1;
-  display: flex;
-  justify-content: center;
+.logo {
+  max-width: 5rem;
+}
+
+@media screen and(max-width: 700px) {
+  .footer {
+    margin-top: 2rem;
+    margin: 0 auto;
+    padding: 1rem 1rem 0.5rem 1rem;
+    * {
+      font-size: 14px;
+    }
+    div {
+      padding: 0.5rem 0;
+    }
+    .borderTop {
+      padding-bottom: 0.5rem;
+    }
+  }
+  .logo {
+    max-width: 4.5rem;
+  }
 }
