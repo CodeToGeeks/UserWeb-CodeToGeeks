@@ -147,3 +147,15 @@
     margin-inline-end: 1rem;
   }
 }
+.image {
+  width: 140px !important;
+  height: 140px !important;
+  min-width: none !important;
+  min-height: none !important;
+  img {
+    width: 140px !important;
+    height: 140px !important;
+    min-width: none !important;
+    min-height: none !important;
+  }
+}

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
 import PasswordValidations from './PasswordValidation'
-import styles from '../styles/_.module.scss'
+import styles from '../styles/Login&SignUp.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { signUp, openLoginModal, resetModals, authSelector } from '@store/auth'
 
@@ -16,6 +16,18 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isPasswordValid, setIsPasswordValid] = useState(false)
+  const [isValidForm, setIsValidForm] = useState(false)
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false)
+
+  useEffect(() => {
+    // TODO: Add more validations
+    setIsValidForm(
+      firstName.trim() != '' &&
+        lastName.trim() != '' &&
+        email.trim() != '' &&
+        isPasswordValid,
+    )
+  }, [firstName, lastName, email, isPasswordValid])
 
   const onSignUpHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -84,6 +96,7 @@ const Login = () => {
               }
               autoComplete="new-password"
               placeholder="Enter your password"
+              onFocus={() => setIsPasswordFocused(true)}
             />
           </div>
           <div className={styles.formControl}>
@@ -98,18 +111,20 @@ const Login = () => {
               placeholder="Enter your confirm password"
             />
           </div>
-          <PasswordValidations
-            password={password}
-            confirmPassword={confirmPassword}
-            setIsPasswordValid={setIsPasswordValid}
-          />
+          {isPasswordFocused && (
+            <PasswordValidations
+              password={password}
+              confirmPassword={confirmPassword}
+              setIsPasswordValid={setIsPasswordValid}
+            />
+          )}
 
           <button
             className={`${styles.login} ${
               isPasswordValid ? '' : styles.btnDisabled
             }`}
             onClick={onSignUpHandler}
-            disabled={!isPasswordValid || isLoading}
+            disabled={!isValidForm || isLoading}
           >
             {isLoading ? <Spinner /> : `SignUp`}
           </button>

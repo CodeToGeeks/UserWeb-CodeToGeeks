@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import styles from '../styles/_.module.scss'
+import styles from '../styles/Login&SignUp.module.scss'
 
 type PasswordValidationsProps = {
   password: string
