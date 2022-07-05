@@ -83,7 +83,22 @@ button {
 
 .d-flex {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+input {
+  height: 2rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid var(--base-50);
+}
+input:hover {
+  border: 1px solid var(--primary-color-400);
+}
+input:focus {
+  outline: 1px solid var(--primary-color);
+}
+
 @media screen and (max-width: 750px) {
   .article {
     flex-direction: column !important;
