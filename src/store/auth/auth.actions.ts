@@ -1,19 +1,14 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import {
+  LoginPayload,
+  SignUpPayload,
+  SendVerificationCodePayload,
+  CheckVerificationCodePayload,
+  ResetPasswordPayload,
+} from './models'
 
-const BASE_URL = 'http://18.170.251.202/api/v1'
-
-interface SignUpPayload {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-}
-
-interface loginPayload {
-  email: string
-  password: string
-}
+const BASE_URL = 'http://157.175.208.59/api/v1'
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
@@ -30,7 +25,7 @@ export const signUp = createAsyncThunk(
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (payload: loginPayload) => {
+  async (payload: LoginPayload) => {
     try {
       const res = await axios.post(`${BASE_URL}/auth/signin`, payload)
       // save to local storage
@@ -40,6 +35,40 @@ export const login = createAsyncThunk(
       return res.data.payload
     } catch (e) {
       throw new Error('Error while signing in')
+    }
+  },
+)
+
+export const sendVerificationCode = createAsyncThunk(
+  'auth/sendVerificationCode',
+  async (payload: SendVerificationCodePayload) => {
+    try {
+      await axios.post(`${BASE_URL}/auth/account/recover`, payload)
+    } catch (e) {
+      throw new Error('Sending verification code failed')
+    }
+  },
+)
+
+export const checkVerificationCode = createAsyncThunk(
+  'auth/checkVerificationCode',
+  async (payload: CheckVerificationCodePayload) => {
+    try {
+      await axios.post(`${BASE_URL}/auth/code/check`, payload)
+      return payload
+    } catch (e) {
+      throw new Error('Error while signing in')
+    }
+  },
+)
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword',
+  async (payload: ResetPasswordPayload) => {
+    try {
+      await axios.post(`${BASE_URL}/auth/password/reset`, payload)
+    } catch (e) {
+      throw new Error('Reset Password Failed')
     }
   },
 )

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-const BASE_URL = 'http://18.170.251.202/api/v1'
+const BASE_URL = 'http://157.175.208.59/api/v1'
 
 interface Query {
   pageSize: number

@@ -1,8 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
-import styles from './ForgetPassword.module.scss'
+import { useRouter } from 'next/router'
+import styles from '../styles/ForgetPassword.module.scss'
+import Spinner from '@components/ui/Spinner'
+
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+import {
+  sendVerificationCode,
+  setForgetPasswordEmail,
+  authSelector,
+} from '@store/auth'
 
 export default function Home() {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const { isVerificationCodeSent, forgetPasswordEmail, isLoading } =
+    useAppSelector(authSelector)
+
+  useEffect(() => {
+    if (isVerificationCodeSent) router.push('/auth/verification-code')
+  }, [isVerificationCodeSent])
+
+  const onSendVerificationCodeHandler = (
+    event: React.MouseEvent<HTMLElement>,
+  ) => {
+    event.preventDefault()
+    dispatch(sendVerificationCode({ email: forgetPasswordEmail }))
+  }
+
   return (
     <main className={styles.container}>
       <h1> Forget your password? </h1>
@@ -17,10 +42,24 @@ export default function Home() {
       <form className={styles.form}>
         <div className={styles.formControl}>
           <label htmlFor="email">Enter Email Address</label>
-          <input />
+          <input
+            id="email"
+            type={'email'}
+            autoComplete="off"
+            placeholder="Enter your email"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              dispatch(setForgetPasswordEmail(e.currentTarget.value))
+            }
+            value={forgetPasswordEmail}
+          />
         </div>
         <div className={styles.btnContainer}>
-          <button>Send code</button>
+          <button
+            onClick={onSendVerificationCodeHandler}
+            disabled={isLoading || forgetPasswordEmail.trim() == ''}
+          >
+            {isLoading ? <Spinner /> : `Send code`}
+          </button>
           <button>Back to login</button>
         </div>
       </form>

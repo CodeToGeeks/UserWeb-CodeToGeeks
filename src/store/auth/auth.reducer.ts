@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { login, signUp } from './auth.actions'
+import {
+  login,
+  signUp,
+  sendVerificationCode,
+  checkVerificationCode,
+  resetPassword,
+} from './auth.actions'
 import { User } from '@models/user.model'
 export type authState = {
   user: User | null
@@ -9,6 +15,10 @@ export type authState = {
   isLoginModalOpened: boolean
   isSignUpModalOpened: boolean
   isLoading: boolean
+  forgetPasswordEmail: string
+  verificationCode: string
+  isVerificationCodeSent: boolean | null
+  isCorrectVerificationCode: boolean | null
 }
 
 const initialState: authState = {
@@ -18,6 +28,10 @@ const initialState: authState = {
   isLoginModalOpened: false,
   isSignUpModalOpened: false,
   isLoading: false,
+  forgetPasswordEmail: '',
+  verificationCode: '',
+  isVerificationCodeSent: null,
+  isCorrectVerificationCode: null,
 }
 
 export const authSlice = createSlice({
@@ -48,6 +62,14 @@ export const authSlice = createSlice({
       state.user = null
       state.token = ''
       state.isAuthenticated = false
+    },
+    setVerificationCode: (state, action: PayloadAction<string>) => {
+      // TODO: Save it in local storage, in case app is reloaded
+      state.verificationCode = action.payload
+    },
+    setForgetPasswordEmail: (state, action: PayloadAction<string>) => {
+      // TODO: Save it in local storage, in case app is reloaded
+      state.forgetPasswordEmail = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -84,6 +106,39 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state: authState) => {
         state.isLoading = false
       })
+
+      .addCase(sendVerificationCode.pending, (state: authState) => {
+        state.isLoading = true
+        state.isVerificationCodeSent = null
+      })
+      .addCase(sendVerificationCode.fulfilled, (state: authState) => {
+        state.isLoading = false
+        state.isVerificationCodeSent = true
+      })
+      .addCase(sendVerificationCode.rejected, (state: authState) => {
+        state.isLoading = false
+        state.isVerificationCodeSent = false
+      })
+
+      .addCase(checkVerificationCode.pending, (state: authState) => {
+        state.isLoading = true
+      })
+      .addCase(checkVerificationCode.fulfilled, (state: authState) => {
+        state.isLoading = false
+      })
+      .addCase(checkVerificationCode.rejected, (state: authState) => {
+        state.isLoading = false
+      })
+
+      .addCase(resetPassword.pending, (state: authState) => {
+        state.isLoading = true
+      })
+      .addCase(resetPassword.fulfilled, (state: authState) => {
+        state.isLoading = false
+      })
+      .addCase(resetPassword.rejected, (state: authState) => {
+        state.isLoading = false
+      })
   },
 })
 
@@ -93,5 +148,7 @@ export const {
   resetModals,
   signOut,
   autoLogin,
+  setVerificationCode,
+  setForgetPasswordEmail,
 } = authSlice.actions
 export default authSlice.reducer
