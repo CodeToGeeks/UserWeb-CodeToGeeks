@@ -19,6 +19,7 @@ export type authState = {
   verificationCode: string
   isVerificationCodeSent: boolean | null
   isCorrectVerificationCode: boolean | null
+  isResetPasswordSuccess: boolean | null
 }
 
 const initialState: authState = {
@@ -32,6 +33,7 @@ const initialState: authState = {
   verificationCode: '',
   isVerificationCodeSent: null,
   isCorrectVerificationCode: null,
+  isResetPasswordSuccess: null,
 }
 
 export const authSlice = createSlice({
@@ -122,22 +124,28 @@ export const authSlice = createSlice({
 
       .addCase(checkVerificationCode.pending, (state: authState) => {
         state.isLoading = true
+        state.isCorrectVerificationCode = null
       })
       .addCase(checkVerificationCode.fulfilled, (state: authState) => {
         state.isLoading = false
+        state.isCorrectVerificationCode = true
       })
       .addCase(checkVerificationCode.rejected, (state: authState) => {
         state.isLoading = false
+        state.isCorrectVerificationCode = false
       })
 
       .addCase(resetPassword.pending, (state: authState) => {
         state.isLoading = true
+        state.isResetPasswordSuccess = null
       })
       .addCase(resetPassword.fulfilled, (state: authState) => {
         state.isLoading = false
+        state.isResetPasswordSuccess = true
       })
       .addCase(resetPassword.rejected, (state: authState) => {
         state.isLoading = false
+        state.isResetPasswordSuccess = false
       })
   },
 })
