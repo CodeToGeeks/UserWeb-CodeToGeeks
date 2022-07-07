@@ -67,6 +67,10 @@ button {
   outline: none;
   cursor: pointer;
 }
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+}
 
 .main-wrapper {
   max-width: var(--max-width);
