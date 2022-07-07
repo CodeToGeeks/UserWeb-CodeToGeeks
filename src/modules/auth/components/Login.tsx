@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
+import CustomInput from './CustomInput'
 import styles from '../styles/Login&SignUp.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -35,7 +36,7 @@ const Login = () => {
   const onForgetPasswordHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
     dispatch(resetModals())
-    router.push('auth/forget-password')
+    router.push('/auth/forget-password')
   }
 
   return (
@@ -54,32 +55,28 @@ const Login = () => {
           />
         </div>
         <form className={styles.form}>
-          <div className={styles.formControl}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type={'email'}
-              autoComplete="off"
-              placeholder="Enter your email"
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
-              }
-              value={email}
-            />
-          </div>
-          <div className={styles.formControl}>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type={'password'}
-              autoComplete="new-password"
-              placeholder="Enter your password"
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
-              }
-              value={password}
-            />
-          </div>
+          <CustomInput
+            id="email"
+            type={'email'}
+            label={'Email'}
+            autoComplete="off"
+            placeholder="Enter your email"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setEmail(e.currentTarget.value)
+            }
+            value={email}
+          />
+          <CustomInput
+            id="password"
+            type={'password'}
+            label={'Password'}
+            autoComplete="new-password"
+            placeholder="Enter your password"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
+            value={password}
+          />
           <button
             className={styles.forgetPassword}
             onClick={onForgetPasswordHandler}

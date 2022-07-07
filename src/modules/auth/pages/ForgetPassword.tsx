@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import styles from '../styles/ForgetPassword.module.scss'
 import Spinner from '@components/ui/Spinner'
 import Card from '@components/ui/Card'
+import CustomInput from '../components/CustomInput'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
@@ -42,19 +43,16 @@ export default function Home() {
           <Image src={'/assets/auth/letter.png'} width="100" height="100" />
         </div>
         <form className={styles.form}>
-          <div className={styles.formControl}>
-            <label htmlFor="email">Enter Email Address</label>
-            <input
-              id="email"
-              type={'email'}
-              autoComplete="off"
-              placeholder="Enter your email"
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                dispatch(setForgetPasswordEmail(e.currentTarget.value))
-              }
-              value={forgetPasswordEmail}
-            />
-          </div>
+          <CustomInput
+            id="email"
+            type={'email'}
+            label={'Enter your email'}
+            placeholder="Enter your email"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              dispatch(setForgetPasswordEmail(e.currentTarget.value))
+            }
+            value={forgetPasswordEmail}
+          />
           <div className={styles.btnContainer}>
             <button
               onClick={onSendVerificationCodeHandler}

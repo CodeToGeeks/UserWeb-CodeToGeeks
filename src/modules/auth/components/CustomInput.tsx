@@ -7,6 +7,7 @@ type CustomInputProps = {
   placeholder: string
   onChange: (e: React.FormEvent<HTMLInputElement>) => void
   value: string
+  autoComplete?: string
   disabled?: boolean
   onFocus?: () => void
   onBlur?: () => void
@@ -20,6 +21,7 @@ const CustomInput = ({
   placeholder,
   onChange,
   value,
+  autoComplete,
   disabled,
   onFocus,
   onBlur,
@@ -40,6 +42,7 @@ const CustomInput = ({
         onChange={onChange}
         value={value}
         className={disabled ? styles.invalid : styles.valid}
+        autoComplete={autoComplete}
         disabled={disabled}
         onFocus={onFocus}
         onBlur={onBlur}

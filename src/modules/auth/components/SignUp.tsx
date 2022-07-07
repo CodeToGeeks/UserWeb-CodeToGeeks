@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
 import PasswordValidations from './PasswordValidation'
+import CustomInput from './CustomInput'
 import styles from '../styles/Login&SignUp.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { signUp, openLoginModal, resetModals, authSelector } from '@store/auth'
@@ -27,6 +28,15 @@ const Login = () => {
         email.trim() != '' &&
         isPasswordValid,
     )
+
+    console.log({
+      firstName,
+      lastName,
+      email,
+      isPasswordValid,
+      password,
+      confirmPassword,
+    })
   }, [firstName, lastName, email, isPasswordValid])
 
   const onSignUpHandler = (event: React.MouseEvent<HTMLElement>) => {
@@ -49,68 +59,63 @@ const Login = () => {
       <>
         <form className={styles.form}>
           <div className={`${styles.formControl} ${styles.namesContainer}`}>
-            <div>
-              <label htmlFor="firstName">First Name</label>
-              <input
-                id="firstName"
-                type="text"
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setFirstName(e.currentTarget.value)
-                }
-                autoComplete="off"
-                placeholder="Enter your first name"
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                id="lastName"
-                type="text"
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setLastName(e.currentTarget.value)
-                }
-                autoComplete="off"
-                placeholder="Enter your last name"
-              />
-            </div>
-          </div>
-          <div className={styles.formControl}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
+            <CustomInput
+              id="firstName"
+              type="text"
+              label={'First Name'}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
+                setFirstName(e.currentTarget.value)
               }
               autoComplete="off"
-              placeholder="Enter your email"
+              placeholder="Enter your first name"
+              value={firstName}
             />
-          </div>
-          <div className={styles.formControl}>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
+            <CustomInput
+              id="lastName"
+              type="text"
+              label="Last Name"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
+                setLastName(e.currentTarget.value)
               }
-              autoComplete="new-password"
-              placeholder="Enter your password"
-              onFocus={() => setIsPasswordFocused(true)}
+              autoComplete="off"
+              placeholder="Enter your last name"
+              value={lastName}
             />
           </div>
-          <div className={styles.formControl}>
-            <label htmlFor="password">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setConfirmPassword(e.currentTarget.value)
-              }
-              autoComplete="new-password"
-              placeholder="Enter your confirm password"
-            />
-          </div>
+          <CustomInput
+            label="Email"
+            id="email"
+            type="email"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setEmail(e.currentTarget.value)
+            }
+            autoComplete="off"
+            placeholder="Enter your email"
+            value={email}
+          />
+          <CustomInput
+            id="password"
+            type="password"
+            label="Password"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
+            autoComplete="new-password"
+            placeholder="Enter your password"
+            onFocus={() => setIsPasswordFocused(true)}
+            value={password}
+          />
+          <CustomInput
+            id="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setConfirmPassword(e.currentTarget.value)
+            }
+            autoComplete="new-password"
+            placeholder="Enter your confirm password"
+            value={confirmPassword}
+          />
           {isPasswordFocused && (
             <PasswordValidations
               password={password}

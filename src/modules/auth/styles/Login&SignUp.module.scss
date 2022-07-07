@@ -117,10 +117,6 @@
 .namesContainer {
   display: flex;
   flex-direction: row;
-
-  input {
-    flex: 1;
-  }
   > div:first-child {
     margin-inline-end: 0.5rem;
   }
