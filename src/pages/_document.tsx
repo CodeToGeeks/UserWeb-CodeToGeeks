@@ -5,9 +5,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <title>Code To Geeks</title>
-        </Head>
+        <Head />
         <body>
           <div id="modal" />
           <Main />
