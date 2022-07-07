@@ -25,7 +25,7 @@ const Navigation = () => {
   }, [])
 
   useEffect(() => {
-    if (user) setImgSrc(user.profileImageLink)
+    if (user?.profileImageLink) setImgSrc(user.profileImageLink)
   }, [user])
 
   const handleOpenLoginModal = () => {
