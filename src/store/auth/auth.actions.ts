@@ -9,13 +9,12 @@ import {
 } from './models'
 import { showToastError, showToastSuccess } from '@store/ui'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
-const API_BASE_URL = process.env.API_BASE_URL
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async (payload: SignUpPayload, { dispatch }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/auth/signup`, payload)
+      const res = await axios.post('/auth/signup', payload)
       //TODO: redirect to verification Page
       return res.data
     } catch (error) {
@@ -32,7 +31,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (payload: LoginPayload, { dispatch }) => {
     try {
-      const res: any = await axios.post(`${API_BASE_URL}/auth/signin`, payload)
+      const res: any = await axios.post('auth/signin', payload)
       // save to local storage
       localStorage.setItem('token', res.data.payload.token)
       localStorage.setItem('user', JSON.stringify(res.data.payload))
@@ -53,7 +52,7 @@ export const sendVerificationCode = createAsyncThunk(
   'auth/sendVerificationCode',
   async (payload: SendVerificationCodePayload, { dispatch }) => {
     try {
-      const url = `${API_BASE_URL}/auth/account/recover`
+      const url = '/auth/account/recover'
       await axios.post(url, payload)
       const successMessage = 'Verification code is sent successfully'
       dispatch(showToastSuccess(successMessage))
@@ -71,7 +70,7 @@ export const checkVerificationCode = createAsyncThunk(
   'auth/checkVerificationCode',
   async (payload: CheckVerificationCodePayload, { dispatch }) => {
     try {
-      const url = `${API_BASE_URL}/auth/code/check`
+      const url = '/auth/code/check'
       await axios.post(url, payload)
       const successMessage = 'Verification code is valid'
       dispatch(showToastSuccess(successMessage))
@@ -90,7 +89,7 @@ export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
   async (payload: ResetPasswordPayload, { dispatch }) => {
     try {
-      const url = `${API_BASE_URL}/auth/password/reset`
+      const url = '/auth/password/reset'
       await axios.post(url, payload)
       const successMessage = 'Password has been reset successfully'
       dispatch(showToastSuccess(successMessage))
