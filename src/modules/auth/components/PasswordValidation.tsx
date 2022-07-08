@@ -44,28 +44,35 @@ const PasswordValidations = ({
   return (
     <section className={styles.passwordValidationsContainer}>
       <div>
-        At least 8 Characters
-        <>{renderIcon(isHave8Letters)}</>
+        <div>
+          At least 8 Characters
+          <>{renderIcon(isHave8Letters)}</>
+        </div>
+
+        <div>
+          At least 1 number
+          <>{renderIcon(isHaveNumber)}</>
+        </div>
       </div>
       <div>
-        At least 1 upper case letter
-        {renderIcon(isHaveUpperCase)}
+        <div>
+          At least 1 lower case letter
+          <>{renderIcon(isHaveLowerCase)}</>
+        </div>
+        <div>
+          At least 1 upper case letter
+          {renderIcon(isHaveUpperCase)}
+        </div>
       </div>
       <div>
-        At least 1 lower case letter
-        <>{renderIcon(isHaveLowerCase)}</>
-      </div>
-      <div>
-        At least 1 number
-        <>{renderIcon(isHaveNumber)}</>
-      </div>
-      <div>
-        At least 1 special character
-        <>{renderIcon(isHaveSpecialChar)}</>
-      </div>
-      <div>
-        Match confirm password
-        <>{renderIcon(shouldMatchPassConfirmPassword)}</>
+        <div>
+          At least 1 special character
+          <>{renderIcon(isHaveSpecialChar)}</>
+        </div>
+        <div>
+          Match confirm password
+          <>{renderIcon(shouldMatchPassConfirmPassword)}</>
+        </div>
       </div>
     </section>
   )

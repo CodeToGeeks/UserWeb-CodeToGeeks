@@ -140,7 +140,11 @@
     transform: translateY(2px);
   }
   > div {
-    margin-inline-end: 1rem;
+    display: flex;
+    width: 100%;
+    > div {
+      flex: 1;
+    }
   }
 }
 .image {
