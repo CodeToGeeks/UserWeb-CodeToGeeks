@@ -2,8 +2,8 @@ import React from 'react'
 import styles from '../styles/Community.module.scss'
 import Logo from '@components/header/Logo'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { openLoginModal, openSignUpModal, authSelector } from '@store/auth'
-
+import { authSelector } from '@store/auth'
+import { openLoginModal, openSignUpModal } from '@store/ui'
 const Community = () => {
   const dispatch = useAppDispatch()
   const { isAuthenticated } = useAppSelector(authSelector)
