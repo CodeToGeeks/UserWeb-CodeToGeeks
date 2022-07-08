@@ -35,30 +35,30 @@ export const uiSlice = createSlice({
     },
     showToastSuccess: (state, action) => {
       state.toasts.push({
-        id: +new Date(),
+        id: `${+new Date()}`,
         type: ToastType.Success,
-        ...action.payload,
+        message: action.payload,
       })
     },
     showToastError: (state, action) => {
       state.toasts.push({
-        id: +new Date(),
+        id: `${+new Date()}`,
         type: ToastType.Error,
-        ...action.payload,
+        message: action.payload,
       })
     },
     showToastWarning: (state, action) => {
       state.toasts.push({
-        id: +new Date(),
+        id: `${+new Date()}`,
         type: ToastType.Warning,
-        ...action.payload,
+        message: action.payload,
       })
     },
     showToastInfo: (state, action) => {
       state.toasts.push({
-        id: +new Date(),
+        id: `${+new Date()}`,
         type: ToastType.Info,
-        ...action.payload,
+        message: action.payload,
       })
     },
     removeToast: (state, action) => {

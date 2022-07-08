@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
   LoginPayload,
@@ -7,68 +7,98 @@ import {
   CheckVerificationCodePayload,
   ResetPasswordPayload,
 } from './models'
-
+import { showToastError, showToastSuccess } from '@store/ui'
+import { apiErrorHandler } from '@utils/apiErrorHandler'
 const API_BASE_URL = process.env.API_BASE_URL
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
-  async (payload: SignUpPayload) => {
+  async (payload: SignUpPayload, { dispatch }) => {
     try {
       const res = await axios.post(`${API_BASE_URL}/auth/signup`, payload)
-      // redirect to verification Page
+      //TODO: redirect to verification Page
       return res.data
-    } catch (e) {
-      throw new Error('Error creating new account')
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) ||
+        'Error creating new account'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
     }
   },
 )
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (payload: LoginPayload) => {
+  async (payload: LoginPayload, { dispatch }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/auth/signin`, payload)
+      const res: any = await axios.post(`${API_BASE_URL}/auth/signin`, payload)
       // save to local storage
       localStorage.setItem('token', res.data.payload.token)
       localStorage.setItem('user', JSON.stringify(res.data.payload))
 
+      const successMessage = 'Login successful'
+      dispatch(showToastSuccess(successMessage))
       return res.data.payload
-    } catch (e) {
-      throw new Error('Error while signing in')
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) || 'Login failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
     }
   },
 )
 
 export const sendVerificationCode = createAsyncThunk(
   'auth/sendVerificationCode',
-  async (payload: SendVerificationCodePayload) => {
+  async (payload: SendVerificationCodePayload, { dispatch }) => {
     try {
-      await axios.post(`${API_BASE_URL}/auth/account/recover`, payload)
-    } catch (e) {
-      throw new Error('Sending verification code failed')
+      const url = `${API_BASE_URL}/auth/account/recover`
+      await axios.post(url, payload)
+      const successMessage = 'Verification code is sent successfully'
+      dispatch(showToastSuccess(successMessage))
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) ||
+        'Sending verification code failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
     }
   },
 )
 
 export const checkVerificationCode = createAsyncThunk(
   'auth/checkVerificationCode',
-  async (payload: CheckVerificationCodePayload) => {
+  async (payload: CheckVerificationCodePayload, { dispatch }) => {
     try {
-      await axios.post(`${API_BASE_URL}/auth/code/check`, payload)
+      const url = `${API_BASE_URL}/auth/code/check`
+      await axios.post(url, payload)
+      const successMessage = 'Verification code is valid'
+      dispatch(showToastSuccess(successMessage))
       return payload
-    } catch (e) {
-      throw new Error('Error while signing in')
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) ||
+        'Checking verification code failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
     }
   },
 )
 
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
-  async (payload: ResetPasswordPayload) => {
+  async (payload: ResetPasswordPayload, { dispatch }) => {
     try {
-      await axios.post(`${API_BASE_URL}/auth/password/reset`, payload)
-    } catch (e) {
-      throw new Error('Reset Password Failed')
+      const url = `${API_BASE_URL}/auth/password/reset`
+      await axios.post(url, payload)
+      const successMessage = 'Password has been reset successfully'
+      dispatch(showToastSuccess(successMessage))
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) || 'Reset password failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
     }
   },
 )
