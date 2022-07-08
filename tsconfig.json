@@ -7,6 +7,7 @@
       "@models/*": ["src/common/models/*"],
       "@styles/*": ["src/common/styles/*"],
       "@utils/*": ["src/common/utils/*"],
+      "@constants/*": ["src/common/constants/*"],
       "@modules/*": ["src/modules/*"],
       "@store/*": ["src/store/*"]
     },
