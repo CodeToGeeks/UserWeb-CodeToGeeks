@@ -5,7 +5,8 @@ import Card from '@components/ui/Card'
 import CustomInput from '../components/CustomInput'
 import PasswordValidations from '../components/PasswordValidation'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { resetPassword, openLoginModal, authSelector } from '@store/auth'
+import { resetPassword, authSelector } from '@store/auth'
+import { openLoginModal } from '@store/ui'
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('')

@@ -5,7 +5,8 @@ import PasswordValidations from './PasswordValidation'
 import CustomInput from './CustomInput'
 import styles from '../styles/Login&SignUp.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { signUp, openLoginModal, resetModals, authSelector } from '@store/auth'
+import { signUp, authSelector } from '@store/auth'
+import { openLoginModal, resetModals } from '@store/ui'
 
 const Login = () => {
   const dispatch = useAppDispatch()

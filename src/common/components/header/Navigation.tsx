@@ -6,18 +6,14 @@ import Login from '@modules/auth/components/Login'
 import SignUp from '@modules/auth/components/SignUp'
 import DropDown from '@components/ui/DropDown'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import {
-  authSelector,
-  openLoginModal,
-  openSignUpModal,
-  autoLogin,
-  signOut,
-} from '@store/auth'
+import { authSelector, autoLogin, signOut } from '@store/auth'
+
+import { openLoginModal, openSignUpModal, uiSelector } from '@store/ui'
 
 const Navigation = () => {
   const dispatch = useAppDispatch()
-  const { isLoginModalOpened, isSignUpModalOpened, user, token } =
-    useAppSelector(authSelector)
+  const { user, token } = useAppSelector(authSelector)
+  const { isLoginModalOpened, isSignUpModalOpened } = useAppSelector(uiSelector)
   const [imgSrc, setImgSrc] = useState('/assets/auth/user.png')
 
   useEffect(() => {

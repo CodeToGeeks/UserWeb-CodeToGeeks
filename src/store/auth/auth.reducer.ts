@@ -12,8 +12,6 @@ export type authState = {
   user: User | null
   token: string
   isAuthenticated: boolean
-  isLoginModalOpened: boolean
-  isSignUpModalOpened: boolean
   isLoading: boolean
   forgetPasswordEmail: string
   verificationCode: string
@@ -26,8 +24,6 @@ const initialState: authState = {
   user: null,
   token: '',
   isAuthenticated: false,
-  isLoginModalOpened: false,
-  isSignUpModalOpened: false,
   isLoading: false,
   forgetPasswordEmail: '',
   verificationCode: '',
@@ -46,18 +42,6 @@ export const authSlice = createSlice({
       state.token = token || ''
       state.user = JSON.parse(user || '{}') as User
       state.isAuthenticated = !!token
-    },
-    openLoginModal: (state) => {
-      state.isLoginModalOpened = true
-      state.isSignUpModalOpened = false
-    },
-    openSignUpModal: (state) => {
-      state.isSignUpModalOpened = true
-      state.isLoginModalOpened = false
-    },
-    resetModals: (state) => {
-      state.isSignUpModalOpened = false
-      state.isLoginModalOpened = false
     },
     signOut: (state) => {
       localStorage.clear()
@@ -101,7 +85,7 @@ export const authSlice = createSlice({
           state.user = action.payload
           state.token = action.payload.token
           state.isAuthenticated = true
-          state.isLoginModalOpened = false
+          // state.isLoginModalOpened = false
           state.isLoading = false
         },
       )
@@ -151,9 +135,6 @@ export const authSlice = createSlice({
 })
 
 export const {
-  openLoginModal,
-  openSignUpModal,
-  resetModals,
   signOut,
   autoLogin,
   setVerificationCode,

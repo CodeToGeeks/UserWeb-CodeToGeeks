@@ -7,7 +7,8 @@ import CustomInput from './CustomInput'
 import styles from '../styles/Login&SignUp.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { login, openSignUpModal, resetModals, authSelector } from '@store/auth'
+import { login, authSelector } from '@store/auth'
+import { openSignUpModal, resetModals } from '@store/ui'
 
 const Login = () => {
   const dispatch = useAppDispatch()
