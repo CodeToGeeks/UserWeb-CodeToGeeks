@@ -7,8 +7,8 @@ import {
   getTags,
   getPostDetails,
   getPostsByTagId,
-} from './main.actions'
-export type mainState = {
+} from './posts.actions'
+export type postsState = {
   posts: Post[]
   post: Post | null
   totalPostsCount: number
@@ -18,7 +18,7 @@ export type mainState = {
   error: unknown
 }
 
-const initialState: mainState = {
+const initialState: postsState = {
   posts: [],
   post: null,
   totalPostsCount: 1,
@@ -28,8 +28,8 @@ const initialState: mainState = {
   error: null,
 }
 
-export const mainSlice = createSlice({
-  name: 'main',
+export const postsSlice = createSlice({
+  name: 'posts',
   initialState,
   reducers: {
     populatePostsTags: (state) => {
@@ -54,13 +54,13 @@ export const mainSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getPosts.pending, (state: mainState) => {
+      .addCase(getPosts.pending, (state: postsState) => {
         state.isLoading = true
       })
       .addCase(
         getPosts.fulfilled,
         (
-          state: mainState,
+          state: postsState,
           action: PayloadAction<{ posts: Post[]; total: number }>,
         ) => {
           state.isLoading = false
@@ -68,45 +68,45 @@ export const mainSlice = createSlice({
           state.totalPostsCount = action.payload.total
         },
       )
-      .addCase(getPosts.rejected, (state: mainState) => {
+      .addCase(getPosts.rejected, (state: postsState) => {
         state.isLoading = true
       })
 
-      .addCase(getTags.pending, (state: mainState) => {
+      .addCase(getTags.pending, (state: postsState) => {
         state.isLoading = true
       })
       .addCase(
         getTags.fulfilled,
-        (state: mainState, action: PayloadAction<Tag[]>) => {
+        (state: postsState, action: PayloadAction<Tag[]>) => {
           state.isLoading = false
           state.tags = action.payload
         },
       )
-      .addCase(getTags.rejected, (state: mainState) => {
+      .addCase(getTags.rejected, (state: postsState) => {
         state.isLoading = true
       })
 
-      .addCase(getPostDetails.pending, (state: mainState) => {
+      .addCase(getPostDetails.pending, (state: postsState) => {
         state.isLoading = true
       })
       .addCase(
         getPostDetails.fulfilled,
-        (state: mainState, action: PayloadAction<Post>) => {
+        (state: postsState, action: PayloadAction<Post>) => {
           state.isLoading = false
           state.post = action.payload
         },
       )
-      .addCase(getPostDetails.rejected, (state: mainState) => {
+      .addCase(getPostDetails.rejected, (state: postsState) => {
         state.isLoading = true
       })
 
-      .addCase(getPostsByTagId.pending, (state: mainState) => {
+      .addCase(getPostsByTagId.pending, (state: postsState) => {
         state.isLoading = true
       })
       .addCase(
         getPostsByTagId.fulfilled,
         (
-          state: mainState,
+          state: postsState,
           action: PayloadAction<{ posts: Post[]; total: number }>,
         ) => {
           state.isLoading = false
@@ -114,12 +114,12 @@ export const mainSlice = createSlice({
           state.totalPostsCount = action.payload.total
         },
       )
-      .addCase(getPostsByTagId.rejected, (state: mainState) => {
+      .addCase(getPostsByTagId.rejected, (state: postsState) => {
         state.isLoading = true
       })
   },
 })
 
 export const { populatePostsTags, resetPosts, setSearchKeyword } =
-  mainSlice.actions
-export default mainSlice.reducer
+  postsSlice.actions
+export default postsSlice.reducer

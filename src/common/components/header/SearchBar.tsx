@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { debounce } from 'lodash'
 import styles from './SearchBar.module.scss'
 
-import { setSearchKeyword } from '@store/main'
+import { setSearchKeyword } from '@store/posts'
 import { useAppDispatch } from '@store/hooks'
 
 const SearchBar = () => {

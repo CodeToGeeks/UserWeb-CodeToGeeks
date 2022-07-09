@@ -11,8 +11,8 @@ import {
   getTags,
   resetPosts,
   populatePostsTags,
-  mainSelector,
-} from '../../store/main'
+  postsSelector,
+} from '../../store/posts'
 
 // TODO:
 //  - fix issue of getting the 1st data twice
@@ -23,7 +23,7 @@ export default function Home() {
   const [pageNumber, setPageNumber] = useState(1)
   const dispatch = useAppDispatch()
   const { posts, tags, totalPostsCount, searchKeyword } =
-    useAppSelector(mainSelector)
+    useAppSelector(postsSelector)
 
   useEffect(() => {
     setPageNumber(1)

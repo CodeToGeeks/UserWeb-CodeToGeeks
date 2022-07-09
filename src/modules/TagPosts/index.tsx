@@ -6,14 +6,14 @@ import Community from '@modules/home/components/Community'
 import PopularTags from '@modules/home/components/PopularTags'
 import styles from '@modules/home/styles/index.module.scss'
 import Loader from '@modules/home/components/PostCardLoader'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
   getTags,
   populatePostsTags,
   resetPosts,
   getPostsByTagId,
-  mainSelector,
-} from '../../store/main'
+  postsSelector,
+} from '@store/posts'
 
 // TODO:
 //  - fix issue of getting the 1st data twice
@@ -21,7 +21,7 @@ import {
 const TagPosts = ({ router }: { router: NextRouter }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const dispatch = useAppDispatch()
-  const { posts, tags, totalPostsCount } = useAppSelector(mainSelector)
+  const { posts, tags, totalPostsCount } = useAppSelector(postsSelector)
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())

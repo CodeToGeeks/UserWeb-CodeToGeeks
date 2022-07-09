@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import styles from '../styles/PopularTags.module.scss'
-import { useAppSelector } from '../../../store/hooks'
-import { mainSelector } from '../../../store/main'
+import { useAppSelector } from '@store/hooks'
+import { postsSelector } from '@store/posts'
 import { Tag } from '@models/Tag.model'
 import PopularTagsLoader from './PopularTagsLoader'
 
 const PopularTags = () => {
-  const { tags } = useAppSelector(mainSelector)
+  const { tags } = useAppSelector(postsSelector)
   return (
     <section className={styles.popularTags}>
       <h2 className={styles.title}> Popular Tags </h2>

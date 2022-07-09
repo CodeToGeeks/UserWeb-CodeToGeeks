@@ -6,7 +6,7 @@ import PostContainer from './components/PostContainer'
 import styles from './styles/index.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { getPostDetails, mainSelector } from '@store/main'
+import { getPostDetails, postsSelector } from '@store/posts'
 import PostLoader from './components/PostLoader'
 import AuthorDetailsLoader from './components/AuthorDetailsLoader'
 import InteractionLoader from './components/InteractionsLoader'
@@ -17,7 +17,7 @@ type PostDetailsProps = {
 
 const PostDetails = ({ slug }: PostDetailsProps) => {
   const dispatch = useAppDispatch()
-  const { post, isLoading } = useAppSelector(mainSelector)
+  const { post, isLoading } = useAppSelector(postsSelector)
 
   useEffect(() => {
     if (typeof slug == 'string') dispatch(getPostDetails({ slug }))
