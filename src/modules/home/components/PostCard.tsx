@@ -6,8 +6,8 @@ import AuthorHeader from '@components/AuthorHeader/AuthorHeader'
 import styles from '../styles/PostCard.module.scss'
 import { Post } from '@models/Post.model'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { openLoginModal, authSelector } from '@store/auth'
-
+import { authSelector } from '@store/auth'
+import { openLoginModal } from '@store/ui'
 type PostCardProps = { post: Post; hasCover: boolean }
 
 const PostCard = ({ post, hasCover }: PostCardProps) => {
