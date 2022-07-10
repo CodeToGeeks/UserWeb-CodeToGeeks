@@ -7,7 +7,7 @@ import {
   CheckVerificationCodePayload,
   ResetPasswordPayload,
 } from './models'
-import { showToastError, showToastSuccess } from '@store/ui'
+import { showToastError, showToastSuccess, resetModals } from '@store/ui'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
 
 export const signUp = createAsyncThunk(
@@ -38,6 +38,7 @@ export const login = createAsyncThunk(
 
       const successMessage = 'Login successful'
       dispatch(showToastSuccess(successMessage))
+      dispatch(resetModals())
       return res.data.payload
     } catch (error) {
       const errorMessage =
