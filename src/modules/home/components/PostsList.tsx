@@ -8,7 +8,7 @@ const PostsList = ({ posts }: PostListProps) => {
   return (
     <>
       {posts.map((post, i) => (
-        <PostCard key={post._id} post={post} hasCover={i == -1} />
+        <PostCard key={post._id} post={post} hasCover={i == 0} />
       ))}
     </>
   )
