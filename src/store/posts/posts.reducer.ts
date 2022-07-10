@@ -53,6 +53,7 @@ export const postsSlice = createSlice({
     },
     incrementPostLoveCount: (state, action) => {
       const postId = action.payload
+      // Increment love count of post in posts array
       state.posts = current(state).posts.map((post: Post) => {
         if (post._id === postId)
           return {
@@ -61,9 +62,14 @@ export const postsSlice = createSlice({
           }
         return post
       })
+      //  Increment love count of the post if it is currently being viewed
+      if (state.post && state.post._id === postId) {
+        state.post.love_count = +state.post.love_count + 1 || 1
+      }
     },
     decrementPostLoveCount: (state, action) => {
       const postId = action.payload
+      // Decrement love count of post in posts array
       state.posts = current(state).posts.map((post: Post) => {
         if (post._id === postId)
           return {
@@ -72,6 +78,10 @@ export const postsSlice = createSlice({
           }
         return post
       })
+      //  Decrement love count of the post if it is currently being viewed
+      if (state.post && state.post._id === postId) {
+        state.post.love_count = +state.post.love_count - 1 || 0
+      }
     },
   },
   extraReducers: (builder) => {

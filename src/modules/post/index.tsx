@@ -27,7 +27,7 @@ const PostDetails = ({ slug }: PostDetailsProps) => {
     <div className={`${styles.mainWrapper} ${styles.post}`}>
       {post && !isLoading ? (
         <>
-          <Interactions />
+          <Interactions post={post} />
           <PostContainer post={post} />
           <AuthorDetails
             author={{
