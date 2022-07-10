@@ -18,13 +18,15 @@ type PostHeaderProps = {
 const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
   return (
     <header className={styles.container}>
-      <Image
-        className={styles.cover}
-        src={coverImage}
-        alt={title}
-        width="800"
-        height="400"
-      />
+      {coverImage && (
+        <Image
+          className={styles.cover}
+          src={coverImage}
+          alt={title}
+          width="800"
+          height="400"
+        />
+      )}
       <div className={styles.textContainer}>
         <h1 className={styles.title}>{title}</h1>
         <AuthorHeader
