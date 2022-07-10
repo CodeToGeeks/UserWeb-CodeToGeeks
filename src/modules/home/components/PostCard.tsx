@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import PostTags from '@components/PostTags/PostTags'
@@ -7,18 +7,40 @@ import styles from '../styles/PostCard.module.scss'
 import { Post } from '@models/Post.model'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
+import { interactionsSelector } from '@store/interactions'
 import { openLoginModal } from '@store/ui'
+import { lovePost, unlovePost, savePost, unsavePost } from '@store/interactions'
 type PostCardProps = { post: Post; hasCover: boolean }
 
 const PostCard = ({ post, hasCover }: PostCardProps) => {
+  const [isSaved, setIsSaved] = useState(false)
+  const [isLoved, setIsLoved] = useState(false)
+
   const dispatch = useAppDispatch()
   const { isAuthenticated } = useAppSelector(authSelector)
+  const { savedPostsIds, lovedPostsIds } = useAppSelector(interactionsSelector)
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+    setIsSaved(savedPostsIds.includes(post._id))
+    setIsLoved(lovedPostsIds.includes(post._id))
+  }, [lovedPostsIds, savedPostsIds, post, isAuthenticated])
 
   const onClickSaveHandler = () => {
-    if (!isAuthenticated) dispatch(openLoginModal())
+    if (!isAuthenticated) return dispatch(openLoginModal())
+    if (!isSaved) {
+      dispatch(savePost(post._id))
+    } else {
+      dispatch(unsavePost(post._id))
+    }
   }
   const onClickLoveHandler = () => {
-    if (!isAuthenticated) dispatch(openLoginModal())
+    if (!isAuthenticated) return dispatch(openLoginModal())
+    if (!isLoved) {
+      dispatch(lovePost(post._id))
+    } else {
+      dispatch(unlovePost(post._id))
+    }
   }
 
   return (
@@ -61,8 +83,8 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
             >
               <Image
                 className={styles.icon}
-                src="/assets/home/heart.svg"
-                alt="comment"
+                src={`/assets/home/heart${isLoved ? '-red' : ''}.svg`}
+                alt="love icon"
                 width={'30'}
                 height={'30'}
               />
@@ -74,7 +96,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
               {post.count_minutes_read || 10} mins read
             </span>
             <button className={styles.saveButton} onClick={onClickSaveHandler}>
-              Save
+              {isSaved ? 'Unsaved' : 'Save'}
             </button>
           </div>
         </div>

@@ -5,15 +5,17 @@ import Community from './components/Community'
 import PopularTags from './components/PopularTags'
 import styles from './styles/index.module.scss'
 import Loader from './components/PostCardLoader'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
   getPosts,
   getTags,
   resetPosts,
   populatePostsTags,
   postsSelector,
-} from '../../store/posts'
+} from '@store/posts'
 
+import { getUserInteractions } from '@store/interactions'
+import { authSelector } from '@store/auth'
 // TODO:
 //  - fix issue of getting the 1st data twice
 //  - add loading state -view
@@ -25,10 +27,19 @@ export default function Home() {
   const { posts, tags, totalPostsCount, searchKeyword } =
     useAppSelector(postsSelector)
 
+  const { isAuthenticated, token } = useAppSelector(authSelector)
+
   useEffect(() => {
     setPageNumber(1)
     dispatch(resetPosts())
   }, [searchKeyword])
+
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      console.log({ token })
+      dispatch(getUserInteractions())
+    }
+  }, [isAuthenticated, token])
 
   useEffect(() => {
     if (!tags.length) dispatch(getTags())
