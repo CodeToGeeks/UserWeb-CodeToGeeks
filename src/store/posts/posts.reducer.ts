@@ -51,6 +51,28 @@ export const postsSlice = createSlice({
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload
     },
+    incrementPostLoveCount: (state, action) => {
+      const postId = action.payload
+      state.posts = current(state).posts.map((post: Post) => {
+        if (post._id === postId)
+          return {
+            ...post,
+            love_count: +post.love_count + 1 || 1,
+          }
+        return post
+      })
+    },
+    decrementPostLoveCount: (state, action) => {
+      const postId = action.payload
+      state.posts = current(state).posts.map((post: Post) => {
+        if (post._id === postId)
+          return {
+            ...post,
+            love_count: +post.love_count - 1 || 0,
+          }
+        return post
+      })
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -120,6 +142,11 @@ export const postsSlice = createSlice({
   },
 })
 
-export const { populatePostsTags, resetPosts, setSearchKeyword } =
-  postsSlice.actions
+export const {
+  populatePostsTags,
+  resetPosts,
+  setSearchKeyword,
+  incrementPostLoveCount,
+  decrementPostLoveCount,
+} = postsSlice.actions
 export default postsSlice.reducer

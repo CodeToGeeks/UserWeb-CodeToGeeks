@@ -2,16 +2,21 @@ import axios, { AxiosError } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
 import { showToastError, showToastSuccess } from '@store/ui'
+import { incrementPostLoveCount, decrementPostLoveCount } from '@store/posts'
 
 export const lovePost = createAsyncThunk(
   'posts/lovePost',
   async (postId: string, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(incrementPostLoveCount(postId))
       await axios.post(`/post/love/${postId}`)
       return postId
     } catch (e) {
+      console.log({ e })
       const errorMessage = apiErrorHandler(e as Error | AxiosError)
+      dispatch(decrementPostLoveCount(postId))
       dispatch(showToastError(errorMessage))
+
       return rejectWithValue(postId)
     }
   },
@@ -21,9 +26,12 @@ export const unlovePost = createAsyncThunk(
   'posts/unlovePost',
   async (postId: string, { dispatch, rejectWithValue }) => {
     try {
+      dispatch(decrementPostLoveCount(postId))
       await axios.post(`/post/unlove/${postId}`)
     } catch (e) {
+      console.log({ e })
       const errorMessage = apiErrorHandler(e as Error | AxiosError)
+      dispatch(incrementPostLoveCount(postId))
       dispatch(showToastError(errorMessage))
       return rejectWithValue(postId as string)
     }
