@@ -5,12 +5,55 @@
   align-items: center;
   width: max-content;
   li {
-    padding-inline-start: 1rem;
+    padding: 0 0.5rem;
     margin: 0 0.25rem;
     white-space: nowrap;
     &:last-child {
       margin-inline-start: 0rem;
     }
+  }
+
+  li {
+    display: inline;
+    position: relative;
+    // overflow: hidden;
+  }
+  .hoverLine:after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    width: 0;
+    bottom: -7px;
+    background: var(--primary-color);
+    height: 3px;
+    transition-property: width;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+  }
+  .hoverLine:hover:after,
+  .hoverLine:focus:after,
+  .hoverLine:active:after {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+  li:nth-child(3):after,
+  li:nth-child(5):after {
+    content: none;
+  }
+
+  .active:after {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    width: 0;
+    bottom: -7px;
+    background: var(--primary-color);
+    height: 3px;
+    left: 0;
+    right: auto;
+    width: 100%;
   }
 }
 

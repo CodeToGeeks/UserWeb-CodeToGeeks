@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import styles from './Navigation.module.scss'
 import Login from '@modules/auth/components/Login'
 import SignUp from '@modules/auth/components/SignUp'
@@ -15,6 +16,7 @@ const Navigation = () => {
   const { user, token } = useAppSelector(authSelector)
   const { isLoginModalOpened, isSignUpModalOpened } = useAppSelector(uiSelector)
   const [imgSrc, setImgSrc] = useState('/assets/auth/user.png')
+  const router = useRouter()
 
   useEffect(() => {
     if (user?.profileImageLink) setImgSrc(user.profileImageLink)
@@ -31,16 +33,28 @@ const Navigation = () => {
   return (
     <>
       <ul className={styles.nav}>
-        <li>
+        <li
+          className={`${styles.hoverLine} ${
+            router.pathname == '/' ? styles.active : ''
+          }`}
+        >
           <Link href="/">Home</Link>
         </li>
-        <li>
+        <li
+          className={`${styles.hoverLine} ${
+            router.pathname == '/about-us' ? styles.active : ''
+          }`}
+        >
           <Link href="#">About Us</Link>
         </li>
         {!user || !token ? (
           <>
             <li> | </li>
-            <li>
+            <li
+              className={`${styles.hoverLine} ${
+                isLoginModalOpened ? styles.active : ''
+              }`}
+            >
               <button onClick={handleOpenLoginModal}>Login</button>
             </li>
             <li>
