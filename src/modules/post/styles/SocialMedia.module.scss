@@ -1,0 +1,12 @@
+.socialMediaContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: baseline;
+  button {
+    margin-inline-end: 0.65rem;
+    &:first-child {
+      margin-inline-end: 0;
+    }
+  }
+}
