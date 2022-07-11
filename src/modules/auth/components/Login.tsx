@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
@@ -47,13 +46,7 @@ const Login = () => {
     >
       <>
         <div className="d-flex">
-          <h1>Join Our Community</h1>
-          <Image
-            className={`${styles.image}`}
-            src={'/assets/auth/login.png'}
-            width="200"
-            height={'200'}
-          />
+          <h1 className="title-underline">Welcome Back!</h1>
         </div>
         <form className={styles.form}>
           <CustomInput

@@ -43,7 +43,7 @@ export default function Home() {
       <>
         <div className={styles.header}>
           <div>
-            <h1> Verification Code </h1>
+            <h1 className="title-underline"> Verification Code </h1>
             <p>Please enter the Verification code sent to your email.</p>
           </div>
           <Image

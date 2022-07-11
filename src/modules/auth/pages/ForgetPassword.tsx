@@ -33,7 +33,9 @@ export default function Home() {
   return (
     <Card>
       <>
-        <h1 className={styles.title}> Forget your password? </h1>
+        <h1 className={`title-underline ${styles.title}`}>
+          Forget your password?
+        </h1>
         <div className={styles.textImageContainer}>
           <p>
             Please enter the email address you&apos;d like your

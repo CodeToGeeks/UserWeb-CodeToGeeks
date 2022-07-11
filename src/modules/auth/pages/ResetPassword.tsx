@@ -40,7 +40,7 @@ const ResetPassword = () => {
     <Card>
       <>
         <div className={styles.header}>
-          <h1> Reset Password </h1>
+          <h1 className="title-underline"> Reset Password </h1>
         </div>
 
         <form className={styles.form}>

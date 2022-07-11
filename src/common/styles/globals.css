@@ -103,6 +103,20 @@ input:focus {
   outline: 1px solid var(--primary-color);
 }
 
+.title-underline {
+  padding-bottom: 5px;
+  position: relative;
+}
+.title-underline:before {
+  content: "";
+  position: absolute;
+  width: 75%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid var(--primary-color);
+}
+
 @media screen and (max-width: 750px) {
   .article {
     flex-direction: column !important;
