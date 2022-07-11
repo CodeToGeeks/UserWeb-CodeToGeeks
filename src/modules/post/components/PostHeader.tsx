@@ -27,9 +27,6 @@ const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
         />
       )}
       <div className={styles.headerContainer}>
-        <div>
-          <h1 className={styles.title}>{title}</h1>
-        </div>
         <div className={styles.socialWrapper}>
           <AuthorHeader
             name={author.name}
@@ -37,6 +34,9 @@ const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
             profileImage={author.profile_image}
           />
           <SocialMedia />
+        </div>
+        <div>
+          <h1 className={styles.title}>{title}</h1>
         </div>
       </div>
     </header>
