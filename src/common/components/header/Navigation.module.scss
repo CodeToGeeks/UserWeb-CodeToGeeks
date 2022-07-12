@@ -63,10 +63,16 @@
   align-self: center;
   align-items: center;
   height: 35px;
-  color: var(--primary-color);
+  color: var(--white);
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   padding: 0.5rem 1rem !important;
+}
+.login {
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 750px) {

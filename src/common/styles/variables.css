@@ -1,16 +1,16 @@
 :root {
   --max-width: 1280px;
 
-  --primary-color: #2a7de1;
-  --primary-color-900: #2a7de1e6;
-  --primary-color-800: #2a7de1cc;
-  --primary-color-700: #2a7de1b3;
-  --primary-color-600: #2a7de199;
-  --primary-color-500: #2a7de180;
-  --primary-color-400: #2a7de166;
-  --primary-color-300: #2a7de14d;
-  --primary-color-200: #2a7de133;
-  --primary-color-100: #2a7de11a;
+  --primary-color: #205375;
+  --primary-color-900: #205375e6;
+  --primary-color-800: #205375cc;
+  --primary-color-700: #205375b3;
+  --primary-color-600: #20537599;
+  --primary-color-500: #20537580;
+  --primary-color-400: #20537566;
+  --primary-color-300: #2053754d;
+  --primary-color-200: #20537533;
+  --primary-color-100: #2053751a;
 
   --secondary-color: #ff595a;
   --font-primary-color: rgb(50, 50, 50);
@@ -27,17 +27,6 @@
   --base-20: #d6d6d7;
   --base-10: #efefef;
   --base-0: #f9f9f9;
-
-  --grey-50: 250, 250, 250;
-  --grey-100: 245, 245, 245;
-  --grey-200: 229, 229, 229;
-  --grey-300: 212, 212, 212;
-  --grey-400: 163, 163, 163;
-  --grey-500: 115, 115, 115;
-  --grey-600: 82, 82, 82;
-  --grey-700: 64, 64, 64;
-  --grey-800: 38, 38, 38;
-  --grey-900: 23, 23, 23;
 
   --white: #fff;
 }

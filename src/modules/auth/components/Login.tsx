@@ -86,7 +86,9 @@ const Login = () => {
           </button>
           <div className={styles.signUpContainer}>
             <span> Do not Have an account? </span>
-            <button onClick={() => dispatch(openSignUpModal())}>sign up</button>
+            <button onClick={() => dispatch(openSignUpModal())}>
+              Create Account
+            </button>
           </div>
         </form>
       </>

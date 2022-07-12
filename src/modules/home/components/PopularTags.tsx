@@ -10,7 +10,7 @@ const PopularTags = () => {
   const { tags } = useAppSelector(postsSelector)
   return (
     <section className={styles.popularTags}>
-      <h2 className={styles.title}> Popular Tags </h2>
+      <h2 className={`title-underline ${styles.title}`}> Popular Tags </h2>
       <ul>
         {tags?.length ? (
           tags.map((tag: Tag) => (

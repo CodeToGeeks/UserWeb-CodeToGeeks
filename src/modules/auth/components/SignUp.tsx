@@ -132,7 +132,7 @@ const Login = () => {
             onClick={onSignUpHandler}
             disabled={!isValidForm || isLoading}
           >
-            {isLoading ? <Spinner /> : `SignUp`}
+            {isLoading ? <Spinner /> : `Create Account`}
           </button>
           <div className={styles.signUpContainer}>
             <span> Do you have an account? </span>

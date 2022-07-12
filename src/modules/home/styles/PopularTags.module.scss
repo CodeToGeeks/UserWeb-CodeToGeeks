@@ -4,16 +4,17 @@
   width: 15rem;
   max-width: 15rem;
   min-width: 12.5rem;
-  padding: 1rem;
   padding-right: 0;
   margin-bottom: 1rem;
 }
 
 .popularTags h2 {
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--base-90);
-  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  padding: 0.5rem 0;
+  margin: 1rem 1rem;
+  width: fit-content;
 }
 
 .popularTags ul li {
@@ -23,7 +24,7 @@
 }
 
 .popularTags li:hover {
-  background-color: rgba(59, 73, 223, 0.1);
+  background-color: var(--primary-color-300);
   text-decoration: underline;
   cursor: pointer;
 }

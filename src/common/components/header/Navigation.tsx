@@ -55,11 +55,13 @@ const Navigation = () => {
                 isLoginModalOpened ? styles.active : ''
               }`}
             >
-              <button onClick={handleOpenLoginModal}>Login</button>
+              <button onClick={handleOpenLoginModal} className={styles.login}>
+                Login
+              </button>
             </li>
             <li>
               <button onClick={handleOpenSignUpModal} className={styles.signUp}>
-                Sign Up
+                Create Account
               </button>
             </li>
           </>
