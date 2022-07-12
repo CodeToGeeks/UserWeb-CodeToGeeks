@@ -44,9 +44,12 @@ const Interactions = () => {
   return (
     <div className={styles.interactionsWrapper}>
       <div>
-        <button onClick={onClickLoveHandler}>
+        <button
+          onClick={onClickLoveHandler}
+          className={isLoved ? styles.selected : ''}
+        >
           <Image
-            src={`/assets/post/heart2${isLoved ? '-red' : ''}.svg`}
+            src={`/assets/post/heart${isLoved ? '-filled' : ''}.svg`}
             alt="heart icon"
             width="26"
             height="26"
@@ -54,7 +57,10 @@ const Interactions = () => {
         </button>
       </div>
       <div>
-        <button onClick={onClickSaveHandler}>
+        <button
+          onClick={onClickSaveHandler}
+          className={isSaved ? styles.selected : ''}
+        >
           <Image
             src={'/assets/post/flag.svg'}
             alt="flag icon"
