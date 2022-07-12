@@ -1,21 +1,23 @@
 .interactionsWrapper {
   display: flex;
-  flex-direction: column;
-  width: 150px;
-  align-items: center;
-  margin-inline-end: 2rem;
-  > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100px;
-    > button {
-      /* padding: 0.5rem; */
-      margin-bottom: 0.5rem;
-      background-color: transparent;
+  margin-inline-end: 1.5rem;
+  padding-inline-end: 0.5rem;
+  border-right: 2px solid var(--base-50);
+  align-items: baseline;
+  > div > button {
+    margin-inline-end: 0.5rem;
+    background-color: transparent;
+    img {
+      filter: invert(23%) sepia(9%) saturate(0%) hue-rotate(257deg)
+        brightness(100%) contrast(97%);
+      &:hover {
+        filter: none;
+        fill: black;
+      }
     }
   }
 }
+
 .interactionsLoaderContainer {
   display: flex;
   flex-direction: column;

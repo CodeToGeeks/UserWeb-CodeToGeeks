@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import styles from '../styles/SocialMedia.module.scss'
 import { useAppSelector } from '@store/hooks'
 import { postsSelector } from '@store/posts'
@@ -6,31 +7,18 @@ import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
-  LinkedinIcon,
-  FacebookIcon,
-  TwitterIcon,
 } from 'react-share'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 const baseLink = `https://codetogeeks.com`
 
 const windowWidth = 1200
 const windowHeight = 630
 
-const iconsColor = '#a3a3a3'
-const bgStyle = {
-  backgroundColor: '#fff',
-  fill: iconsColor,
-  width: '42px',
-  height: '42px',
-  x: '11.5',
-  y: '11.5',
-}
-const twitterBgStyle = {
-  fill: 'transparent',
-  width: '44px',
-  height: '44px',
-}
-
+const linkedinImage = '/assets/post/linkedin.svg'
+const twitterImage = '/assets/post/twitter.svg'
+const facebookImage = '/assets/post/facebook.svg'
+const linkImage = '/assets/post/link.svg'
 // NOTE:
 //   Handling page meta data will make the page image appear on share
 
@@ -46,28 +34,32 @@ const SocialMedia = () => {
   return (
     <div className={styles.socialMediaContainer}>
       <TwitterShareButton {...commonProps} hashtags={['CODE_TO_GEEKS']}>
-        <TwitterIcon
-          size={55}
-          bgStyle={twitterBgStyle}
-          iconFillColor={iconsColor}
-        />
+        <Image src={twitterImage} width="24" height="24" />
       </TwitterShareButton>
-
       <FacebookShareButton
         {...commonProps}
         quote={post?.title}
         hashtag={'#CODE_TO_GEEKS'}
       >
-        <FacebookIcon size={40} bgStyle={bgStyle} borderRadius={22} />
+        <Image src={facebookImage} width="24" height="24" />
       </FacebookShareButton>
-
       <LinkedinShareButton
         {...commonProps}
         summary={post?.excerpt}
         source={'Code To Geeks'}
       >
-        <LinkedinIcon size={40} bgStyle={bgStyle} borderRadius={10} />
+        <Image src={linkedinImage} width="24" height="24" />
       </LinkedinShareButton>
+      <CopyToClipboard text={`${commonProps.url}`}>
+        <button className={styles.copyBtn}>
+          <Image
+            src={linkImage}
+            alt="copy to clipboard icon"
+            width={'22'}
+            height={'22'}
+          />
+        </button>
+      </CopyToClipboard>
     </div>
   )
 }

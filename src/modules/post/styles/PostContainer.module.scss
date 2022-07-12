@@ -1,5 +1,4 @@
 .main {
-  max-width: 800px;
   width: 100%;
   background-color: white;
   border-radius: 8px;
@@ -8,9 +7,7 @@
 }
 
 .mainLoader {
-  max-width: 770px;
   width: 100%;
-  // max-width: fit-content;
   background-color: white;
   border-radius: 8px;
   border: 1px solid var(--base-20);

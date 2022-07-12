@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import AuthorHeader from '@components/AuthorHeader/AuthorHeader'
 import SocialMedia from './SocialMedia'
+import Interactions from './Interactions'
 import { Author } from '@models/Author.model'
 import styles from '../styles/PostHeader.module.scss'
 import { Tag } from '@models/Tag.model'
@@ -22,18 +23,21 @@ const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
           className={styles.cover}
           src={coverImage}
           alt={title}
-          width="800"
+          width="900"
           height="400"
         />
       )}
       <div className={styles.headerContainer}>
-        <div className={styles.socialWrapper}>
+        <div className={styles.authorAndSocialWrapper}>
           <AuthorHeader
             name={author.name}
             date={date}
             profileImage={author.profile_image}
           />
-          <SocialMedia />
+          <div className={styles.socialWrapper}>
+            <Interactions />
+            <SocialMedia />
+          </div>
         </div>
         <div>
           <h1 className={styles.title}>{title}</h1>
