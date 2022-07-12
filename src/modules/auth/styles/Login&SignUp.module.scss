@@ -87,32 +87,32 @@
   }
 }
 
-.facebook {
-  background-color: #4267b2;
-  color: white;
-  &::before {
-    background: url('../../../../public/assets/auth/facebook.svg') center center
-      no-repeat;
-  }
-}
+// .facebook {
+//   background-color: #4267b2;
+//   color: white;
+//   &::before {
+//     background: url('../../../../public/assets/auth/facebook.svg') center center
+//       no-repeat;
+//   }
+// }
 
-.google {
-  background-color: white;
-  border: 1px solid var(--base-20);
-  &::before {
-    background: url('../../../../public/assets/auth/google.svg') center center
-      no-repeat;
-  }
-}
+// .google {
+//   background-color: white;
+//   border: 1px solid var(--base-20);
+//   &::before {
+//     background: url('../../../../public/assets/auth/google.svg') center center
+//       no-repeat;
+//   }
+// }
 
-.github {
-  background-color: #24292f;
-  color: white;
-  &::before {
-    background: url('../../../../public/assets/auth/github.svg') center center
-      no-repeat;
-  }
-}
+// .github {
+//   background-color: #24292f;
+//   color: white;
+//   &::before {
+//     background: url('../../../../public/assets/auth/github.svg') center center
+//       no-repeat;
+//   }
+// }
 
 .namesContainer {
   display: flex;
