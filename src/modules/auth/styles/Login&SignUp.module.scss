@@ -48,6 +48,11 @@
   justify-content: flex-start;
   background-color: var(--white);
   color: var(--base);
+  color: var(--primary-color);
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .signUpContainer {
@@ -59,6 +64,9 @@
     background-color: var(--white);
     color: var(--primary-color);
     font-weight: 900;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 .marginEnd {
