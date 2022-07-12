@@ -58,7 +58,7 @@ export default function Home() {
             <OtpInput
               value={verificationCode}
               onChange={(otp: string) => dispatch(setVerificationCode(otp))}
-              numInputs={6}
+              numInputs={4}
               shouldAutoFocus
               inputStyle={styles.input}
             />
@@ -68,7 +68,7 @@ export default function Home() {
               <span>
                 It may take a minute to receive your code
                 <br />
-                haven&apos;t received it?{'    '}
+                haven&apos;t received it?
               </span>
               <button
                 className={styles.resendBtn}
@@ -82,7 +82,7 @@ export default function Home() {
               <button
                 className={styles.verify}
                 onClick={onCheckCodeHandler}
-                disabled={isLoading || verificationCode.trim().length !== 6}
+                disabled={isLoading || verificationCode.trim().length !== 4}
               >
                 {isLoading ? <Spinner /> : `Verify`}
               </button>
