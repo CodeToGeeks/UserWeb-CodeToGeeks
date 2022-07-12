@@ -1,15 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
 import styles from '../styles/SocialMedia.module.scss'
-import { useAppSelector } from '@store/hooks'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { postsSelector } from '@store/posts'
+import { showToastSuccess } from '@store/ui'
 import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
 } from 'react-share'
 import CopyToClipboard from 'react-copy-to-clipboard'
-
 const baseLink = `https://codetogeeks.com`
 
 const windowWidth = 1200
@@ -23,12 +23,17 @@ const linkImage = '/assets/post/link.svg'
 //   Handling page meta data will make the page image appear on share
 
 const SocialMedia = () => {
+  const dispatch = useAppDispatch()
   const { post } = useAppSelector(postsSelector)
   const commonProps = {
     url: `${baseLink}/${post?.slug}`,
     title: post?.title,
     windowWidth: windowWidth,
     windowHeight: windowHeight,
+  }
+
+  const onCopyLinkHandler = () => {
+    dispatch(showToastSuccess('Link copied to clipboard'))
   }
 
   return (
@@ -50,7 +55,7 @@ const SocialMedia = () => {
       >
         <Image src={linkedinImage} width="24" height="24" />
       </LinkedinShareButton>
-      <CopyToClipboard text={`${commonProps.url}`}>
+      <CopyToClipboard text={`${commonProps.url}`} onCopy={onCopyLinkHandler}>
         <button className={styles.copyBtn}>
           <Image
             src={linkImage}
