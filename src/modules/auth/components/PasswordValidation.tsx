@@ -13,29 +13,23 @@ const PasswordValidations = ({
   confirmPassword,
   setIsPasswordValid,
 }: PasswordValidationsProps) => {
-  const [isHaveUpperCase, setIsHaveUpperCase] = useState(false)
-  const [isHaveLowerCase, setIsHaveLowerCase] = useState(false)
+  const [isHaveLetter, setIsHaveLetter] = useState(false)
   const [isHaveNumber, setIsHaveNumber] = useState(false)
-  const [isHaveSpecialChar, setIsHaveSpecialChar] = useState(false)
   const [isHave8Letters, setIsHave8Letters] = useState(false)
   const [shouldMatchPassConfirmPassword, setShouldMatchPassConfirmPassword] =
     useState(false)
 
   useEffect(() => {
-    setIsHaveUpperCase(/(?=.*[A-Z])/.test(password))
-    setIsHaveLowerCase(/(?=.*[a-z])/.test(password))
+    setIsHaveLetter(/[A-Za-z]/.test(password))
     setIsHaveNumber(/\d/.test(password))
-    setIsHaveSpecialChar(/(?=.*[!@#$%^&*])/.test(password))
     setIsHave8Letters(/(?=.{8,})/.test(password))
     setShouldMatchPassConfirmPassword(
       password === confirmPassword && password != '',
     )
 
     setIsPasswordValid(
-      isHaveUpperCase &&
-        isHaveLowerCase &&
+      isHaveLetter &&
         isHaveNumber &&
-        isHaveSpecialChar &&
         isHave8Letters &&
         shouldMatchPassConfirmPassword,
     )
@@ -56,18 +50,8 @@ const PasswordValidations = ({
       </div>
       <div>
         <div>
-          At least 1 lower case letter
-          <>{renderIcon(isHaveLowerCase)}</>
-        </div>
-        <div>
-          At least 1 upper case letter
-          {renderIcon(isHaveUpperCase)}
-        </div>
-      </div>
-      <div>
-        <div>
-          At least 1 special character
-          <>{renderIcon(isHaveSpecialChar)}</>
+          At least 1 letter
+          <>{renderIcon(isHaveLetter)}</>
         </div>
         <div>
           Match confirm password
