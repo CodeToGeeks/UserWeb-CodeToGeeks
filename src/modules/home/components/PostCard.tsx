@@ -82,11 +82,10 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
               onClick={onClickLoveHandler}
             >
               <Image
-                className={styles.icon}
-                src={`/assets/home/heart${isLoved ? '-red' : ''}.svg`}
+                src={`/assets/post/heart${isLoved ? '-filled' : ''}.svg`}
                 alt="love icon"
-                width={'30'}
-                height={'30'}
+                width={'24'}
+                height={'24'}
               />
               <span>{post.love_count} Reactions</span>
             </button>

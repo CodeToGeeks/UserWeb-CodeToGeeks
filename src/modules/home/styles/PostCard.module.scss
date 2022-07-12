@@ -49,13 +49,11 @@
     background-color: var(--base-20);
     border-radius: 4px;
   }
-}
-.icon {
-  margin-inline-end: 4px;
-  &:nth-child(2) {
-    margin-inline-start: 1rem;
+  span:first-child {
+    margin-inline-end: 0.25rem !important;
   }
 }
+
 .saveButton {
   margin-inline-start: 8px;
   padding: 6px 12px;
