@@ -1,8 +1,10 @@
 .authorContainer {
   max-width: 300px;
   width: 100%;
-  padding: 2rem;
-  margin-inline-start: 1rem;
+  padding: 0 2rem 2rem 2rem;
+  align-self: start;
+  position: sticky;
+  top: 120px;
   img {
     width: 80px;
     height: 80px;
@@ -10,11 +12,20 @@
     margin-bottom: 1rem;
     object-fit: cover;
   }
+  h3 {
+    text-transform: capitalize;
+    margin-top: 1rem;
+  }
   div {
     padding-top: 0.5rem;
   }
   p {
     margin-top: 1rem;
     font-size: 14px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .authorContainer {
+    padding: 0 0 0 1rem;
   }
 }
