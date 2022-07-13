@@ -1,0 +1,28 @@
+.title {
+  padding: 1rem 0;
+}
+
+.textImageContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  p {
+    padding: 1rem 0;
+    color: var(--base-70);
+    font-size: 14px;
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.centerContent {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+}

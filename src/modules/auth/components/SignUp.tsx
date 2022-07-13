@@ -29,6 +29,15 @@ const Login = () => {
         email.trim() != '' &&
         isPasswordValid,
     )
+
+    console.log({
+      firstName,
+      lastName,
+      email,
+      isPasswordValid,
+      password,
+      confirmPassword,
+    })
   }, [firstName, lastName, email, isPasswordValid])
 
   const onSignUpHandler = (event: React.MouseEvent<HTMLElement>) => {
