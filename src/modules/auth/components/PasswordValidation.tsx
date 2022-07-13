@@ -15,32 +15,31 @@ const PasswordValidations = ({
 }: PasswordValidationsProps) => {
   const [isHaveLetter, setIsHaveLetter] = useState(false)
   const [isHaveNumber, setIsHaveNumber] = useState(false)
-  const [isHave8Letters, setIsHave8Letters] = useState(false)
-  const [shouldMatchPassConfirmPassword, setShouldMatchPassConfirmPassword] =
-    useState(false)
+  const [isHave8Characters, setIsHave8Characters] = useState(false)
+  const [shouldMatchConfirmPass, setShouldMatchConfirmPass] = useState(false)
 
   useEffect(() => {
     setIsHaveLetter(/[A-Za-z]/.test(password))
     setIsHaveNumber(/\d/.test(password))
-    setIsHave8Letters(/(?=.{8,})/.test(password))
-    setShouldMatchPassConfirmPassword(
-      password === confirmPassword && password != '',
-    )
+    setIsHave8Characters(/(?=.{8,})/.test(password))
+    setShouldMatchConfirmPass(password === confirmPassword && password != '')
+  }, [password, confirmPassword])
 
+  useEffect(() => {
     setIsPasswordValid(
       isHaveLetter &&
         isHaveNumber &&
-        isHave8Letters &&
-        shouldMatchPassConfirmPassword,
+        isHave8Characters &&
+        shouldMatchConfirmPass,
     )
-  }, [password, confirmPassword])
+  }, [isHave8Characters, isHaveLetter, isHaveNumber, shouldMatchConfirmPass])
 
   return (
     <section className={styles.passwordValidationsContainer}>
       <div>
         <div>
           At least 8 Characters
-          <>{renderIcon(isHave8Letters)}</>
+          <>{renderIcon(isHave8Characters)}</>
         </div>
 
         <div>
@@ -55,7 +54,7 @@ const PasswordValidations = ({
         </div>
         <div>
           Match confirm password
-          <>{renderIcon(shouldMatchPassConfirmPassword)}</>
+          <>{renderIcon(shouldMatchConfirmPass)}</>
         </div>
       </div>
     </section>
