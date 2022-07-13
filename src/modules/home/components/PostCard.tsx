@@ -5,26 +5,45 @@ import PostTags from '@components/PostTags/PostTags'
 import AuthorHeader from '@components/AuthorHeader/AuthorHeader'
 import styles from '../styles/PostCard.module.scss'
 import { Post } from '@models/Post.model'
+import { Tag } from '@models/Tag.model'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
-import { interactionsSelector } from '@store/interactions'
+import { getTags, postsSelector } from '@store/posts'
 import { openLoginModal } from '@store/ui'
-import { lovePost, unlovePost, savePost, unsavePost } from '@store/interactions'
+import {
+  lovePost,
+  unlovePost,
+  savePost,
+  unsavePost,
+  interactionsSelector,
+} from '@store/interactions'
 type PostCardProps = { post: Post; hasCover: boolean }
 
 const PostCard = ({ post, hasCover }: PostCardProps) => {
+  const [postTags, setPostTags] = useState<Tag[]>([])
   const [isSaved, setIsSaved] = useState(false)
   const [isLoved, setIsLoved] = useState(false)
 
   const dispatch = useAppDispatch()
   const { isAuthenticated } = useAppSelector(authSelector)
   const { savedPostsIds, lovedPostsIds } = useAppSelector(interactionsSelector)
+  const { tags } = useAppSelector(postsSelector)
 
   useEffect(() => {
     if (!isAuthenticated) return
     setIsSaved(savedPostsIds.includes(post._id))
     setIsLoved(lovedPostsIds.includes(post._id))
   }, [lovedPostsIds, savedPostsIds, post, isAuthenticated])
+
+  useEffect(() => {
+    if (!tags.length) dispatch(getTags())
+  }, [tags])
+
+  useEffect(() => {
+    if (!tags.length || !post.tags) return
+    const postTags = tags.filter((tag: Tag) => post.tags.includes(tag._id))
+    setPostTags(postTags)
+  }, [tags, post])
 
   const onClickSaveHandler = () => {
     if (!isAuthenticated) return dispatch(openLoginModal())
@@ -72,7 +91,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
               <a href="#">{post.title}</a>
             </Link>
           </div>
-          <PostTags tags={post.tags} />
+          <PostTags tags={postTags} />
         </div>
 
         <div className={styles.blogFooter}>

@@ -32,18 +32,6 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    populatePostsTags: (state) => {
-      for (let i = 0; i < current(state).posts.length; i++) {
-        const post: any = current(state).posts[i]
-        for (let j = 0; j < post.tags.length; j++) {
-          for (let k = 0; k < current(state).tags.length; k++) {
-            if (post.tags[j] == current(state).tags[k]._id) {
-              state.posts[i].tags[j] = current(state).tags[k]
-            }
-          }
-        }
-      }
-    },
     resetPosts: (state) => {
       state.posts = []
       state.totalPostsCount = 1
@@ -153,7 +141,6 @@ export const postsSlice = createSlice({
 })
 
 export const {
-  populatePostsTags,
   resetPosts,
   setSearchKeyword,
   incrementPostLoveCount,

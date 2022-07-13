@@ -7,7 +7,6 @@ import styles from '@modules/home/styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
   getTags,
-  populatePostsTags,
   resetPosts,
   getPostsByTagId,
   postsSelector,
@@ -31,13 +30,6 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
       }),
     )
   }, [pageNumber, _id])
-
-  useEffect(() => {
-    if (posts.length && tags.length) {
-      dispatch(populatePostsTags())
-    }
-  }, [posts, tags])
-
   return (
     <div className={styles.container}>
       <main className={styles.main}>

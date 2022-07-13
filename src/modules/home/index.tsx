@@ -5,13 +5,7 @@ import PopularTags from './components/PopularTags'
 import styles from './styles/index.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import {
-  getPosts,
-  getTags,
-  resetPosts,
-  populatePostsTags,
-  postsSelector,
-} from '@store/posts'
+import { getPosts, getTags, resetPosts, postsSelector } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
 import { authSelector } from '@store/auth'
@@ -49,12 +43,6 @@ const Home = () => {
       }),
     )
   }, [pageNumber, searchKeyword])
-
-  useEffect(() => {
-    if (posts.length && tags.length) {
-      dispatch(populatePostsTags())
-    }
-  }, [posts, tags])
 
   return (
     <div className={styles.container}>

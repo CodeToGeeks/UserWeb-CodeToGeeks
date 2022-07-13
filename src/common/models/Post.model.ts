@@ -1,5 +1,3 @@
-import { Tag } from './Tag.model'
-// import { Author } from './Author.model'
 export interface Post {
   _id: string
   slug: string
@@ -10,7 +8,7 @@ export interface Post {
   cover_image_link: string
   excerpt: string
   love_count: number
-  tags: Tag[]
+  tags: string[]
   created_at: Date
   md?: string
 }
