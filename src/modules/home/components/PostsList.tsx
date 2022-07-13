@@ -10,12 +10,14 @@ type PostListProps = {
   posts: Post[]
   totalPostsCount: number
   setPageNumber: Dispatch<SetStateAction<number>>
+  postsIndexWithCover?: number[]
 }
 
 const PostsList = ({
   posts,
   totalPostsCount,
   setPageNumber,
+  postsIndexWithCover = [0],
 }: PostListProps) => {
   const { tags } = useAppSelector(postsSelector)
   const dispatch = useAppDispatch()
@@ -44,7 +46,11 @@ const PostsList = ({
         }
       >
         {posts.map((post, i) => (
-          <PostCard key={post._id} post={post} hasCover={i == 0} />
+          <PostCard
+            key={post._id}
+            post={post}
+            hasCover={postsIndexWithCover.includes(i)}
+          />
         ))}
       </InfiniteScroll>
     </>
