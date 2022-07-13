@@ -22,3 +22,7 @@ export interface ResetPasswordPayload {
   code: string
   password: string
 }
+
+export interface VerifyEmailPayload {
+  token: string
+}
