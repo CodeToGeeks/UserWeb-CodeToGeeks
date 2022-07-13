@@ -9,7 +9,6 @@ import {
 } from './models'
 import { showToastError, showToastSuccess, resetModals } from '@store/ui'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
-
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async (payload: SignUpPayload, { dispatch }) => {
@@ -39,6 +38,7 @@ export const login = createAsyncThunk(
       const successMessage = 'Login successful'
       dispatch(showToastSuccess(successMessage))
       dispatch(resetModals())
+      _configAxios(res.data.payload.token)
       return res.data.payload
     } catch (error) {
       const errorMessage =
@@ -102,3 +102,7 @@ export const resetPassword = createAsyncThunk(
     }
   },
 )
+
+const _configAxios = (token: string) => {
+  axios.defaults.headers.common['x-auth-token'] = token
+}

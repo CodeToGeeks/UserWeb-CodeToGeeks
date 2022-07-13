@@ -15,7 +15,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, [])
 
   useEffect(() => {
-    axiosConfig(token)
+    axiosConfig()
   }, [token])
 
   return <>{children}</>
