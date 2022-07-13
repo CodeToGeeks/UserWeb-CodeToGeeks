@@ -69,7 +69,7 @@ const Navigation = () => {
           <li>
             <DropDown
               btnJSX={
-                <button className={styles.userInfo}>
+                <div className={styles.userInfo}>
                   <Image
                     src={imgSrc}
                     width="40"
@@ -79,7 +79,7 @@ const Navigation = () => {
                   <span className={styles.userName}>
                     {user.firstName} {user.lastName}
                   </span>
-                </button>
+                </div>
               }
               listItems={[
                 {
