@@ -1,8 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { useEffect, Dispatch, SetStateAction } from 'react'
 import PostCard from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Post } from '@models/Post.model'
 import Loader from './PostCardLoader'
+import { getTags, postsSelector } from '@store/posts'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
+
 type PostListProps = {
   posts: Post[]
   totalPostsCount: number
@@ -14,6 +17,13 @@ const PostsList = ({
   totalPostsCount,
   setPageNumber,
 }: PostListProps) => {
+  const { tags } = useAppSelector(postsSelector)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (!tags.length) dispatch(getTags())
+  }, [])
+
   return (
     <>
       <InfiniteScroll

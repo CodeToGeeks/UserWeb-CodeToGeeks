@@ -8,7 +8,7 @@ import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
-import { getTags, postsSelector } from '@store/posts'
+import { postsSelector } from '@store/posts'
 import { openLoginModal } from '@store/ui'
 import {
   lovePost,
@@ -34,10 +34,6 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
     setIsSaved(savedPostsIds.includes(post._id))
     setIsLoved(lovedPostsIds.includes(post._id))
   }, [lovedPostsIds, savedPostsIds, post, isAuthenticated])
-
-  useEffect(() => {
-    if (!tags.length) dispatch(getTags())
-  }, [tags])
 
   useEffect(() => {
     if (!tags.length || !post.tags) return

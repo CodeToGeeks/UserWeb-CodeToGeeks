@@ -5,21 +5,15 @@ import Community from '@modules/home/components/Community'
 import PopularTags from '@modules/home/components/PopularTags'
 import styles from '@modules/home/styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import {
-  getTags,
-  resetPosts,
-  getPostsByTagId,
-  postsSelector,
-} from '@store/posts'
+import { resetPosts, getPostsByTagId, postsSelector } from '@store/posts'
 
 const TagPosts = ({ router }: { router: NextRouter }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const dispatch = useAppDispatch()
-  const { posts, tags, totalPostsCount } = useAppSelector(postsSelector)
+  const { posts, totalPostsCount } = useAppSelector(postsSelector)
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())
-    if (!tags.length) dispatch(getTags())
   }, [_id])
 
   useEffect(() => {
