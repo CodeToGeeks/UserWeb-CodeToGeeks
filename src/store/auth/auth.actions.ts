@@ -104,9 +104,6 @@ export const resetPassword = createAsyncThunk(
   },
 )
 
-const _configAxios = (token: string) => {
-  axios.defaults.headers.common['x-auth-token'] = token
-}
 export const VerifyEmail = createAsyncThunk(
   'auth/VerifyEmail',
   async (payload: VerifyEmailPayload, { dispatch }) => {
@@ -128,3 +125,7 @@ export const VerifyEmail = createAsyncThunk(
     }
   },
 )
+
+const _configAxios = (token: string) => {
+  axios.defaults.headers.common['x-auth-token'] = token
+}
