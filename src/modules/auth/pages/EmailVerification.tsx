@@ -10,6 +10,10 @@ type EmailVerificationProps = {
   token: string | string[] | undefined
 }
 
+// TODO:
+//  Add loading state
+//  change routing to be after 5 seconds of showing the message
+
 const EmailVerification = ({ token }: EmailVerificationProps) => {
   const router = useRouter()
   const dispatch = useAppDispatch()
