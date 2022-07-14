@@ -6,6 +6,7 @@ import {
   sendVerificationCode,
   checkVerificationCode,
   resetPassword,
+  VerifyEmail,
 } from './auth.actions'
 import { User } from '@models/user.model'
 export type authState = {
@@ -18,6 +19,7 @@ export type authState = {
   isVerificationCodeSent: boolean | null
   isCorrectVerificationCode: boolean | null
   isResetPasswordSuccess: boolean | null
+  emailVerified: boolean | null
 }
 
 const initialState: authState = {
@@ -30,6 +32,7 @@ const initialState: authState = {
   isVerificationCodeSent: null,
   isCorrectVerificationCode: null,
   isResetPasswordSuccess: null,
+  emailVerified: null,
 }
 
 export const authSlice = createSlice({
@@ -130,6 +133,24 @@ export const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state: authState) => {
         state.isLoading = false
         state.isResetPasswordSuccess = false
+      })
+      .addCase(VerifyEmail.pending, (state: authState) => {
+        state.isLoading = true
+        state.emailVerified = null
+      })
+      .addCase(
+        VerifyEmail.fulfilled,
+        (state: authState, action: PayloadAction<User>) => {
+          state.user = action.payload
+          state.token = action.payload.token
+          state.isAuthenticated = true
+          state.isLoading = false
+          state.emailVerified = true
+        },
+      )
+      .addCase(VerifyEmail.rejected, (state: authState) => {
+        state.isLoading = false
+        state.emailVerified = false
       })
   },
 })
