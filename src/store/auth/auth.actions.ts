@@ -6,6 +6,7 @@ import {
   SendVerificationCodePayload,
   CheckVerificationCodePayload,
   ResetPasswordPayload,
+  VerifyEmailPayload,
 } from './models'
 import { showToastError, showToastSuccess, resetModals } from '@store/ui'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
@@ -106,3 +107,24 @@ export const resetPassword = createAsyncThunk(
 const _configAxios = (token: string) => {
   axios.defaults.headers.common['x-auth-token'] = token
 }
+export const VerifyEmail = createAsyncThunk(
+  'auth/VerifyEmail',
+  async (payload: VerifyEmailPayload, { dispatch }) => {
+    try {
+      const { token } = payload
+      const url = `/auth/verification/${token}`
+      const res = await axios.post(url)
+      // save to local storage
+      localStorage.setItem('token', res.data.payload.token)
+      localStorage.setItem('user', JSON.stringify(res.data.payload))
+      const successMessage = 'Email verification done successfully.'
+      dispatch(showToastSuccess(successMessage))
+      return res.data.payload
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) || 'Verify email failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
+    }
+  },
+)
