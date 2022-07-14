@@ -26,14 +26,16 @@ const PasswordValidations = ({
     setShouldMatchConfirmPassword(
       password === confirmPassword && password != '',
     )
+  }, [password, confirmPassword])
 
+  useEffect(() => {
     setIsPasswordValid(
       isHaveLetter &&
         isHaveNumber &&
         isHave8Letters &&
         shouldMatchConfirmPassword,
     )
-  }, [password, confirmPassword])
+  }, [isHaveLetter, isHaveNumber, isHave8Letters, shouldMatchConfirmPassword])
 
   return (
     <section className={styles.passwordValidationsContainer}>
