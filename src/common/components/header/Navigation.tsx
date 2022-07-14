@@ -34,14 +34,14 @@ const Navigation = () => {
     <>
       <ul className={styles.nav}>
         <li
-          className={`${styles.hoverLine} ${
+          className={`hover-line ${
             router.pathname == '/' ? styles.active : ''
           }`}
         >
           <Link href="/">Home</Link>
         </li>
         <li
-          className={`${styles.hoverLine} ${
+          className={`hover-line ${
             router.pathname == '/about-us' ? styles.active : ''
           }`}
         >
@@ -51,7 +51,7 @@ const Navigation = () => {
           <>
             <li> | </li>
             <li
-              className={`${styles.hoverLine} ${
+              className={`hover-line ${
                 isLoginModalOpened ? styles.active : ''
               }`}
             >
