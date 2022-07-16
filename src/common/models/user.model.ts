@@ -5,5 +5,10 @@ export interface User {
   email: string
   bio: string
   profileImageLink: string
+  createdAt: string
+  country: string
+  city: string
+  jobTitle: string
+  role: string
   token: string
 }
