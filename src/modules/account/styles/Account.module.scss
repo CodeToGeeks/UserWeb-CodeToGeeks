@@ -8,6 +8,7 @@
   min-height: calc(100vh - 24rem);
   padding: 0 2rem 0 2rem;
   .title {
+    text-transform: capitalize;
     font-size: 2.5rem;
     justify-content: flex-start;
     margin-bottom: 1rem;
