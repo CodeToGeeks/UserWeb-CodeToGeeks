@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 
 import {
   login,
@@ -51,6 +51,13 @@ export const authSlice = createSlice({
       state.user = null
       state.token = ''
       state.isAuthenticated = false
+    },
+    setUser: (state, action: PayloadAction<Partial<User>>) => {
+      state.user = {
+        ...current(state).user,
+        ...(action.payload as User),
+      }
+      localStorage.setItem('user', JSON.stringify(state.user))
     },
     setVerificationCode: (state, action: PayloadAction<string>) => {
       // TODO: Save it in local storage, in case app is reloaded
@@ -158,6 +165,7 @@ export const authSlice = createSlice({
 export const {
   signOut,
   autoLogin,
+  setUser,
   setVerificationCode,
   setForgetPasswordEmail,
 } = authSlice.actions
