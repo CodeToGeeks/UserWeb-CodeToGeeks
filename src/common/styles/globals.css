@@ -54,15 +54,20 @@ button[disabled] {
   align-items: center;
 }
 /* input styles */
+textarea,
 input {
-  height: 2rem;
   border-radius: 4px;
   outline: none;
   border: 1px solid var(--base-50);
 }
-input:hover {
-  border: 1px solid var(--primary-color-400);
+input {
+  height: 2rem;
 }
+textarea:hover,
+input:hover {
+  border: 1px solid var(--primary-color-400) !important;
+}
+textarea:focus,
 input:focus {
   outline: 1px solid var(--primary-color);
 }
