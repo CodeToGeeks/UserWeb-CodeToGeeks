@@ -6,11 +6,11 @@
   max-width: 350px;
 
   img {
+    object-fit: cover;
     border-radius: 50%;
     min-width: 200px !important;
     min-height: 200px !important;
     width: unset !important;
-    height: unset !important;
     justify-content: flex-start;
     margin: 3rem 0 1rem 0 !important;
   }

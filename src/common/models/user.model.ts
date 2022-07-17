@@ -1,4 +1,5 @@
 export interface User {
+  [key: string]: string
   _id: string
   firstName: string
   lastName: string

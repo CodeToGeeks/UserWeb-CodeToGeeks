@@ -19,6 +19,7 @@ type EditProfileFormProps = {
 const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
   const { user } = useAppSelector(authSelector)
   const dispatch = useAppDispatch()
+  const [isValidForm, setIsValidForm] = useState(false)
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -39,6 +40,16 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
       bio: user.bio,
     })
   }, [user])
+
+  useEffect(() => {
+    // Check if all fields are filled
+    const isValid = Object.values(form).every((value) => value)
+    // Check if there is any change in the form
+    const isChanged = Object.entries(form).some(
+      ([key, value]) => user && user[key] != value,
+    )
+    setIsValidForm(isValid && isChanged)
+  }, [form])
 
   const onUpdateProfileHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -85,14 +96,16 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
         value={form.bio}
         minLength={200}
       />
-      <CustomInput
-        id="jobTitle"
-        type="text"
-        placeholder="Enter your job title"
-        value={form.jobTitle}
-        onChange={onUpdateForm}
-      />
-      <div className={styles.formControl}>
+      <div className={styles.job}>
+        <CustomInput
+          id="jobTitle"
+          type="text"
+          placeholder="Enter your job title"
+          value={form.jobTitle}
+          onChange={onUpdateForm}
+        />
+      </div>
+      <div className={`${styles.location} ${styles.formControl}`}>
         <CustomInput
           type="text"
           id="country"
@@ -116,7 +129,11 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
         >
           Cancel
         </button>
-        <button className={styles.saveBtn} onClick={onUpdateProfileHandler}>
+        <button
+          disabled={!isValidForm}
+          className={styles.saveBtn}
+          onClick={onUpdateProfileHandler}
+        >
           Save
         </button>
       </div>

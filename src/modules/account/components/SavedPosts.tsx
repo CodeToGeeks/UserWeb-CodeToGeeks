@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PostsList from '@modules/home/components/PostsList'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
-import { getSavedPosts, accountSelector } from '@store/account'
+import { resetSavedPosts, getSavedPosts, accountSelector } from '@store/account'
 import { getUserInteractions } from '@store/interactions'
 import styles from '../styles/index.module.scss'
 
@@ -12,6 +12,10 @@ const SavedPosts = () => {
   const dispatch = useAppDispatch()
 
   const [pageNumber, setPageNumber] = useState(1)
+
+  useEffect(() => {
+    dispatch(resetSavedPosts())
+  }, [])
 
   useEffect(() => {
     if (!token) return
@@ -30,7 +34,7 @@ const SavedPosts = () => {
   }, [isAuthenticated, token])
 
   return (
-    <main>
+    <main className={styles.savedPostsContainer}>
       <h1 className={`title-underline ${styles.title}`}> Reading List</h1>
       <PostsList
         posts={savedPosts}

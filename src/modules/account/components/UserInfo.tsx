@@ -40,10 +40,10 @@ const UserInfo = () => {
           <div className={styles.joinedAt}>
             {user && 'Joined at ' + formatDate(user?.createdAt)}
           </div>
+          <div className={styles.job}>{user?.jobTitle}</div>
           <div className={styles.location}>
             {user?.country}, {user?.city}
           </div>
-          <div className={styles.job}>{user?.jobTitle}</div>
         </>
       ) : (
         <EditProfileForm setIsEditClicked={setIsEditClicked} />
