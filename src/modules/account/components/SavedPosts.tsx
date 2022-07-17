@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
 import { getSavedPosts, accountSelector } from '@store/account'
 import { getUserInteractions } from '@store/interactions'
+import styles from '../styles/index.module.scss'
 
 const SavedPosts = () => {
   const { savedPosts, totalPostsCount } = useAppSelector(accountSelector)
@@ -29,12 +30,15 @@ const SavedPosts = () => {
   }, [isAuthenticated, token])
 
   return (
-    <PostsList
-      posts={savedPosts}
-      setPageNumber={setPageNumber}
-      totalPostsCount={totalPostsCount}
-      postsIndexWithCover={[]}
-    />
+    <main>
+      <h1 className={`title-underline ${styles.title}`}> Reading List</h1>
+      <PostsList
+        posts={savedPosts}
+        setPageNumber={setPageNumber}
+        totalPostsCount={totalPostsCount}
+        postsIndexWithCover={[]}
+      />
+    </main>
   )
 }
 export default SavedPosts
