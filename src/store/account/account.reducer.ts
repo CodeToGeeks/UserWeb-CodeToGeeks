@@ -11,7 +11,7 @@ export type accountState = {
 
 const initialState: accountState = {
   savedPosts: [],
-  totalPostsCount: 0,
+  totalPostsCount: 1,
   isLoading: false,
   isUpdateAccountLoading: false,
 }
@@ -19,7 +19,11 @@ const initialState: accountState = {
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {},
+  reducers: {
+    resetSavedPosts: (state) => {
+      state.savedPosts = []
+    },
+  },
   extraReducers: (builder) => {
     builder
 
@@ -52,5 +56,7 @@ export const accountSlice = createSlice({
       })
   },
 })
+
+export const { resetSavedPosts } = accountSlice.actions
 
 export default accountSlice.reducer
