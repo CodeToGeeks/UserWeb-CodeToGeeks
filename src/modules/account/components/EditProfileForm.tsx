@@ -3,7 +3,7 @@ import styles from '../styles/EditProfileForm.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { updateAccount } from '@store/account'
 import { authSelector } from '@store/auth'
-import CustomInput from '@modules/auth/components/CustomInput'
+import CustomInput from '@components/CustomInput/CustomInput'
 
 type EditProfileFormProps = {
   setIsEditClicked: (isValid: boolean) => void

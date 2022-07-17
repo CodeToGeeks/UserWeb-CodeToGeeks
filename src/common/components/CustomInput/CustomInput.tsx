@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles/CustomInput.module.scss'
+import styles from './CustomInput.module.scss'
 
 type CustomInputProps = {
   id: string

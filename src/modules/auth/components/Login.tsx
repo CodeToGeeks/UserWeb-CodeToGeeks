@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
-import CustomInput from './CustomInput'
+import CustomInput from '@components/CustomInput/CustomInput'
 import styles from '../styles/Login&SignUp.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'

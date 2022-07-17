@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import styles from '../styles/ForgetPassword.module.scss'
 import Spinner from '@components/ui/Spinner'
 import Card from '@components/ui/Card'
-import CustomInput from '../components/CustomInput'
+import CustomInput from '@components/CustomInput/CustomInput'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
