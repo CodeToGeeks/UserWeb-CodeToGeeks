@@ -10,9 +10,15 @@ const UserInfo = () => {
   const { user } = useAppSelector(authSelector)
   const [imgSrc, setImgSrc] = useState('/assets/auth/user.png')
   const [isEditClicked, setIsEditClicked] = useState(false)
+  const [address, setAddress] = useState('')
 
   useEffect(() => {
     if (user?.profileImageLink) setImgSrc(user.profileImageLink)
+
+    if (user?.country && user?.city) setAddress(`${user.country}, ${user.city}`)
+    else if (user?.country || user?.city)
+      // handling the ','
+      setAddress(`${user.country} ${user.city}`)
   }, [user])
 
   return (
@@ -40,10 +46,8 @@ const UserInfo = () => {
           <div className={styles.joinedAt}>
             {user && 'Joined at ' + formatDate(user?.createdAt)}
           </div>
-          <div className={styles.job}>{user?.jobTitle}</div>
-          <div className={styles.location}>
-            {user?.country}, {user?.city}
-          </div>
+          {user?.jobTitle && <div className={styles.job}>{user?.jobTitle}</div>}
+          {address && <div className={styles.location}>{address}</div>}
         </>
       ) : (
         <EditProfileForm setIsEditClicked={setIsEditClicked} />

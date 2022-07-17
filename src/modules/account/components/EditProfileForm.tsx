@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/EditProfileForm.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { updateAccount } from '@store/account'
+import { updateAccount, accountSelector } from '@store/account'
 import { authSelector } from '@store/auth'
 import CustomInput from '@components/CustomInput/CustomInput'
-
+import Spinner from '@components/ui/Spinner'
 type EditProfileFormProps = {
   setIsEditClicked: (isValid: boolean) => void
 }
@@ -17,8 +17,9 @@ type EditProfileFormProps = {
 */
 
 const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
-  const { user } = useAppSelector(authSelector)
   const dispatch = useAppDispatch()
+  const { user } = useAppSelector(authSelector)
+  const { isUpdateAccountLoading } = useAppSelector(accountSelector)
   const [isValidForm, setIsValidForm] = useState(false)
   const [form, setForm] = useState({
     firstName: '',
@@ -42,8 +43,8 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
   }, [user])
 
   useEffect(() => {
-    // Check if all fields are filled
-    const isValid = Object.values(form).every((value) => value)
+    // the 2 required fields are filled
+    const isValid = form.firstName.trim() != '' && form.lastName.trim() != ''
     // Check if there is any change in the form
     const isChanged = Object.entries(form).some(
       ([key, value]) => user && user[key] != value,
@@ -134,7 +135,7 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
           className={styles.saveBtn}
           onClick={onUpdateProfileHandler}
         >
-          Save
+          {isUpdateAccountLoading ? <Spinner /> : 'Save'}
         </button>
       </div>
     </form>
