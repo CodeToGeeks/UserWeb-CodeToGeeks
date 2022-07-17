@@ -77,6 +77,7 @@ const EditProfileForm = ({ setIsEditClicked }: EditProfileFormProps) => {
       <label> Bio </label>
       <textarea
         id="bio"
+        name="bio"
         className={styles.bio}
         cols={12}
         placeholder="Tell us about yourself"
