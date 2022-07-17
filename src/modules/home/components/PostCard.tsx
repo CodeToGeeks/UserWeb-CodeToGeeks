@@ -23,6 +23,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
   const [postTags, setPostTags] = useState<Tag[]>([])
   const [isSaved, setIsSaved] = useState(false)
   const [isLoved, setIsLoved] = useState(false)
+  const [saveBtnText, setSaveBtnText] = useState('Save')
 
   const dispatch = useAppDispatch()
   const { isAuthenticated } = useAppSelector(authSelector)
@@ -34,6 +35,10 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
     setIsSaved(savedPostsIds.includes(post._id))
     setIsLoved(lovedPostsIds.includes(post._id))
   }, [lovedPostsIds, savedPostsIds, post, isAuthenticated])
+
+  useEffect(() => {
+    setSaveBtnText(isSaved ? 'Saved' : 'Save')
+  }, [isSaved])
 
   useEffect(() => {
     if (!tags.length || !post.tags) return
@@ -109,8 +114,13 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
             <span className={styles.readingInfo}>
               {post.count_minutes_read || 10} mins read
             </span>
-            <button className={styles.saveButton} onClick={onClickSaveHandler}>
-              {isSaved ? 'Unsaved' : 'Save'}
+            <button
+              className={styles.saveButton}
+              onClick={onClickSaveHandler}
+              onMouseOver={() => setSaveBtnText(isSaved ? 'Unsave' : 'Save')}
+              onMouseLeave={() => setSaveBtnText(isSaved ? 'Saved' : 'Save')}
+            >
+              {saveBtnText}
             </button>
           </div>
         </div>
