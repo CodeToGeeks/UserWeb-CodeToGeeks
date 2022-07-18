@@ -42,7 +42,12 @@ export default function Home() {
             <br />
             password information sent to.
           </p>
-          <Image src={'/assets/auth/letter.png'} width="100" height="100" />
+          <Image
+            src={'/assets/auth/letter.png'}
+            width="100"
+            height="100"
+            alt="letter"
+          />
         </div>
         <form className={styles.form}>
           <CustomInput

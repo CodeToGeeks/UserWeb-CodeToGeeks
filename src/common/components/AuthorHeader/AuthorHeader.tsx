@@ -17,7 +17,14 @@ const AuthorHeader = ({ name, profileImage, date }: AuthorHeaderProps) => {
   return (
     <div className={styles.blogHeader}>
       <div className={styles.imgContainer}>
-        <Image src={profileImage} alt={name} width="200" height="200" />
+        <Image
+          src={profileImage}
+          alt={name}
+          width="200"
+          height="200"
+          priority
+          objectFit="cover"
+        />
       </div>
       <div className={styles.info}>
         <div>{name}</div>

@@ -39,21 +39,21 @@ const SocialMedia = () => {
   return (
     <div className={styles.socialMediaContainer}>
       <TwitterShareButton {...commonProps} hashtags={['CODE_TO_GEEKS']}>
-        <Image src={twitterImage} width="24" height="24" />
+        <Image src={twitterImage} width="24" height="24" alt="Twitter icon" />
       </TwitterShareButton>
       <FacebookShareButton
         {...commonProps}
         quote={post?.title}
         hashtag={'#CODE_TO_GEEKS'}
       >
-        <Image src={facebookImage} width="24" height="24" />
+        <Image src={facebookImage} width="24" height="24" alt="Facebook icon" />
       </FacebookShareButton>
       <LinkedinShareButton
         {...commonProps}
         summary={post?.excerpt}
         source={'Code To Geeks'}
       >
-        <Image src={linkedinImage} width="24" height="24" />
+        <Image src={linkedinImage} width="24" height="24" alt="Linkedin icon" />
       </LinkedinShareButton>
       <CopyToClipboard text={`${commonProps.url}`} onCopy={onCopyLinkHandler}>
         <button className={styles.copyBtn}>

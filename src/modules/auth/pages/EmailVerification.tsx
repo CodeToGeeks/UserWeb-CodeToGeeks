@@ -44,6 +44,7 @@ const EmailVerification = ({ token }: EmailVerificationProps) => {
           src={emailVerified ? successImagePath : errorImagePath}
           width={'100'}
           height={'100'}
+          alt={emailVerified ? 'correct' : 'wrong'}
         />
       </div>
     </Card>

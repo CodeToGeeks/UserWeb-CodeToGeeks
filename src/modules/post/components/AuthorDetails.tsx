@@ -20,6 +20,8 @@ const AuthorDetails = ({ author }: AuthorDetailsProps) => {
         alt={author.name}
         width="80"
         height="80"
+        priority
+        objectFit="cover"
       />
       <h3>{author.name}</h3>
       <div>56 Followers</div>

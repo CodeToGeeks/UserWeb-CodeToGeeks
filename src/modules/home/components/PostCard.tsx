@@ -69,6 +69,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
         <Image
           className={styles.postCover}
           src={post.cover_image_link}
+          alt={post.title}
           width="748"
           height={'250'}
           priority={true}

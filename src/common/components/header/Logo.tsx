@@ -16,6 +16,7 @@ const Logo = (props: AppProps) => {
         alt="Code To Geeks"
         width="100"
         height="80"
+        priority
         {...imageProps}
       />
     </div>

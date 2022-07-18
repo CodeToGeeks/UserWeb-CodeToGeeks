@@ -77,6 +77,8 @@ const Navigation = () => {
                     src={imgSrc}
                     width="40"
                     height="40"
+                    priority
+                    objectFit="cover"
                     onError={() => setImgSrc('/assets/auth/user.png')}
                   />
                   <span className={styles.userName}>

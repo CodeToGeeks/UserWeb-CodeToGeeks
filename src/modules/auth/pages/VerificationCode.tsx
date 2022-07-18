@@ -50,6 +50,7 @@ export default function Home() {
             src={'/assets/auth/password-forget.png'}
             width="160"
             height="150"
+            alt="password-lock"
           />
         </div>
 
