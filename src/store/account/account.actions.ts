@@ -49,3 +49,27 @@ export const updateAccount = createAsyncThunk(
     }
   },
 )
+
+export const changeProfileImage = createAsyncThunk(
+  'account/changeProfileImage',
+  async (payload: File, { dispatch }) => {
+    try {
+      const data = new FormData()
+      data.append('file', payload)
+      const res = await axios.post('/account/profile/image', data)
+      console.log(res)
+      dispatch(
+        setUser({
+          profileImageLink: res.data.payload.link,
+        }),
+      )
+      dispatch(showToastSuccess('Profile Image updated successfully'))
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) ||
+        'Error while changing profile image'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
+    }
+  },
+)

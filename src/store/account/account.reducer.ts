@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { getSavedPosts, updateAccount } from './account.actions'
+import {
+  getSavedPosts,
+  updateAccount,
+  changeProfileImage,
+} from './account.actions'
 import { Post } from '@models/Post.model'
 export type accountState = {
   savedPosts: Post[]
   totalPostsCount: number
   isLoading: boolean
   isUpdateAccountLoading: boolean
+  isUploadingImage: boolean
 }
 
 const initialState: accountState = {
@@ -14,6 +19,7 @@ const initialState: accountState = {
   totalPostsCount: 1,
   isLoading: false,
   isUpdateAccountLoading: false,
+  isUploadingImage: false,
 }
 
 export const accountSlice = createSlice({
@@ -53,6 +59,16 @@ export const accountSlice = createSlice({
       })
       .addCase(updateAccount.rejected, (state: accountState) => {
         state.isUpdateAccountLoading = false
+      })
+
+      .addCase(changeProfileImage.pending, (state: accountState) => {
+        state.isUploadingImage = true
+      })
+      .addCase(changeProfileImage.fulfilled, (state: accountState) => {
+        state.isUploadingImage = false
+      })
+      .addCase(changeProfileImage.rejected, (state: accountState) => {
+        state.isUploadingImage = false
       })
   },
 })
