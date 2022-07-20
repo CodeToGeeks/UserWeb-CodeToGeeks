@@ -69,10 +69,7 @@ const Navigation = () => {
           <li>
             <DropDown
               btnJSX={
-                <div
-                  onClick={() => router.push('/account')}
-                  className={styles.userInfo}
-                >
+                <div className={styles.userInfo}>
                   <Image
                     src={imgSrc}
                     width="40"
