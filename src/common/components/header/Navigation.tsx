@@ -81,12 +81,14 @@ const Navigation = () => {
                     objectFit="cover"
                     onError={() => setImgSrc('/assets/auth/user.png')}
                   />
-                  <span className={styles.userName}>
-                    {user.firstName} {user.lastName}
-                  </span>
+                  <span className={styles.userName}>{user.firstName}</span>
                 </div>
               }
               listItems={[
+                {
+                  label: 'Profile | Reading List',
+                  onClick: () => router.push('/account'),
+                },
                 {
                   label: 'Logout',
                   icon: 'user',
