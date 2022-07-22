@@ -63,3 +63,9 @@
     z-index: 5 !important;
   }
 }
+
+@media screen and(max-width: 768px) {
+  .content {
+    padding: 0 1rem 1rem 1rem;
+  }
+}

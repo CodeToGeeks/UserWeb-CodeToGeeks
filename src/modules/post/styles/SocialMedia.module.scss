@@ -3,6 +3,7 @@
   flex-direction: row;
   align-items: center;
   align-self: baseline;
+  justify-content: end;
   button {
     margin-inline-end: 0.85rem;
     filter: invert(58%) sepia(2%) saturate(0%) hue-rotate(135deg)
@@ -11,5 +12,13 @@
     &:hover {
       filter: none;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .socialMediaContainer {
+    flex-wrap: wrap;
+    max-width: 76px;
+    margin: 0;
   }
 }

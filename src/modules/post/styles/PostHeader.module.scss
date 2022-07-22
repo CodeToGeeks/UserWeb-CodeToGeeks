@@ -36,3 +36,13 @@
 .tags {
   padding: 2rem 0;
 }
+
+@media screen and (max-width: 768px) {
+  .headerContainer {
+    padding: 1rem 1rem 0rem 1rem;
+  }
+  .title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}

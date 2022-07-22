@@ -23,7 +23,7 @@ const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
           className={styles.cover}
           src={coverImage}
           alt={title}
-          width="900"
+          width="920"
           height="400"
         />
       )}

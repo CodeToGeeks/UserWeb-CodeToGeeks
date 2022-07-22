@@ -6,11 +6,13 @@ const PostLoader = () => (
   <div className={styles.mainLoader}>
     <ContentLoader
       speed={2}
-      width={920}
+      width={'100%'}
       height={1000}
       viewBox="0 0 920 1000"
       backgroundColor="#d6d6d7"
       foregroundColor="#f9f9f9"
+      preserveAspectRatio="xMinYMin"
+      style={{ width: '100%' }}
     >
       {/* cover image */}
       <rect x="0" y="0" rx="5" ry="5" width="919" height="400" />
