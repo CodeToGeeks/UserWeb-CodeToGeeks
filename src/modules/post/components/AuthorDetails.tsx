@@ -10,9 +10,6 @@ type AuthorDetailsProps = {
 
 const AuthorDetails = ({ author }: AuthorDetailsProps) => {
   const about = 'I am so cool! no one is cool as me as you see'
-  console.log({
-    xx: author.profile_image,
-  })
   return (
     <aside className={styles.authorContainer}>
       <Image

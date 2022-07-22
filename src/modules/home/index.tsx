@@ -25,7 +25,6 @@ const Home = () => {
 
   useEffect(() => {
     if (isAuthenticated && token) {
-      console.log({ token })
       dispatch(getUserInteractions())
     }
   }, [isAuthenticated, token])

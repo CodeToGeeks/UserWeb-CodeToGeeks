@@ -57,7 +57,6 @@ export const changeProfileImage = createAsyncThunk(
       const data = new FormData()
       data.append('file', payload)
       const res = await axios.post('/account/profile/image', data)
-      console.log(res)
       dispatch(
         setUser({
           profileImageLink: res.data.payload.link,
