@@ -5,6 +5,7 @@ import styles from '../styles/ForgetPassword.module.scss'
 import Spinner from '@components/ui/Spinner'
 import Card from '@components/ui/Card'
 import CustomInput from '@components/CustomInput/CustomInput'
+import SEO from '@components/SEO/SEO'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
@@ -33,6 +34,7 @@ export default function Home() {
   return (
     <Card>
       <>
+        <SEO title="Forget Password | Code To Geeks" />
         <h1 className={`title-underline ${styles.title}`}>
           Forget your password?
         </h1>

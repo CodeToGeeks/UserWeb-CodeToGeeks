@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Card from '@components/ui/Card'
+import SEO from '@components/SEO/SEO'
+
 import styles from '../styles/EmailVerification.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector, VerifyEmail } from '@store/auth'
@@ -33,23 +35,28 @@ const EmailVerification = ({ token }: EmailVerificationProps) => {
     }, 5000)
   }, [emailVerified])
 
-  return !isLoading ? (
-    <Card>
-      <div className={styles.centerContent}>
-        <h1 className={styles.title}>
-          {emailVerified ? successMessage : errorMessage}
-        </h1>
+  return (
+    <>
+      <SEO title="Email Verification | Code To Geeks" />
+      {!isLoading ? (
+        <Card>
+          <div className={styles.centerContent}>
+            <h1 className={styles.title}>
+              {emailVerified ? successMessage : errorMessage}
+            </h1>
 
-        <Image
-          src={emailVerified ? successImagePath : errorImagePath}
-          width={'100'}
-          height={'100'}
-          alt={emailVerified ? 'correct' : 'wrong'}
-        />
-      </div>
-    </Card>
-  ) : (
-    <></>
+            <Image
+              src={emailVerified ? successImagePath : errorImagePath}
+              width={'100'}
+              height={'100'}
+              alt={emailVerified ? 'correct' : 'wrong'}
+            />
+          </div>
+        </Card>
+      ) : (
+        <></>
+      )}
+    </>
   )
 }
 

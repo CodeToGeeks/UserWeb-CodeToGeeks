@@ -4,6 +4,8 @@ import styles from '../styles/ResetPassword.module.scss'
 import Card from '@components/ui/Card'
 import CustomInput from '@components/CustomInput/CustomInput'
 import PasswordValidations from '../components/PasswordValidation'
+import SEO from '@components/SEO/SEO'
+
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { resetPassword, authSelector } from '@store/auth'
 import { openLoginModal } from '@store/ui'
@@ -39,6 +41,7 @@ const ResetPassword = () => {
   return (
     <Card>
       <>
+        <SEO title="Reset Password | Code To Geeks" />
         <div className={styles.header}>
           <h1 className="title-underline"> Reset Password </h1>
         </div>

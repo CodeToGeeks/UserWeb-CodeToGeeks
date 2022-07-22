@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import styles from '../styles/VerificationCode.module.scss'
 import Spinner from '@components/ui/Spinner'
 import Card from '@components/ui/Card'
+import SEO from '@components/SEO/SEO'
+
 import OtpInput from 'react-otp-input'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -41,6 +43,7 @@ export default function Home() {
   return (
     <Card>
       <>
+        <SEO title="Verification Code | Code To Geeks" />
         <div className={styles.header}>
           <div>
             <h1 className="title-underline"> Verification Code </h1>

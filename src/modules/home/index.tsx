@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
+import SEO from '@components/SEO/SEO'
+
 import styles from './styles/index.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -44,19 +46,22 @@ const Home = () => {
   }, [pageNumber, searchKeyword])
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div style={{ alignSelf: 'flex-start' }}>
-          <Community />
-          <PopularTags />
-        </div>
-        <PostsList
-          posts={posts}
-          setPageNumber={setPageNumber}
-          totalPostsCount={totalPostsCount}
-        />
-      </main>
-    </div>
+    <>
+      <SEO />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <div style={{ alignSelf: 'flex-start' }}>
+            <Community />
+            <PopularTags />
+          </div>
+          <PostsList
+            posts={posts}
+            setPageNumber={setPageNumber}
+            totalPostsCount={totalPostsCount}
+          />
+        </main>
+      </div>
+    </>
   )
 }
 

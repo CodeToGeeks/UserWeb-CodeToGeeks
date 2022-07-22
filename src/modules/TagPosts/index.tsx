@@ -3,6 +3,8 @@ import { withRouter, NextRouter } from 'next/router'
 import PostsList from '@modules/home/components/PostsList'
 import Community from '@modules/home/components/Community'
 import PopularTags from '@modules/home/components/PopularTags'
+import SEO from '@components/SEO/SEO'
+
 import styles from '@modules/home/styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { resetPosts, getPostsByTagId, postsSelector } from '@store/posts'
@@ -25,19 +27,22 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
     )
   }, [pageNumber, _id])
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div style={{ alignSelf: 'flex-start' }}>
-          <Community />
-          <PopularTags />
-        </div>
-        <PostsList
-          posts={posts}
-          setPageNumber={setPageNumber}
-          totalPostsCount={totalPostsCount}
-        />
-      </main>
-    </div>
+    <>
+      <SEO title="Code To Geeks | Tags" />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <div style={{ alignSelf: 'flex-start' }}>
+            <Community />
+            <PopularTags />
+          </div>
+          <PostsList
+            posts={posts}
+            setPageNumber={setPageNumber}
+            totalPostsCount={totalPostsCount}
+          />
+        </main>
+      </div>
+    </>
   )
 }
 

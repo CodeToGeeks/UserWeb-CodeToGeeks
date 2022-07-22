@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { getPostDetails, postsSelector } from '@store/posts'
 import PostLoader from './components/PostLoader'
 import AuthorDetailsLoader from './components/AuthorDetailsLoader'
+import SEO from '@components/SEO/SEO'
 
 type PostDetailsProps = {
   slug: string | string[] | undefined
@@ -25,6 +26,11 @@ const PostDetails = ({ slug }: PostDetailsProps) => {
     <div className={`${styles.mainWrapper} ${styles.post}`}>
       {post && !isLoading ? (
         <>
+          <SEO
+            title={`${post.title} | Code To Geeks`}
+            description={post.excerpt}
+            image={post.cover_image_link}
+          />
           <PostContainer post={post} />
           <AuthorDetails
             author={{
