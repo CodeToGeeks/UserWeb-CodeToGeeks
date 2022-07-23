@@ -37,11 +37,14 @@ const SEO = ({
       {image && <meta itemProp="image" content={image} />}
       <meta property="og:type" content="article" />
       <meta property="og:url" content={url} />
-      <meta property="og:title" content={WEBSITE_NAME} />
-      {image && <meta property="og:" content={image} />}
+      <meta property="og:title" content={title} />
+      {image && <meta property="og:image" content={image} />}
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={WEBSITE_NAME} />
 
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
       {children}
     </Head>
   )
