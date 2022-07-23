@@ -11,7 +11,7 @@ export type uiState = {
   }[]
 }
 
-const initialState: uiState = {
+export const initialState: uiState = {
   isLoginModalOpened: false,
   isSignUpModalOpened: false,
   toasts: [],

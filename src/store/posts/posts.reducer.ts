@@ -18,7 +18,7 @@ export type postsState = {
   error: unknown
 }
 
-const initialState: postsState = {
+export const initialState: postsState = {
   posts: [],
   post: null,
   totalPostsCount: 1,

@@ -14,7 +14,7 @@ export type accountState = {
   isUploadingImage: boolean
 }
 
-const initialState: accountState = {
+export const initialState: accountState = {
   savedPosts: [],
   totalPostsCount: 1,
   isLoading: false,

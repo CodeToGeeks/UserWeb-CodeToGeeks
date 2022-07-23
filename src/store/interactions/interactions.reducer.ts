@@ -15,7 +15,7 @@ export type interactionsState = {
   savedPosts: Post[]
 }
 
-const initialState: interactionsState = {
+export const initialState: interactionsState = {
   savedPostsIds: [],
   lovedPostsIds: [],
   lovedPosts: [],
