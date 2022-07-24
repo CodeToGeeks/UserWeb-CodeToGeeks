@@ -12,6 +12,7 @@ import {
   getTags,
   incrementPageNumber,
   postsSelector,
+  resetPosts,
 } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
@@ -66,6 +67,9 @@ const Home = () => {
 
 export const getStaticProps = ReduxWrapper.getStaticProps(
   (store) => async () => {
+    // This line is added for the re-rendering on revalidate
+    store.dispatch(resetPosts())
+
     await store.dispatch(getPosts({ pageSize: 3, pageNumber: 1 }))
     store.dispatch(incrementPageNumber())
 
@@ -79,6 +83,7 @@ export const getStaticProps = ReduxWrapper.getStaticProps(
         totalPostsCount,
         pageNumber,
       },
+      revalidate: 30 * 60, // half an hour
     }
   },
 )
