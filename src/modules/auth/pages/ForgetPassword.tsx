@@ -13,8 +13,9 @@ import {
   setForgetPasswordEmail,
   authSelector,
 } from '@store/auth'
+import { openLoginModal } from '@store/ui'
 
-export default function Home() {
+const ForgetPassword = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { isVerificationCodeSent, forgetPasswordEmail, isLoading } =
@@ -29,6 +30,12 @@ export default function Home() {
   ) => {
     event.preventDefault()
     dispatch(sendVerificationCode({ email: forgetPasswordEmail }))
+  }
+
+  const onBackToLoginHandler = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    dispatch(openLoginModal())
+    router.push('/')
   }
 
   return (
@@ -69,10 +76,12 @@ export default function Home() {
             >
               {isLoading ? <Spinner /> : `Send code`}
             </button>
-            <button>Back to login</button>
+            <button onClick={onBackToLoginHandler}>Back to login</button>
           </div>
         </form>
       </>
     </Card>
   )
 }
+
+export default ForgetPassword
