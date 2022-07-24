@@ -11,6 +11,7 @@ import {
 export type postsState = {
   posts: Post[]
   post: Post | null
+  pageNumber: number
   totalPostsCount: number
   tags: Tag[]
   searchKeyword: string
@@ -18,9 +19,10 @@ export type postsState = {
   error: unknown
 }
 
-const initialState: postsState = {
+export const initialState: postsState = {
   posts: [],
   post: null,
+  pageNumber: 1,
   totalPostsCount: 1,
   tags: [],
   searchKeyword: '',
@@ -35,9 +37,11 @@ export const postsSlice = createSlice({
     resetPosts: (state) => {
       state.posts = []
       state.totalPostsCount = 1
+      state.pageNumber = 1
     },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload
+      state.pageNumber = 1
     },
     incrementPostLoveCount: (state, action) => {
       const postId = action.payload
@@ -70,6 +74,9 @@ export const postsSlice = createSlice({
       if (state.post && state.post._id === postId) {
         state.post.love_count = +state.post.love_count - 1 || 0
       }
+    },
+    incrementPageNumber: (state) => {
+      state.pageNumber++
     },
   },
   extraReducers: (builder) => {
@@ -145,5 +152,6 @@ export const {
   setSearchKeyword,
   incrementPostLoveCount,
   decrementPostLoveCount,
+  incrementPageNumber,
 } = postsSlice.actions
 export default postsSlice.reducer

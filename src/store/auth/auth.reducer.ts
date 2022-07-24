@@ -22,7 +22,7 @@ export type authState = {
   emailVerified: boolean | null
 }
 
-const initialState: authState = {
+export const initialState: authState = {
   user: null,
   token: '',
   isAuthenticated: false,
