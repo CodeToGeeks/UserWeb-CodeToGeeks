@@ -16,7 +16,7 @@ import {
   authSelector,
 } from '@store/auth'
 
-export default function Home() {
+const VerificationCode = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const {
@@ -97,3 +97,5 @@ export default function Home() {
     </Card>
   )
 }
+
+export default VerificationCode
