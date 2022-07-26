@@ -49,6 +49,8 @@ export const masterReducer = (
         posts: [...action.payload.posts.posts, ...(state?.posts?.posts || [])],
         totalPostsCount: action.payload.posts.totalPostsCount || 1,
         pageNumber: action.payload.posts.pageNumber || 1,
+        post: action.payload.posts.post || {},
+        isLoading: action.payload.posts.isLoading || false,
       },
       auth: authInit,
       ui: uiInit,
