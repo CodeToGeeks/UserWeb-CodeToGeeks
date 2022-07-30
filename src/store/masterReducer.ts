@@ -46,17 +46,22 @@ export const masterReducer = (
     const nextState = {
       posts: {
         ...postsInit,
-        posts: [...action.payload.posts.posts, ...(state?.posts?.posts || [])],
-        totalPostsCount: action.payload.posts.totalPostsCount || 1,
-        pageNumber: action.payload.posts.pageNumber || 1,
-        post: action.payload.posts.post || {},
-        isLoading: action.payload.posts.isLoading || false,
+        posts: [...action.payload.posts.posts],
+        totalPostsCount:
+          action.payload.posts.totalPostsCount || state?.posts.totalPostsCount,
+        pageNumber: action.payload.posts.pageNumber || state?.posts.pageNumber,
+        post: action.payload.posts.post || state?.posts.post,
+        isLoading: action.payload.posts.isLoading || state?.posts.isLoading,
+        tags: action.payload.posts.tags || state?.posts.tags,
       },
       auth: authInit,
       ui: uiInit,
       interactions: interactionsInit,
       account: accountInit,
     }
+    console.log({
+      posts: nextState.posts,
+    })
     return nextState as AppInitState
   }
   return combineReducer(state, action)
