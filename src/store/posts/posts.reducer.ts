@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
+
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
 
@@ -81,6 +83,20 @@ export const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(HYDRATE, (state, action: any) => {
+        if (action.payload.posts.posts.length)
+          state.posts = [...action.payload.posts.posts]
+
+        if (action.payload.posts.totalPostsCount)
+          state.totalPostsCount = action.payload.posts.totalPostsCount
+
+        if (action.payload.posts.pageNumber)
+          state.pageNumber = action.payload.posts.pageNumber
+
+        if (action.payload.posts.tags) state.tags = action.payload.posts.tags
+        if (action.payload.posts.post) state.post = action.payload.posts.post
+      })
+
       .addCase(getPosts.pending, (state: postsState) => {
         state.isLoading = true
       })
