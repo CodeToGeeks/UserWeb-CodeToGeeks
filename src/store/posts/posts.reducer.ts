@@ -1,15 +1,22 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  PayloadAction,
+  current,
+  createAction,
+} from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
-
+import type { RootState } from '@store/store'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
-
 import {
   getPosts,
   getTags,
   getPostDetails,
   getPostsByTagId,
 } from './posts.actions'
+
+const hydrate = createAction<RootState>(HYDRATE)
+
 export type postsState = {
   posts: Post[]
   post: Post | null
@@ -83,18 +90,19 @@ export const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(HYDRATE, (state, action: any) => {
-        if (action.payload.posts.posts.length)
-          state.posts = [...action.payload.posts.posts]
-
-        if (action.payload.posts.totalPostsCount)
-          state.totalPostsCount = action.payload.posts.totalPostsCount
-
-        if (action.payload.posts.pageNumber)
-          state.pageNumber = action.payload.posts.pageNumber
-
-        if (action.payload.posts.tags) state.tags = action.payload.posts.tags
+      .addCase(hydrate, (state, action) => {
         if (action.payload.posts.post) state.post = action.payload.posts.post
+        else {
+          if (action.payload.posts.posts.length)
+            state.posts = [...action.payload.posts.posts]
+          if (action.payload.posts.totalPostsCount)
+            state.totalPostsCount = action.payload.posts.totalPostsCount
+
+          if (action.payload.posts.pageNumber)
+            state.pageNumber = action.payload.posts.pageNumber
+
+          if (action.payload.posts.tags) state.tags = action.payload.posts.tags
+        }
       })
 
       .addCase(getPosts.pending, (state: postsState) => {
