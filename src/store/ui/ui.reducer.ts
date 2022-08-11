@@ -1,5 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import { ToastType } from '@constants/toastType'
+import { HYDRATE } from 'next-redux-wrapper'
 
 export type uiState = {
   isLoginModalOpened: boolean
@@ -67,6 +68,19 @@ export const uiSlice = createSlice({
       )
     },
   },
+  /* extraReducers: (builder) => {
+    builder
+    
+    .addCase(HYDRATE, (state, action: any) => {
+      console.log('HYDRATE ui')
+      if (
+        action.payload.ui.isLoginModalOpened === null ||
+        action.payload.ui.isSignUpModalOpened === null
+      )
+        return state
+      state = action.payload.ui
+    })
+  },*/
 })
 
 export const {

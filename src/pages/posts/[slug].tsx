@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import PostDetails from '@modules/post'
+import PostDetails, {
+  getStaticPaths as postGetStaticPaths,
+  getStaticProps as postGetStaticProps,
+} from '@modules/post'
 
 const Post: NextPage = () => {
-  const router = useRouter()
-  let slug = router.query.slug
-
-  useEffect(() => {
-    slug = router.query.slug
-  }, [router.isReady])
-
-  return <PostDetails slug={slug} />
+  return <PostDetails />
 }
+
+export const getStaticPaths = postGetStaticPaths
+export const getStaticProps = postGetStaticProps
 
 export default Post

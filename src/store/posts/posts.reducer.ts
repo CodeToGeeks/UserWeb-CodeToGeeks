@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
-
+import { diff } from '../../common/utils/jsonCompare'
 import {
   getPosts,
   getTags,
@@ -34,16 +35,16 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    resetPosts: (state) => {
+    resetPosts: (state: any) => {
       state.posts = []
       state.totalPostsCount = 1
       state.pageNumber = 1
     },
-    setSearchKeyword: (state, action) => {
+    setSearchKeyword: (state: any, action: any) => {
       state.searchKeyword = action.payload
       state.pageNumber = 1
     },
-    incrementPostLoveCount: (state, action) => {
+    incrementPostLoveCount: (state: any, action: any) => {
       const postId = action.payload
       // Increment love count of post in posts array
       state.posts = current(state).posts.map((post: Post) => {
@@ -59,7 +60,7 @@ export const postsSlice = createSlice({
         state.post.love_count = +state.post.love_count + 1 || 1
       }
     },
-    decrementPostLoveCount: (state, action) => {
+    decrementPostLoveCount: (state: any, action: any) => {
       const postId = action.payload
       // Decrement love count of post in posts array
       state.posts = current(state).posts.map((post: Post) => {
@@ -75,12 +76,41 @@ export const postsSlice = createSlice({
         state.post.love_count = +state.post.love_count - 1 || 0
       }
     },
-    incrementPageNumber: (state) => {
+    incrementPageNumber: (state: any) => {
       state.pageNumber++
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(HYDRATE, (state, action: any) => {
+        // console.log('HYDRATE posts', action.payload.posts)
+        // console.log('defff', )
+
+        if (diff(state.post, action.payload.posts.post))
+          state.post = action.payload.posts.post
+
+        if (diff(state.posts, action.payload.posts.posts))
+          state.posts = [...action.payload.posts.posts]
+
+        if (diff(state.totalPostsCount, action.payload.posts.totalPostsCount))
+          state.totalPostsCount = action.payload.posts.totalPostsCount
+
+        if (diff(state.pageNumber, action.payload.posts.pageNumber))
+          state.pageNumber = action.payload.posts.pageNumber
+
+        if (diff(state.tags, action.payload.posts.tags))
+          state.tags = action.payload.posts.tags
+
+        if (diff(state.searchKeyword, action.payload.posts.searchKeyword))
+          state.searchKeyword = action.payload.posts.searchKeyword
+
+        if (diff(state.isLoading, action.payload.posts.isLoading))
+          state.isLoading = action.payload.posts.isLoading
+
+        if (diff(state.error, action.payload.posts.error))
+          state.error = action.payload.posts.error
+      })
+
       .addCase(getPosts.pending, (state: postsState) => {
         state.isLoading = true
       })

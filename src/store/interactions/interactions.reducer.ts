@@ -1,5 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import { Post } from '@models/Post.model'
+import { HYDRATE } from 'next-redux-wrapper'
 
 import {
   getUserInteractions,
@@ -28,6 +29,11 @@ export const interactionsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      /*  .addCase(HYDRATE, (state, action: any) => {
+        console.log('HYDRATE interactions')
+         if (action.payload.interactions.savedPostsIdss === null) return state
+        state = action.payload.interactions
+      })*/
       // GET USER INTERACTIONS ( saved and loved posts Ids )
       .addCase(
         getUserInteractions.fulfilled,
