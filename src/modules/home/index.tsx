@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
@@ -19,10 +20,10 @@ import { authSelector } from '@store/auth'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { posts, pageNumber, totalPostsCount, tags, searchKeyword } =
+  const { posts, totalPostsCount, tags, searchKeyword } =
     useAppSelector(postsSelector)
-
   const { isAuthenticated, token } = useAppSelector(authSelector)
+  const router = useRouter()
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -33,16 +34,6 @@ const Home = () => {
   useEffect(() => {
     if (!tags.length) dispatch(getTags())
   }, [])
-
-  useEffect(() => {
-    dispatch(
-      getPosts({
-        pageSize: 3,
-        pageNumber,
-        ...(searchKeyword && { search: searchKeyword }),
-      }),
-    )
-  }, [pageNumber, searchKeyword])
 
   return (
     <div>
@@ -55,7 +46,7 @@ const Home = () => {
           </div>
           <PostsList
             posts={posts}
-            setPageNumber={() => dispatch(incrementPageNumber())}
+            setPageNumber={() => router.replace(router.asPath)}
             totalPostsCount={totalPostsCount}
           />
         </main>
@@ -63,21 +54,28 @@ const Home = () => {
     </div>
   )
 }
-
-export const getStaticProps = ReduxWrapper.getStaticProps(
+let cnt = 0
+export const getServerSideProps: any = ReduxWrapper.getServerSideProps(
   (store) => async () => {
-    await store.dispatch(getPosts({ pageSize: 3, pageNumber: 1 }))
+    const tags = store.getState().posts.tags
+    if (!tags.length) store.dispatch(getTags())
+
+    const pageNumber = store.getState().posts.pageNumber
+
+    await store.dispatch(getPosts({ pageSize: 3, pageNumber }))
     store.dispatch(incrementPageNumber())
 
     const posts = store.getState().posts.posts
     const totalPostsCount = store.getState().posts.totalPostsCount
-    const pageNumber = store.getState().posts.pageNumber
+    console.log('page', pageNumber, 'posts count', posts.length)
+    console.log(cnt++)
 
     return {
       props: {
         posts,
         totalPostsCount,
         pageNumber,
+        tags,
       },
     }
   },
