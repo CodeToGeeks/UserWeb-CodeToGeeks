@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
-import { HYDRATE } from 'next-redux-wrapper'
+
 import {
   login,
   signUp,
@@ -70,12 +70,7 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      /*   .addCase(HYDRATE, (state, action: any) => {
-        console.log('HYDRATE auth ')
-         if (!action.payload.auth.user) return
-        state = action.payload.auth
-      })
-*/
+
       .addCase(signUp.pending, (state: authState) => {
         state.isLoading = true
       })

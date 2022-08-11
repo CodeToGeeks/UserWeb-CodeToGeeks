@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { HYDRATE } from 'next-redux-wrapper'
 
 import {
   getSavedPosts,
@@ -33,14 +32,10 @@ export const accountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      /*  .addCase(HYDRATE, (state, action: any) => {
-        console.log('HYDRATE account')
-       if (action.payload.account.savedPosts === null) return state
-        state = action.payload.account
-      })
+
       .addCase(getSavedPosts.pending, (state: accountState) => {
         state.isLoading = true
-      })*/
+      })
       .addCase(
         getSavedPosts.fulfilled,
         (
