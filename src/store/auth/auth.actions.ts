@@ -31,7 +31,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (payload: LoginPayload, { dispatch }) => {
     try {
-      const res: any = await axios.post('auth/signin', payload)
+      const res = await axios.post('auth/signin', payload)
       // save to local storage
       localStorage.setItem('token', res.data.payload.token)
       localStorage.setItem('user', JSON.stringify(res.data.payload))
