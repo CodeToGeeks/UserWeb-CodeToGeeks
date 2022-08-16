@@ -13,6 +13,7 @@ import {
   getTags,
   incrementPageNumber,
   postsSelector,
+  setSearchKeyword,
 } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
@@ -20,7 +21,7 @@ import { authSelector } from '@store/auth'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount, tags, searchKeyword } =
+  const { posts, totalPostsCount, searchKeyword } =
     useAppSelector(postsSelector)
   const { isAuthenticated, token } = useAppSelector(authSelector)
   const router = useRouter()
@@ -32,8 +33,13 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (!tags.length) dispatch(getTags())
-  }, [])
+    router.replace({
+      pathname: '/',
+      query: {
+        ...(searchKeyword && { search: searchKeyword }),
+      },
+    })
+  }, [searchKeyword])
 
   return (
     <div>
@@ -47,13 +53,7 @@ const Home = () => {
           <PostsList
             posts={posts}
             setPageNumber={() =>
-              router.push(
-                {
-                  pathname: router.asPath,
-                },
-                undefined,
-                { scroll: false },
-              )
+              router.push({ pathname: '/' }, undefined, { scroll: false })
             }
             totalPostsCount={totalPostsCount}
           />
@@ -62,30 +62,44 @@ const Home = () => {
     </div>
   )
 }
-let cnt = 0
+
 export const getServerSideProps = ReduxWrapper.getServerSideProps(
-  (store) => async () => {
-    const tags = store.getState().posts.tags
-    if (!tags.length) store.dispatch(getTags())
+  (store) =>
+    async ({ query }) => {
+      const tags = store.getState().posts.tags
+      if (!tags.length) store.dispatch(getTags())
 
-    const pageNumber = store.getState().posts.pageNumber
+      const isSearchKeywordChanged =
+        query.search !== store.getState().posts.searchKeyword &&
+        (query.search || store.getState().posts.searchKeyword)
+      if (isSearchKeywordChanged) {
+        store.dispatch(setSearchKeyword(query.search || ''))
+      }
 
-    await store.dispatch(getPosts({ pageSize: 3, pageNumber }))
-    store.dispatch(incrementPageNumber())
+      const pageNumber = store.getState().posts.pageNumber
+      const searchKeyword = store.getState().posts.searchKeyword
 
-    const posts = store.getState().posts.posts
-    const totalPostsCount = store.getState().posts.totalPostsCount
-    console.log('page', pageNumber, 'posts count', posts.length)
-    console.log(cnt++)
+      await store.dispatch(
+        getPosts({
+          pageSize: 3,
+          pageNumber: store.getState().posts.pageNumber,
+          ...(searchKeyword && { search: searchKeyword }),
+        }),
+      )
+      store.dispatch(incrementPageNumber())
 
-    return {
-      props: {
-        posts,
-        totalPostsCount,
-        pageNumber,
-        tags,
-      },
-    }
-  },
+      const posts = store.getState().posts.posts
+      const totalPostsCount = store.getState().posts.totalPostsCount
+
+      return {
+        props: {
+          posts,
+          totalPostsCount,
+          searchKeyword,
+          pageNumber,
+          tags,
+        },
+      }
+    },
 )
 export default Home
