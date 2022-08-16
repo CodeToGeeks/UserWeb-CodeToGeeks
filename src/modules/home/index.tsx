@@ -46,7 +46,15 @@ const Home = () => {
           </div>
           <PostsList
             posts={posts}
-            setPageNumber={() => router.replace(router.asPath)}
+            setPageNumber={() =>
+              router.push(
+                {
+                  pathname: router.asPath,
+                },
+                undefined,
+                { scroll: false },
+              )
+            }
             totalPostsCount={totalPostsCount}
           />
         </main>
