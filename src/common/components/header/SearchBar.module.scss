@@ -1,10 +1,11 @@
 .searchContainer {
   display: flex;
   position: relative;
+  align-items: center;
 
   .input {
     border-radius: 6px;
-    height: 42px;
+    height: 36px;
     max-width: 700px;
     width: 100%;
     border: 1px solid rgb(201, 201, 201);

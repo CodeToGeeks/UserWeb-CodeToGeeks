@@ -51,6 +51,13 @@
 }
 
 @media screen and (max-width: 750px) {
+  .nav li {
+    margin: 0 !important;
+    padding-inline-end: 0 !important;
+    * {
+      font-size: 12px !important;
+    }
+  }
   .nav li:not(:last-child) {
     display: none;
   }
