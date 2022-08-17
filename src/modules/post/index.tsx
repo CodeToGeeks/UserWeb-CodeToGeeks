@@ -1,26 +1,24 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import AuthorDetails from './components/AuthorDetails'
 import PostContainer from './components/PostContainer'
 import styles from './styles/index.module.scss'
 
-import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { getPostDetails, postsSelector } from '@store/posts'
+import { useAppSelector } from '@store/hooks'
+import {
+  getPostDetails,
+  getPosts,
+  postsSelector,
+  resetPosts,
+} from '@store/posts'
 import PostLoader from './components/PostLoader'
 import AuthorDetailsLoader from './components/AuthorDetailsLoader'
 import SEO from '@components/SEO/SEO'
+import { ReduxWrapper, store } from '@store/store'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
-type PostDetailsProps = {
-  slug: string | string[] | undefined
-}
-
-const PostDetails = ({ slug }: PostDetailsProps) => {
-  const dispatch = useAppDispatch()
+const PostDetails = () => {
   const { post, isLoading } = useAppSelector(postsSelector)
-
-  useEffect(() => {
-    if (typeof slug == 'string') dispatch(getPostDetails({ slug }))
-  }, [slug])
 
   return (
     <div className={`${styles.mainWrapper} ${styles.post}`}>
@@ -49,6 +47,39 @@ const PostDetails = ({ slug }: PostDetailsProps) => {
       )}
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = ReduxWrapper.getStaticProps(
+  (store) => async (context) => {
+    const slug = context.params?.slug
+
+    if (typeof slug === 'string') {
+      await store.dispatch(getPostDetails({ slug }))
+    }
+
+    const post = store.getState().posts.post
+    return {
+      props: { post },
+    }
+  },
+)
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // pre-render 1st page of posts list only
+  const isTherePosts = store.getState().posts.posts.length > 0
+  if (!isTherePosts) {
+    store.dispatch(resetPosts())
+    await store.dispatch(getPosts({ pageSize: 3, pageNumber: 1 }))
+  }
+
+  const postsIds = store
+    .getState()
+    .posts.posts.map((post) => ({ params: { slug: post.slug } }))
+
+  return {
+    paths: postsIds,
+    fallback: true,
+  }
 }
 
 export default PostDetails

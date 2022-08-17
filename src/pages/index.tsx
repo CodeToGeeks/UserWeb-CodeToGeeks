@@ -1,11 +1,12 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import HomePage, { getStaticProps as homeGetStaticProps } from '@modules/home'
+import HomePage, {
+  getServerSideProps as homeGetServerSideProps,
+} from '@modules/home'
 
 const Home: NextPage = () => {
   return <HomePage />
 }
-
-export const getStaticProps = homeGetStaticProps
+export const getServerSideProps = homeGetServerSideProps
 
 export default Home
