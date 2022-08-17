@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
@@ -12,6 +13,7 @@ import {
   getTags,
   incrementPageNumber,
   postsSelector,
+  setSearchKeyword,
 } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
@@ -19,10 +21,10 @@ import { authSelector } from '@store/auth'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { posts, pageNumber, totalPostsCount, tags, searchKeyword } =
+  const { posts, totalPostsCount, searchKeyword } =
     useAppSelector(postsSelector)
-
   const { isAuthenticated, token } = useAppSelector(authSelector)
+  const router = useRouter()
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -31,18 +33,13 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (!tags.length) dispatch(getTags())
-  }, [])
-
-  useEffect(() => {
-    dispatch(
-      getPosts({
-        pageSize: 3,
-        pageNumber,
+    router.replace({
+      pathname: '/',
+      query: {
         ...(searchKeyword && { search: searchKeyword }),
-      }),
-    )
-  }, [pageNumber, searchKeyword])
+      },
+    })
+  }, [searchKeyword])
 
   return (
     <div>
@@ -55,7 +52,9 @@ const Home = () => {
           </div>
           <PostsList
             posts={posts}
-            setPageNumber={() => dispatch(incrementPageNumber())}
+            setPageNumber={() =>
+              router.push({ pathname: '/' }, undefined, { scroll: false })
+            }
             totalPostsCount={totalPostsCount}
           />
         </main>
@@ -64,22 +63,43 @@ const Home = () => {
   )
 }
 
-export const getStaticProps = ReduxWrapper.getStaticProps(
-  (store) => async () => {
-    await store.dispatch(getPosts({ pageSize: 3, pageNumber: 1 }))
-    store.dispatch(incrementPageNumber())
+export const getServerSideProps = ReduxWrapper.getServerSideProps(
+  (store) =>
+    async ({ query }) => {
+      const tags = store.getState().posts.tags
+      if (!tags.length) store.dispatch(getTags())
 
-    const posts = store.getState().posts.posts
-    const totalPostsCount = store.getState().posts.totalPostsCount
-    const pageNumber = store.getState().posts.pageNumber
+      const isSearchKeywordChanged =
+        query.search !== store.getState().posts.searchKeyword &&
+        (query.search || store.getState().posts.searchKeyword)
+      if (isSearchKeywordChanged) {
+        store.dispatch(setSearchKeyword(query.search || ''))
+      }
 
-    return {
-      props: {
-        posts,
-        totalPostsCount,
-        pageNumber,
-      },
-    }
-  },
+      const pageNumber = store.getState().posts.pageNumber
+      const searchKeyword = store.getState().posts.searchKeyword
+
+      await store.dispatch(
+        getPosts({
+          pageSize: 3,
+          pageNumber: store.getState().posts.pageNumber,
+          ...(searchKeyword && { search: searchKeyword }),
+        }),
+      )
+      store.dispatch(incrementPageNumber())
+
+      const posts = store.getState().posts.posts
+      const totalPostsCount = store.getState().posts.totalPostsCount
+
+      return {
+        props: {
+          posts,
+          totalPostsCount,
+          searchKeyword,
+          pageNumber,
+          tags,
+        },
+      }
+    },
 )
 export default Home

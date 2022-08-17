@@ -1,13 +1,24 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  PayloadAction,
+  current,
+  createAction,
+} from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
+import { diff } from 'json-diff'
+
+import type { RootState } from '@store/store'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
-
 import {
   getPosts,
   getTags,
   getPostDetails,
   getPostsByTagId,
 } from './posts.actions'
+
+const hydrate = createAction<RootState>(HYDRATE)
+
 export type postsState = {
   posts: Post[]
   post: Post | null
@@ -40,7 +51,9 @@ export const postsSlice = createSlice({
       state.pageNumber = 1
     },
     setSearchKeyword: (state, action) => {
+      state.posts = []
       state.searchKeyword = action.payload
+      state.totalPostsCount = 1
       state.pageNumber = 1
     },
     incrementPostLoveCount: (state, action) => {
@@ -81,6 +94,26 @@ export const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(hydrate, (state, action) => {
+        if (diff(state.post, action.payload.posts.post))
+          state.post = action.payload.posts.post
+
+        if (diff(state.posts, action.payload.posts.posts))
+          state.posts = [...action.payload.posts.posts]
+
+        if (diff(state.totalPostsCount, action.payload.posts.totalPostsCount))
+          state.totalPostsCount = action.payload.posts.totalPostsCount
+
+        if (diff(state.pageNumber, action.payload.posts.pageNumber))
+          state.pageNumber = action.payload.posts.pageNumber
+
+        if (diff(state.searchKeyword, action.payload.posts.searchKeyword))
+          state.searchKeyword = action.payload.posts.searchKeyword
+
+        if (diff(state.tags, action.payload.posts.tags))
+          state.tags = action.payload.posts.tags
+      })
+
       .addCase(getPosts.pending, (state: postsState) => {
         state.isLoading = true
       })
