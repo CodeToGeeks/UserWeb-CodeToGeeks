@@ -14,7 +14,7 @@ const Logo = (props: AppProps) => {
     <div className={styles || ''}>
       <Link href="/">
         <Image
-          src="/assets/logo2.png"
+          src="/assets/logo.png"
           alt="Code To Geeks"
           width="100"
           height="80"
