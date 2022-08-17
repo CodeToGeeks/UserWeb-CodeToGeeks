@@ -65,7 +65,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
 
   return (
     <>
-      {hasCover && (
+      {hasCover && post.cover_image_link && (
         <Image
           className={styles.postCover}
           src={post.cover_image_link}
