@@ -8,11 +8,14 @@ import SEO from '@components/SEO/SEO'
 import styles from '@modules/home/styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { resetPosts, getPostsByTagId, postsSelector } from '@store/posts'
+import TagHeader from './components/TagHeader'
+import { Tag } from '@models/Tag.model'
 
 const TagPosts = ({ router }: { router: NextRouter }) => {
   const [pageNumber, setPageNumber] = useState(1)
+  const [tag, setTag] = useState({} as Tag)
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount } = useAppSelector(postsSelector)
+  const { posts, totalPostsCount, tags } = useAppSelector(postsSelector)
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())
@@ -26,10 +29,19 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
       }),
     )
   }, [pageNumber, _id])
+
+  useEffect(() => {
+    const tag = getCurrentTag()
+    if (tag) setTag(tag)
+  }, [tags, _id])
+
+  const getCurrentTag = () => tags.find((tag: Tag) => tag._id === _id)
+
   return (
     <>
       <SEO title="Code To Geeks | Tags" />
       <div className={styles.container}>
+        <TagHeader tag={tag} />
         <main className={styles.main}>
           <div style={{ alignSelf: 'flex-start' }}>
             <Community />
