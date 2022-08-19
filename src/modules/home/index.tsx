@@ -34,7 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     router.replace({
-      pathname: '/',
+      pathname: router.basePath,
       query: {
         ...(searchKeyword && { search: searchKeyword }),
       },
@@ -53,7 +53,7 @@ const Home = () => {
           <PostsList
             posts={posts}
             setPageNumber={() =>
-              router.push({ pathname: '/' }, undefined, { scroll: false })
+              router.push(router.asPath, undefined, { scroll: false })
             }
             totalPostsCount={totalPostsCount}
           />
@@ -73,6 +73,7 @@ export const getServerSideProps = ReduxWrapper.getServerSideProps(
         query.search !== store.getState().posts.searchKeyword &&
         (query.search || store.getState().posts.searchKeyword)
       if (isSearchKeywordChanged) {
+        console.log('search keyword changed')
         store.dispatch(setSearchKeyword(query.search || ''))
       }
 
@@ -86,6 +87,11 @@ export const getServerSideProps = ReduxWrapper.getServerSideProps(
           ...(searchKeyword && { search: searchKeyword }),
         }),
       )
+      console.log({
+        pageSize: 3,
+        pageNumber: store.getState().posts.pageNumber,
+        ...(searchKeyword && { search: searchKeyword }),
+      })
       store.dispatch(incrementPageNumber())
 
       const posts = store.getState().posts.posts
