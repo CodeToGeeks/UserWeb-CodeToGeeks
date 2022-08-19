@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useIsMount } from '@hooks/useIsMount'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
@@ -25,6 +26,7 @@ const Home = () => {
     useAppSelector(postsSelector)
   const { isAuthenticated, token } = useAppSelector(authSelector)
   const router = useRouter()
+  const isMount = useIsMount()
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -33,7 +35,7 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    console.log({ searchKeyword })
+    if (isMount) return
     router.replace({
       pathname: router.basePath,
       query: {
