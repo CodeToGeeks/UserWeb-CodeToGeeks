@@ -33,6 +33,7 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
+    console.log({ searchKeyword })
     router.replace({
       pathname: router.basePath,
       query: {
@@ -73,7 +74,6 @@ export const getServerSideProps = ReduxWrapper.getServerSideProps(
         query.search !== store.getState().posts.searchKeyword &&
         (query.search || store.getState().posts.searchKeyword)
       if (isSearchKeywordChanged) {
-        console.log('search keyword changed')
         store.dispatch(setSearchKeyword(query.search || ''))
       }
 
@@ -101,7 +101,6 @@ export const getServerSideProps = ReduxWrapper.getServerSideProps(
         props: {
           posts,
           totalPostsCount,
-          searchKeyword,
           pageNumber,
           tags,
         },

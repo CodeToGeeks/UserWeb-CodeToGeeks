@@ -107,9 +107,6 @@ export const postsSlice = createSlice({
         if (diff(state.pageNumber, action.payload.posts.pageNumber))
           state.pageNumber = action.payload.posts.pageNumber
 
-        if (diff(state.searchKeyword, action.payload.posts.searchKeyword))
-          state.searchKeyword = action.payload.posts.searchKeyword
-
         if (diff(state.tags, action.payload.posts.tags))
           state.tags = action.payload.posts.tags
       })
