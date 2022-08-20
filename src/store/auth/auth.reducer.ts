@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
-
+import axios from 'axios'
 import {
   login,
   signUp,
@@ -7,6 +7,7 @@ import {
   checkVerificationCode,
   resetPassword,
   VerifyEmail,
+  autoLogin,
 } from './auth.actions'
 import { User } from '@models/user.model'
 export type authState = {
@@ -39,13 +40,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    autoLogin: (state) => {
-      const token = localStorage.getItem('token')
-      const user = localStorage.getItem('user')
-      state.token = token || ''
-      state.user = JSON.parse(user || '{}') as User
-      state.isAuthenticated = !!token
-    },
     signOut: (state) => {
       localStorage.clear()
       state.user = null
@@ -159,14 +153,19 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.emailVerified = false
       })
+      .addCase(autoLogin.fulfilled, (state: authState, action: any) => {
+        state.token = action.payload.token
+        state.isAuthenticated = true
+        state.user = action.payload.user
+      })
+      .addCase(autoLogin.rejected, (state: authState, action: any) => {
+        state.user = null
+        state.token = action.payload.token
+        state.isAuthenticated = false
+      })
   },
 })
 
-export const {
-  signOut,
-  autoLogin,
-  setUser,
-  setVerificationCode,
-  setForgetPasswordEmail,
-} = authSlice.actions
+export const { signOut, setUser, setVerificationCode, setForgetPasswordEmail } =
+  authSlice.actions
 export default authSlice.reducer

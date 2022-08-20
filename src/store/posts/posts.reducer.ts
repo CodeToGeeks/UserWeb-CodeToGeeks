@@ -5,8 +5,7 @@ import {
   createAction,
 } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
-import { diff } from 'json-diff'
-
+import { diff } from '../../common/utils/jsonCompare'
 import type { RootState } from '@store/store'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
