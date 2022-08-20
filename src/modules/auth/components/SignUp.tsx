@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { signUp, authSelector } from '@store/auth'
 import { openLoginModal, resetModals } from '@store/ui'
 
-const SignUp = () => {
+const Login = () => {
   const dispatch = useAppDispatch()
   const { isLoading } = useAppSelector(authSelector)
 
@@ -135,4 +135,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Login

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import Image from 'next/image'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import styles from '../styles/Code.module.scss'
 
