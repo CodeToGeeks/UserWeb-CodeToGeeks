@@ -7,7 +7,10 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div>
-        <Logo styles={styles.logo} />
+        <div className={styles.logoContainer}>
+          <Logo styles={styles.logo} />
+          <div>CodeToGeeks</div>
+        </div>
         <div className={styles.contact}>
           <div>Contact</div>
           <a href="tel:01278759466">(+20) 1278-759-466</a>

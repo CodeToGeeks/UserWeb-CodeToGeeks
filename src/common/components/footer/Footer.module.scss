@@ -34,8 +34,20 @@
     font-weight: 500;
   }
 }
-.logo {
-  max-width: 5rem;
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo {
+    max-width: 4rem;
+    margin-inline-end: 0.65rem;
+  }
+  div {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
 }
 
 @media screen and(max-width: 700px) {
