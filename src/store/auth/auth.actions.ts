@@ -126,6 +126,23 @@ export const VerifyEmail = createAsyncThunk(
   },
 )
 
+export const autoLogin = createAsyncThunk(
+  'auth/autoLogin',
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token')
+      let user = localStorage.getItem('user')
+      const res = await axios.get('/account', {
+        headers: { 'x-auth-token': token ? token : '' },
+      })
+
+      return { user: JSON.parse(user as string), token }
+    } catch (error) {
+      return rejectWithValue({ payload: { user: null, token: '' } })
+    }
+  },
+)
+
 const _configAxios = (token: string) => {
   axios.defaults.headers.common['x-auth-token'] = token
 }
