@@ -2,6 +2,13 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  justify-content: flex-start;
+  align-self: flex-start;
+  min-height: calc(100vh - 17rem);
+  width: 100%;
   * {
     color: var(--base-90);
   }
@@ -22,5 +29,12 @@
 
   p {
     padding: 0.25rem 0;
+  }
+}
+
+.aboutUs {
+  p {
+    font-size: 1.2rem;
+    max-width: 800px;
   }
 }

@@ -45,7 +45,7 @@ const Navigation = () => {
             router.pathname == '/about-us' ? styles.active : ''
           }`}
         >
-          <Link href="#">About Us</Link>
+          <Link href="/about-us">About Us</Link>
         </li>
         {!user || !token ? (
           <>
