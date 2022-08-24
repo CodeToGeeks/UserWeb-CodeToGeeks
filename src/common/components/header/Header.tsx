@@ -3,13 +3,18 @@ import Navigation from './Navigation'
 import SearchBar from './SearchBar'
 import Logo from './Logo'
 import styles from './Header.module.scss'
+import MobileMenu from './MobileMenu'
 
 const Header = () => {
   return (
     <header className={styles.headerWrapper}>
       <div className={styles.header}>
+        <MobileMenu />
         <div>
-          <Logo styles={styles.logo} width="60" height="42" />
+          <div className={styles.logoContainer}>
+            <Logo styles={styles.logo} width="60" height="42" />
+            <span>CodeToGeeks</span>
+          </div>
           <SearchBar />
         </div>
         <Navigation />
