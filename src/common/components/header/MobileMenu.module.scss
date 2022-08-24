@@ -1,0 +1,40 @@
+.hamburgerMenuContainer {
+  display: none;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 74px;
+
+  z-index: 3;
+  padding: 0 1rem;
+
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+  overflow: hidden;
+  background: var(--base-0);
+
+  li {
+    padding: 1rem 1.5rem;
+  }
+  li:last-child {
+    padding: 1rem 1rem 2.5rem 1rem;
+  }
+}
+
+.opened {
+  max-height: 230px;
+  transition: max-height 0.25s ease-in;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+@media screen and (max-width: 700px) {
+  .hamburgerMenuContainer {
+    display: flex;
+  }
+}
