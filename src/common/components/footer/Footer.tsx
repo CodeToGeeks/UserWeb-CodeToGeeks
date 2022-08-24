@@ -21,10 +21,10 @@ const Footer = () => {
         <div>&copy; Code To Geeks 2022</div>
         <ul>
           <li>
-            <Link href="#">Terms of use</Link>
+            <Link href="/terms">Terms of use</Link>
           </li>
           <li>
-            <Link href="#"> Privacy Policy</Link>
+            <Link href="/privacy"> Privacy Policy</Link>
           </li>
         </ul>
       </div>
