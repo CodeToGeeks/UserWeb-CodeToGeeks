@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PostsList from '@modules/home/components/PostsList'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import { authSelector } from '@store/auth'
-import { resetSavedPosts, getSavedPosts, accountSelector } from '@store/account'
+import {
+  resetSavedPosts,
+  getSavedPosts,
+  accountSelector,
+  incrementPageNumber,
+} from '@store/account'
 import { getUserInteractions } from '@store/interactions'
 import styles from '../styles/index.module.scss'
 
 const SavedPosts = () => {
-  const { savedPosts, totalPostsCount } = useAppSelector(accountSelector)
+  const { savedPosts, totalPostsCount, pageNumber } =
+    useAppSelector(accountSelector)
   const { token, isAuthenticated } = useAppSelector(authSelector)
   const dispatch = useAppDispatch()
-
-  const [pageNumber, setPageNumber] = useState(1)
 
   useEffect(() => {
     dispatch(resetSavedPosts())
@@ -22,7 +26,7 @@ const SavedPosts = () => {
     dispatch(
       getSavedPosts({
         pageSize: 3,
-        pageNumber: pageNumber,
+        pageNumber,
       }),
     )
   }, [token, pageNumber])
@@ -38,7 +42,7 @@ const SavedPosts = () => {
       <h1 className={`title-underline ${styles.title}`}> Reading List</h1>
       <PostsList
         posts={savedPosts}
-        setPageNumber={setPageNumber}
+        incrementPageNumber={() => dispatch(incrementPageNumber())}
         totalPostsCount={totalPostsCount}
         postsIndexWithCover={[]}
       />

@@ -12,6 +12,7 @@ export type accountState = {
   isLoading: boolean
   isUpdateAccountLoading: boolean
   isUploadingImage: boolean
+  pageNumber: number
 }
 
 export const initialState: accountState = {
@@ -20,6 +21,7 @@ export const initialState: accountState = {
   isLoading: false,
   isUpdateAccountLoading: false,
   isUploadingImage: false,
+  pageNumber: 1,
 }
 
 export const accountSlice = createSlice({
@@ -28,6 +30,9 @@ export const accountSlice = createSlice({
   reducers: {
     resetSavedPosts: (state) => {
       state.savedPosts = []
+    },
+    incrementPageNumber: (state) => {
+      state.pageNumber++
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +78,6 @@ export const accountSlice = createSlice({
   },
 })
 
-export const { resetSavedPosts } = accountSlice.actions
+export const { resetSavedPosts, incrementPageNumber } = accountSlice.actions
 
 export default accountSlice.reducer
