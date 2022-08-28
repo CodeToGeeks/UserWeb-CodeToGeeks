@@ -12,6 +12,7 @@ import {
   getPostsByTagId,
   postsSelector,
   incrementPageNumber,
+  getTags,
 } from '@store/posts'
 import TagHeader from './components/TagHeader'
 import { Tag } from '@models/Tag.model'
@@ -34,6 +35,10 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
       }),
     )
   }, [pageNumber, _id])
+
+  useEffect(() => {
+    if (!tags || !tags.length) dispatch(getTags())
+  }, [])
 
   useEffect(() => {
     const tag = getCurrentTag()
