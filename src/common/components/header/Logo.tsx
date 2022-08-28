@@ -13,14 +13,16 @@ const Logo = (props: AppProps) => {
   return (
     <div className={styles || ''}>
       <Link href="/">
-        <Image
-          src="/assets/logo.svg"
-          alt="Code To Geeks"
-          width="100"
-          height="80"
-          priority
-          {...imageProps}
-        />
+        <a>
+          <Image
+            src="/assets/logo.svg"
+            alt="Code To Geeks"
+            width="100"
+            height="80"
+            priority
+            {...imageProps}
+          />
+        </a>
       </Link>
     </div>
   )
