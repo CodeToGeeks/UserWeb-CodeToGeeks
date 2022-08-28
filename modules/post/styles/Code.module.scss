@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.copyBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: copy;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    outline: white;
+  }
+}
+
+.copied {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 40px;
+  background-color: var(--base-10);
+  border-bottom-left-radius: 4px;
+  color: green;
+  font-style: 600;
+}
