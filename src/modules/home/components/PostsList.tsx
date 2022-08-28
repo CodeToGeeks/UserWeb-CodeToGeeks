@@ -1,50 +1,26 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import PostCard from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Post } from '@models/Post.model'
 import Loader from './PostCardLoader'
-import { getTags, postsSelector } from '@store/posts'
-import { useAppDispatch, useAppSelector } from '@store/hooks'
 
 type PostListProps = {
   posts: Post[]
   totalPostsCount: number
-  setPageNumber: Dispatch<SetStateAction<number>>
+  incrementPageNumber: Dispatch<SetStateAction<void>>
   postsIndexWithCover?: number[]
 }
 
 const PostsList = ({
   posts,
   totalPostsCount,
-  setPageNumber,
+  incrementPageNumber,
   postsIndexWithCover = [0],
 }: PostListProps) => {
-  const { tags } = useAppSelector(postsSelector)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    if (!tags.length) dispatch(getTags())
-  }, [])
-  const [isSSR, setIsSSR] = useState(true)
-
-  useEffect(() => {
-    setIsSSR(false)
-  }, [])
-
-  if (isSSR) {
-    return (
-      <div>
-        <Loader />
-        <Loader />
-        <Loader />
-      </div>
-    )
-  }
-
   return (
     <InfiniteScroll
       dataLength={posts.length}
-      next={() => setPageNumber((prev) => prev + 1)}
+      next={() => incrementPageNumber()}
       hasMore={totalPostsCount > posts.length}
       loader={
         <>
@@ -53,11 +29,7 @@ const PostsList = ({
           <Loader />
         </>
       }
-      endMessage={
-        <p style={{ textAlign: 'center' }}>
-          <b>Yay! You have seen it all</b>
-        </p>
-      }
+      endMessage={<p style={{ textAlign: 'center' }}>No More Posts!</p>}
     >
       {posts.map((post, i) => (
         <PostCard

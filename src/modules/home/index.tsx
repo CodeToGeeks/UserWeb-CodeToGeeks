@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useIsMount } from '@hooks/useIsMount'
 import PostsList from './components/PostsList'
 import Community from './components/Community'
 import PopularTags from './components/PopularTags'
 import SEO from '@components/SEO/SEO'
 
 import styles from './styles/index.module.scss'
-import { ReduxWrapper } from '@store/store'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 import {
   getPosts,
   getTags,
   incrementPageNumber,
   postsSelector,
-  setSearchKeyword,
 } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
@@ -22,11 +18,9 @@ import { authSelector } from '@store/auth'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount, searchKeyword } =
+  const { posts, totalPostsCount, searchKeyword, pageNumber, tags } =
     useAppSelector(postsSelector)
   const { isAuthenticated, token } = useAppSelector(authSelector)
-  const router = useRouter()
-  const isMount = useIsMount()
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -35,14 +29,18 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (isMount) return
-    router.replace({
-      pathname: router.basePath,
-      query: {
+    dispatch(
+      getPosts({
+        pageSize: 3,
+        pageNumber,
         ...(searchKeyword && { search: searchKeyword }),
-      },
-    })
-  }, [searchKeyword])
+      }),
+    )
+  }, [pageNumber, searchKeyword])
+
+  useEffect(() => {
+    if (!tags || !tags.length) dispatch(getTags())
+  }, [])
 
   return (
     <div>
@@ -55,9 +53,7 @@ const Home = () => {
           </div>
           <PostsList
             posts={posts}
-            setPageNumber={() =>
-              router.push(router.asPath, undefined, { scroll: false })
-            }
+            incrementPageNumber={() => dispatch(incrementPageNumber())}
             totalPostsCount={totalPostsCount}
           />
         </main>
@@ -66,47 +62,4 @@ const Home = () => {
   )
 }
 
-export const getServerSideProps = ReduxWrapper.getServerSideProps(
-  (store) =>
-    async ({ query }) => {
-      const tags = store.getState().posts.tags
-      if (!tags.length) store.dispatch(getTags())
-
-      const isSearchKeywordChanged =
-        query.search !== store.getState().posts.searchKeyword &&
-        (query.search || store.getState().posts.searchKeyword)
-      if (isSearchKeywordChanged) {
-        store.dispatch(setSearchKeyword(query.search || ''))
-      }
-
-      const pageNumber = store.getState().posts.pageNumber
-      const searchKeyword = store.getState().posts.searchKeyword
-
-      await store.dispatch(
-        getPosts({
-          pageSize: 3,
-          pageNumber: store.getState().posts.pageNumber,
-          ...(searchKeyword && { search: searchKeyword }),
-        }),
-      )
-      console.log({
-        pageSize: 3,
-        pageNumber: store.getState().posts.pageNumber,
-        ...(searchKeyword && { search: searchKeyword }),
-      })
-      store.dispatch(incrementPageNumber())
-
-      const posts = store.getState().posts.posts
-      const totalPostsCount = store.getState().posts.totalPostsCount
-
-      return {
-        props: {
-          posts,
-          totalPostsCount,
-          pageNumber,
-          tags,
-        },
-      }
-    },
-)
 export default Home

@@ -5,7 +5,6 @@ import {
   createAction,
 } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
-import { diff } from '../../common/utils/jsonCompare'
 import type { RootState } from '@store/store'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
@@ -94,20 +93,7 @@ export const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(hydrate, (state, action) => {
-        if (diff(state.post, action.payload.posts.post))
-          state.post = action.payload.posts.post
-
-        if (diff(state.posts, action.payload.posts.posts))
-          state.posts = [...action.payload.posts.posts]
-
-        if (diff(state.totalPostsCount, action.payload.posts.totalPostsCount))
-          state.totalPostsCount = action.payload.posts.totalPostsCount
-
-        if (diff(state.pageNumber, action.payload.posts.pageNumber))
-          state.pageNumber = action.payload.posts.pageNumber
-
-        if (diff(state.tags, action.payload.posts.tags))
-          state.tags = action.payload.posts.tags
+        if (action.payload.posts.post) state.post = action.payload.posts.post
       })
 
       .addCase(getPosts.pending, (state: postsState) => {

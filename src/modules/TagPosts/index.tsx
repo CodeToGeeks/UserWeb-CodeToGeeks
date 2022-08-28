@@ -7,15 +7,20 @@ import SEO from '@components/SEO/SEO'
 
 import styles from '@modules/home/styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import { resetPosts, getPostsByTagId, postsSelector } from '@store/posts'
+import {
+  resetPosts,
+  getPostsByTagId,
+  postsSelector,
+  incrementPageNumber,
+} from '@store/posts'
 import TagHeader from './components/TagHeader'
 import { Tag } from '@models/Tag.model'
 
 const TagPosts = ({ router }: { router: NextRouter }) => {
-  const [pageNumber, setPageNumber] = useState(1)
   const [tag, setTag] = useState({} as Tag)
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount, tags } = useAppSelector(postsSelector)
+  const { posts, totalPostsCount, tags, pageNumber } =
+    useAppSelector(postsSelector)
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())
@@ -49,7 +54,7 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
           </div>
           <PostsList
             posts={posts}
-            setPageNumber={setPageNumber}
+            incrementPageNumber={() => dispatch(incrementPageNumber())}
             totalPostsCount={totalPostsCount}
           />
         </main>
