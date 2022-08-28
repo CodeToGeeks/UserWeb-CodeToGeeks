@@ -29,6 +29,7 @@
 .contact {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly !important;
   margin-inline-end: 2rem;
   div {
     font-weight: 500;
@@ -65,7 +66,23 @@
       padding-bottom: 0.5rem;
     }
   }
-  .logo {
-    max-width: 4.5rem;
+
+  .logoContainer {
+    .logo {
+      max-width: 3.5rem;
+    }
+    div {
+      font-size: 1rem;
+    }
+  }
+}
+@media screen and(max-width: 450px) {
+  .logoContainer {
+    .logo {
+      max-width: 3rem;
+    }
+    div {
+      font-size: 0.85rem;
+    }
   }
 }

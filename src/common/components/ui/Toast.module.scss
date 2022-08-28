@@ -10,7 +10,6 @@
   position: relative;
   overflow: hidden;
   margin-bottom: 0.5rem;
-  padding: 30px;
   width: 400px;
   border-radius: 12px;
   box-shadow: 0 0 10px #999;
@@ -84,8 +83,14 @@
 }
 
 .topRight {
-  top: 12px;
-  right: 12px;
+  top: 0.75rem;
+  right: 0.75rem;
   transition: transform 0.6s ease-in-out;
   animation: toast-in-right 0.7s;
+}
+
+@media screen and (max-width: 500px) {
+  .toast {
+    width: 300px;
+  }
 }
