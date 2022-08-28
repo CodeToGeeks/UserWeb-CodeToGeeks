@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import HamburgerMenuBtn from '@components/ui/HamburgerMenuBtn'
 import styles from './MobileMenu.module.scss'
 import SearchBar from './SearchBar'
-import Link from 'next/link'
 
 import { authSelector } from '@store/auth'
 import { useAppSelector } from '@store/hooks'
@@ -13,15 +12,13 @@ const MobileMenu = () => {
   const { user } = useAppSelector(authSelector)
   const router = useRouter()
 
-  // TODO: fix close modal when navigation to same route/ search
-  useEffect(() => {
-    router.events.on('routeChangeComplete', () => setIsOpened(false))
-    return () =>
-      router.events.off('routeChangeComplete', () => setIsOpened(false))
-  }, [])
-
   const onClickOutsideHandler = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target != e.currentTarget) return
+    setIsOpened(false)
+  }
+
+  const onNavigateHandler = (route: string) => {
+    router.push(route)
     setIsOpened(false)
   }
 
@@ -35,14 +32,18 @@ const MobileMenu = () => {
         <div className={styles.nav}>
           <ul>
             <li>
-              <Link href="/">Home</Link>
+              <button onClick={() => onNavigateHandler('/')}>Home</button>
             </li>
             <li>
-              <Link href="/about-us">About Us</Link>
+              <button onClick={() => onNavigateHandler('/about-us')}>
+                About Us
+              </button>
             </li>
             {user && (
               <li>
-                <Link href="/account">Reading List</Link>
+                <button onClick={() => onNavigateHandler('/account')}>
+                  Reading List
+                </button>
               </li>
             )}
             <li>
