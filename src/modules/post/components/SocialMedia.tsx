@@ -6,7 +6,7 @@ import { postsSelector } from '@store/posts'
 import { showToastSuccess } from '@store/ui'
 import {
   FacebookShareButton,
-  LinkedinShareButton,
+  // LinkedinShareButton,
   TwitterShareButton,
 } from 'react-share'
 import CopyToClipboard from 'react-copy-to-clipboard'
@@ -15,7 +15,7 @@ const baseLink = `https://codetogeeks.com`
 const windowWidth = 1200
 const windowHeight = 630
 
-const linkedinImage = '/assets/post/linkedin.svg'
+// const linkedinImage = '/assets/post/linkedin.svg'
 const twitterImage = '/assets/post/twitter.svg'
 const facebookImage = '/assets/post/facebook.svg'
 const linkImage = '/assets/post/link.svg'
