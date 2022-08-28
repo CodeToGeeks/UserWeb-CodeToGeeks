@@ -12,7 +12,7 @@ export const getPosts = createAsyncThunk(
   async (payload: Query) => {
     try {
       const { pageSize, pageNumber, search } = payload
-      const res = await axios.get('/post', {
+      const res = await axios.get('/post/', {
         params: {
           pageSize,
           pageNumber,

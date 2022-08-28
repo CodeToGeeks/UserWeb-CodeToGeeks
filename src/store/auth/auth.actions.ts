@@ -106,7 +106,7 @@ export const resetPassword = createAsyncThunk(
 
 export const VerifyEmail = createAsyncThunk(
   'auth/VerifyEmail',
-  async (payload: VerifyEmailPayload, { dispatch }) => {
+  async (payload: VerifyEmailPayload, { dispatch }: any) => {
     try {
       const { token } = payload
       const url = `/auth/verification/${token}`
@@ -128,16 +128,18 @@ export const VerifyEmail = createAsyncThunk(
 
 export const autoLogin = createAsyncThunk(
   'auth/autoLogin',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }: any) => {
+    const token = localStorage.getItem('token')
+    let user = localStorage.getItem('user')
     try {
-      const token = localStorage.getItem('token')
-      let user = localStorage.getItem('user')
-      const res = await axios.get('/account', {
+      const res = await axios.post('/auth/token/valid', {
         headers: { 'x-auth-token': token ? token : '' },
       })
 
       return { user: JSON.parse(user as string), token }
     } catch (error) {
+      const errorMessage = apiErrorHandler(error as Error | AxiosError) || ''
+      if (token && user) dispatch(showToastError(errorMessage))
       return rejectWithValue({ payload: { user: null, token: '' } })
     }
   },
