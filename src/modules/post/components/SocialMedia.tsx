@@ -48,13 +48,14 @@ const SocialMedia = () => {
       >
         <Image src={facebookImage} width="24" height="24" alt="Facebook icon" />
       </FacebookShareButton>
-      <LinkedinShareButton
+      {/* TODO: Fix Linkedin share or use another implementation */}
+      {/* <LinkedinShareButton
         {...commonProps}
         summary={post?.excerpt}
         source={'Code To Geeks'}
       >
         <Image src={linkedinImage} width="24" height="24" alt="Linkedin icon" />
-      </LinkedinShareButton>
+      </LinkedinShareButton> */}
       <CopyToClipboard text={`${commonProps.url}`} onCopy={onCopyLinkHandler}>
         <button className={styles.copyBtn}>
           <Image
