@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from '../styles/ForgetPassword.module.scss'
@@ -16,13 +16,15 @@ import {
 import { openLoginModal } from '@store/ui'
 
 const ForgetPassword = () => {
+  const [isCodeSent, setIsCodeSent] = useState(false)
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { isVerificationCodeSent, forgetPasswordEmail, isLoading } =
     useAppSelector(authSelector)
 
   useEffect(() => {
-    if (isVerificationCodeSent) router.push('/auth/verification-code')
+    if (isVerificationCodeSent && isCodeSent)
+      router.push('/auth/verification-code')
   }, [isVerificationCodeSent])
 
   const onSendVerificationCodeHandler = (
@@ -30,6 +32,7 @@ const ForgetPassword = () => {
   ) => {
     event.preventDefault()
     dispatch(sendVerificationCode({ email: forgetPasswordEmail }))
+    setIsCodeSent(true)
   }
 
   const onBackToLoginHandler = (event: React.MouseEvent<HTMLElement>) => {
