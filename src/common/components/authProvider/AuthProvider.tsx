@@ -11,12 +11,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const { token } = useAppSelector(authSelector)
 
   useEffect(() => {
-    dispatch(autoLogin())
-  }, [])
-
-  useEffect(() => {
     axiosConfig()
   }, [token])
+
+  useEffect(() => {
+    dispatch(autoLogin())
+  }, [])
 
   return <>{children}</>
 }
