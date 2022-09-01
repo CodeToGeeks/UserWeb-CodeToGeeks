@@ -132,9 +132,7 @@ export const autoLogin = createAsyncThunk(
     const token = localStorage.getItem('token')
     let user = localStorage.getItem('user')
     try {
-      const res = await axios.post('/auth/token/valid', {
-        headers: { 'x-auth-token': token ? token : '' },
-      })
+      const res = await axios.post('/auth/token/valid')
 
       return { user: JSON.parse(user as string), token }
     } catch (error) {
