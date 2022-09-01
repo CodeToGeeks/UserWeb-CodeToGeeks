@@ -1,0 +1,17 @@
+.blogTags {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0;
+  a {
+    font-size: 14px;
+    margin-inline-end: 0.5rem;
+  }
+}
+.blogTagItem {
+  margin-inline-end: 0.5rem;
+  transform: translateY(0px);
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 2px 8px;
+  cursor: pointer;
+}

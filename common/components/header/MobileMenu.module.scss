@@ -1,0 +1,43 @@
+.overlay {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 74px;
+  bottom: 0;
+  z-index: 3;
+  height: 0;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(2px);
+}
+.hamburgerMenuContainer {
+  display: none;
+}
+.nav {
+  z-index: 3 !important;
+  padding: 0 1rem;
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+  overflow: hidden;
+  background: var(--base-0);
+
+  li {
+    padding: 1rem 1.5rem;
+  }
+  li:last-child {
+    padding: 1rem 1rem 2.5rem 1rem;
+  }
+}
+
+.opened .nav {
+  max-height: 230px;
+  transition: max-height 0.25s ease-in;
+}
+.opened {
+  height: 100vh;
+}
+
+@media screen and (max-width: 700px) {
+  .hamburgerMenuContainer {
+    display: flex;
+  }
+}
