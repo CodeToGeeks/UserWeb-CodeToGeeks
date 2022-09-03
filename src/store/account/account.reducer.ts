@@ -30,6 +30,7 @@ export const accountSlice = createSlice({
   reducers: {
     resetSavedPosts: (state) => {
       state.savedPosts = []
+      state.pageNumber = 1
     },
     incrementPageNumber: (state) => {
       state.pageNumber++

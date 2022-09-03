@@ -25,7 +25,6 @@ const SavedPosts = () => {
     if (!token) return
     dispatch(
       getSavedPosts({
-        pageSize: 3,
         pageNumber,
       }),
     )
