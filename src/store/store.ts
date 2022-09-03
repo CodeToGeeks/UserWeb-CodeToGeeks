@@ -1,5 +1,4 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import { createWrapper } from 'next-redux-wrapper'
+import { configureStore } from '@reduxjs/toolkit'
 import { postsSlice } from './posts'
 import { authSlice } from './auth'
 import { uiSlice } from './ui'
@@ -17,14 +16,5 @@ export const store = configureStore({
   devTools: true,
 })
 
-const makeStore = () => store
-export const ReduxWrapper = createWrapper(makeStore)
-
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->

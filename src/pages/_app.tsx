@@ -6,7 +6,7 @@ import Toast from '@components/ui/Toast'
 import '../common/styles/globals.css'
 
 import { Provider } from 'react-redux'
-import { store, ReduxWrapper } from '../store/store'
+import { store } from '../store/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,4 +23,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default ReduxWrapper.withRedux(MyApp)
+export default MyApp
