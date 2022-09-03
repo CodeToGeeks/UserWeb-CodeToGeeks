@@ -5,7 +5,6 @@ import { setUser } from '@store/auth'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
 import { User } from '@models/user.model'
 interface Query {
-  pageSize: number
   pageNumber: number
   search?: string
 }
@@ -14,12 +13,11 @@ export const getSavedPosts = createAsyncThunk(
   'posts/getSavedPosts',
   async (payload: Query, { dispatch }) => {
     try {
-      const { pageSize, pageNumber, search } = payload
+      const { pageNumber } = payload
       const res = await axios.get('/post/save', {
         params: {
-          pageSize,
+          pageSize: 3,
           pageNumber,
-          search,
         },
       })
       return res.data

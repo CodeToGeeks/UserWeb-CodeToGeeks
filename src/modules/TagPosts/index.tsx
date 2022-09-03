@@ -30,7 +30,7 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
   useEffect(() => {
     dispatch(
       getPostsByTagId({
-        query: { pageSize: 3, pageNumber },
+        query: { pageNumber },
         tagId: `${_id}`,
       }),
     )

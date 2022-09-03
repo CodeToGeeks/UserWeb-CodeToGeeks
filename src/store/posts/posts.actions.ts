@@ -2,22 +2,22 @@ import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 interface Query {
-  pageSize: number
   pageNumber: number
   search?: string
 }
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
-  async (payload: Query) => {
+  async (payload: Query, { getState }) => {
     try {
-      const { pageSize, pageNumber, search } = payload
+      const { posts }: any = getState()
+      let requestParams = {
+        pageSize: 3,
+        pageNumber: payload.pageNumber,
+      }
+      if (payload.search != '') (requestParams as any).search = payload.search
       const res = await axios.get('/post/', {
-        params: {
-          pageSize,
-          pageNumber,
-          search,
-        },
+        params: requestParams,
       })
       return res.data
     } catch (e) {
@@ -54,7 +54,10 @@ export const getPostsByTagId = createAsyncThunk(
     try {
       const { tagId } = payload
       const res = await axios.get(`/post/tag/${tagId}`, {
-        params: payload.query,
+        params: {
+          pageNumber: payload.query.pageNumber,
+          pageSize: 3,
+        },
       })
       return res.data
     } catch (e) {

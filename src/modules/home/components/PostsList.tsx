@@ -1,8 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { useEffect, Dispatch, SetStateAction } from 'react'
 import PostCard from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Post } from '@models/Post.model'
 import Loader from './PostCardLoader'
+import { getTags, postsSelector, getPosts } from '@store/posts'
+import { useAppDispatch, useAppSelector } from '@store/hooks'
 
 type PostListProps = {
   posts: Post[]
@@ -17,6 +19,13 @@ const PostsList = ({
   incrementPageNumber,
   postsIndexWithCover = [0],
 }: PostListProps) => {
+  const { tags } = useAppSelector(postsSelector)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (!tags.length) dispatch(getTags())
+  }, [])
+
   return (
     <InfiniteScroll
       dataLength={posts.length}
@@ -29,7 +38,11 @@ const PostsList = ({
           <Loader />
         </>
       }
-      endMessage={<p style={{ textAlign: 'center' }}>No More Posts!</p>}
+      endMessage={
+        <p style={{ textAlign: 'center' }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
     >
       {posts.map((post, i) => (
         <PostCard

@@ -4,8 +4,6 @@ import {
   current,
   createAction,
 } from '@reduxjs/toolkit'
-import { HYDRATE } from 'next-redux-wrapper'
-import type { RootState } from '@store/store'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
 import {
@@ -15,12 +13,11 @@ import {
   getPostsByTagId,
 } from './posts.actions'
 
-const hydrate = createAction<RootState>(HYDRATE)
-
 export type postsState = {
   posts: Post[]
   post: Post | null
   pageNumber: number
+  pageSize: number
   totalPostsCount: number
   tags: Tag[]
   searchKeyword: string
@@ -32,6 +29,7 @@ export const initialState: postsState = {
   posts: [],
   post: null,
   pageNumber: 1,
+  pageSize: 3,
   totalPostsCount: 1,
   tags: [],
   searchKeyword: '',
@@ -47,11 +45,11 @@ export const postsSlice = createSlice({
       state.posts = []
       state.totalPostsCount = 1
       state.pageNumber = 1
+      state.searchKeyword = ''
     },
     setSearchKeyword: (state, action) => {
-      state.posts = []
       state.searchKeyword = action.payload
-      state.totalPostsCount = 1
+      state.posts = []
       state.pageNumber = 1
     },
     incrementPostLoveCount: (state, action) => {
@@ -92,10 +90,6 @@ export const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(hydrate, (state, action) => {
-        if (action.payload.posts.post) state.post = action.payload.posts.post
-      })
-
       .addCase(getPosts.pending, (state: postsState) => {
         state.isLoading = true
       })
