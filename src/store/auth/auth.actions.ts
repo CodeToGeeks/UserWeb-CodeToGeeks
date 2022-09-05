@@ -14,8 +14,10 @@ export const signUp = createAsyncThunk(
   'auth/signUp',
   async (payload: SignUpPayload, { dispatch }) => {
     try {
-      const res = await axios.post('/auth/signup', payload)
+      const res: any = await axios.post('/auth/signup', payload)
       //TODO: redirect to verification Page
+      dispatch(showToastSuccess(res.data.message))
+      dispatch(resetModals())
       return res.data
     } catch (error) {
       const errorMessage =
@@ -130,7 +132,7 @@ export const autoLogin = createAsyncThunk(
   'auth/autoLogin',
   async (_, { rejectWithValue, dispatch }: any) => {
     const token = localStorage.getItem('token')
-    let user = localStorage.getItem('user')
+    const user = localStorage.getItem('user')
     try {
       const res = await axios.post('/auth/token/valid')
 
