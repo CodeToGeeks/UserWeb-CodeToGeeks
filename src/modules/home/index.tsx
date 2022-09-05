@@ -29,7 +29,7 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (searchKeyword !== '' || posts.length < totalPostsCount)
+    if (posts.length < totalPostsCount)
       dispatch(
         getPosts({
           pageNumber,
