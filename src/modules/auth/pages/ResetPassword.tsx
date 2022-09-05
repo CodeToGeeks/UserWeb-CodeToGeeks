@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../styles/ResetPassword.module.scss'
 import Card from '@components/ui/Card'
-import CustomInput from '@components/CustomInput/CustomInput'
 import PasswordValidations from '../components/PasswordValidation'
+import PasswordInput from '../components/PasswordInput'
 import SEO from '@components/SEO/SEO'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -47,10 +47,9 @@ const ResetPassword = () => {
         </div>
 
         <form className={styles.form}>
-          <CustomInput
+          <PasswordInput
             label="Password"
             id="password"
-            type={'password'}
             placeholder="Enter your password"
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setPassword(e.currentTarget.value)
@@ -58,10 +57,9 @@ const ResetPassword = () => {
             onFocus={() => setIsInputFocused(true)}
             value={password}
           />
-          <CustomInput
+          <PasswordInput
             label="Confirm Password"
             id="confirmPassword"
-            type={'password'}
             placeholder="Confirm your password"
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setConfirmPassword(e.currentTarget.value)
