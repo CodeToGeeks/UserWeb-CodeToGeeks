@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
 import CustomInput from '@components/CustomInput/CustomInput'
+import PasswordInput from './PasswordInput'
 import PasswordValidations from './PasswordValidation'
 import styles from '../styles/Login&SignUp.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -85,9 +86,9 @@ const SignUp = () => {
             placeholder="Enter your email"
             value={email}
           />
-          <CustomInput
+
+          <PasswordInput
             id="password"
-            type="password"
             label="Password"
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setPassword(e.currentTarget.value)
@@ -97,9 +98,8 @@ const SignUp = () => {
             onFocus={() => setIsPasswordFocused(true)}
             value={password}
           />
-          <CustomInput
+          <PasswordInput
             id="confirmPassword"
-            type="password"
             label="Confirm Password"
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setConfirmPassword(e.currentTarget.value)
@@ -108,6 +108,7 @@ const SignUp = () => {
             placeholder="Enter your confirm password"
             value={confirmPassword}
           />
+
           {isPasswordFocused && (
             <PasswordValidations
               password={password}

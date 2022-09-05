@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
 import CustomInput from '@components/CustomInput/CustomInput'
+import PasswordInput from './PasswordInput'
 import styles from '../styles/Login&SignUp.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -60,9 +61,8 @@ const Login = () => {
             }
             value={email}
           />
-          <CustomInput
+          <PasswordInput
             id="password"
-            type={'password'}
             label={'Password'}
             autoComplete="new-password"
             placeholder="Enter your password"
