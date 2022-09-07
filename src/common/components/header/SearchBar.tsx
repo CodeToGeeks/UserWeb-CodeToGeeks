@@ -2,14 +2,15 @@ import React, { useCallback } from 'react'
 import Image from 'next/image'
 import { debounce } from 'lodash'
 import styles from './SearchBar.module.scss'
-
 import { setSearchKeyword } from '@store/posts'
 import { useAppDispatch } from '@store/hooks'
 
 const SearchBar = () => {
   const dispatch = useAppDispatch()
   const onchangeHandler = useCallback(
-    debounce(async (keyword) => dispatch(setSearchKeyword(keyword)), 500),
+    debounce(async (keyword) => {
+      if (window.location.pathname === '/') dispatch(setSearchKeyword(keyword))
+    }, 500),
     [],
   )
 
