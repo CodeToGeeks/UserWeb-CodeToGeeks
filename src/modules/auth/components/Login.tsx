@@ -4,6 +4,7 @@ import Modal from '@components/ui/Modal'
 import Spinner from '@components/ui/Spinner'
 import CustomInput from '@components/CustomInput/CustomInput'
 import PasswordInput from './PasswordInput'
+import GoogleLogin from './GoogleLogin'
 import styles from '../styles/Login&SignUp.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -84,6 +85,7 @@ const Login = () => {
           >
             {isLoading ? <Spinner /> : `Login`}
           </button>
+          <GoogleLogin />
           <div className={styles.signUpContainer}>
             <span> Do not Have an account? </span>
             <button onClick={() => dispatch(openSignUpModal())}>
