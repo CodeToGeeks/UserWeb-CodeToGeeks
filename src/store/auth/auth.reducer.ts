@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import {
   login,
+  googleLogin,
   signUp,
   sendVerificationCode,
   checkVerificationCode,
@@ -97,6 +98,24 @@ export const authSlice = createSlice({
         state.isLoading = false
       })
 
+      //    google
+      .addCase(googleLogin.pending, (state: authState) => {
+        state.isLoading = true
+      })
+      .addCase(
+        googleLogin.fulfilled,
+        (state: authState, action: PayloadAction<User>) => {
+          state.user = action.payload
+          state.token = action.payload.token
+          state.isAuthenticated = true
+          // state.isLoginModalOpened = false
+          state.isLoading = false
+        },
+      )
+      .addCase(googleLogin.rejected, (state: authState) => {
+        state.isLoading = false
+      })
+
       .addCase(sendVerificationCode.pending, (state: authState) => {
         state.isLoading = true
         state.isVerificationCodeSent = null
@@ -160,7 +179,7 @@ export const authSlice = createSlice({
       })
       .addCase(autoLogin.rejected, (state: authState, action: any) => {
         state.user = null
-        state.token = action.payload.token
+        state.token = action.payload?.token
         state.isAuthenticated = false
       })
   },
