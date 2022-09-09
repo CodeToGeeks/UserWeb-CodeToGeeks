@@ -2,14 +2,21 @@ import axios, { AxiosError } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
   LoginPayload,
+  googleLoginPayload,
   SignUpPayload,
   SendVerificationCodePayload,
   CheckVerificationCodePayload,
   ResetPasswordPayload,
   VerifyEmailPayload,
 } from './models'
-import { showToastError, showToastSuccess, resetModals } from '@store/ui'
+import {
+  showToastError,
+  showToastWarning,
+  showToastSuccess,
+  resetModals,
+} from '@store/ui'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
+
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async (payload: SignUpPayload, { dispatch }) => {
@@ -52,6 +59,28 @@ export const login = createAsyncThunk(
   },
 )
 
+export const googleLogin = createAsyncThunk(
+  'auth/google',
+  async (payload: googleLoginPayload, { dispatch }) => {
+    try {
+      const res = await axios.post('auth/google', payload)
+      // save to local storage
+      localStorage.setItem('token', res.data.payload.token)
+      localStorage.setItem('user', JSON.stringify(res.data.payload))
+
+      const successMessage = 'Login successful'
+      dispatch(showToastSuccess(successMessage))
+      dispatch(resetModals())
+      _configAxios(res.data.payload.token)
+      return res.data.payload
+    } catch (error) {
+      const errorMessage =
+        apiErrorHandler(error as Error | AxiosError) || 'Login failed'
+      dispatch(showToastError(errorMessage))
+      throw new Error(errorMessage)
+    }
+  },
+)
 export const sendVerificationCode = createAsyncThunk(
   'auth/sendVerificationCode',
   async (payload: SendVerificationCodePayload, { dispatch }) => {
@@ -139,7 +168,7 @@ export const autoLogin = createAsyncThunk(
       return { user: JSON.parse(user as string), token }
     } catch (error) {
       const errorMessage = apiErrorHandler(error as Error | AxiosError) || ''
-      if (token && user) dispatch(showToastError(errorMessage))
+      if (token && user) dispatch(showToastWarning(errorMessage))
       return rejectWithValue({ payload: { user: null, token: '' } })
     }
   },

@@ -9,6 +9,9 @@ export interface LoginPayload {
   email: string
   password: string
 }
+export interface googleLoginPayload {
+  token: string
+}
 
 export interface SendVerificationCodePayload {
   email: string
