@@ -25,6 +25,9 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())
+    return () => {
+      dispatch(resetPosts())
+    }
   }, [_id])
 
   useEffect(() => {

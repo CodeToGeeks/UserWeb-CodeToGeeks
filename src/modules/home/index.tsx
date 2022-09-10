@@ -36,7 +36,7 @@ const Home = () => {
           ...(searchKeyword && { search: searchKeyword }),
         }),
       )
-  }, [pageNumber, searchKeyword])
+  }, [pageNumber, searchKeyword, totalPostsCount])
 
   useEffect(() => {
     if (!tags || !tags.length) dispatch(getTags())
