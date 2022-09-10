@@ -146,7 +146,7 @@ export const postsSlice = createSlice({
           action: PayloadAction<{ posts: Post[]; total: number }>,
         ) => {
           state.isLoading = false
-          state.posts = action.payload.posts
+          state.posts = [...state.posts, ...action.payload.posts]
           state.totalPostsCount = action.payload.total
         },
       )
