@@ -3,20 +3,20 @@ import PostCard from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Post } from '@models/Post.model'
 import Loader from './PostCardLoader'
-import { getTags, postsSelector, getPosts } from '@store/posts'
+import { getTags, postsSelector } from '@store/posts'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
 
 type PostListProps = {
   posts: Post[]
   totalPostsCount: number
-  incrementPageNumber: Dispatch<SetStateAction<void>>
+  hasMoreHandler: Dispatch<SetStateAction<void>>
   postsIndexWithCover?: number[]
 }
 
 const PostsList = ({
   posts,
   totalPostsCount,
-  incrementPageNumber,
+  hasMoreHandler,
   postsIndexWithCover = [0],
 }: PostListProps) => {
   const { tags } = useAppSelector(postsSelector)
@@ -29,8 +29,9 @@ const PostsList = ({
   return (
     <InfiniteScroll
       dataLength={posts.length}
-      next={() => incrementPageNumber()}
+      next={() => hasMoreHandler()}
       hasMore={totalPostsCount > posts.length}
+      initialScrollY={0}
       loader={
         <>
           <Loader />

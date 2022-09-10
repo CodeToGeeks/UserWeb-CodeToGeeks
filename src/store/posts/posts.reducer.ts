@@ -1,9 +1,4 @@
-import {
-  createSlice,
-  PayloadAction,
-  current,
-  createAction,
-} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 import { Post } from '@models/Post.model'
 import { Tag } from '@models/Tag.model'
 import {
@@ -28,7 +23,7 @@ export type postsState = {
 export const initialState: postsState = {
   posts: [],
   post: null,
-  pageNumber: 1,
+  pageNumber: 0,
   pageSize: 3,
   totalPostsCount: 1,
   tags: [],
@@ -44,13 +39,13 @@ export const postsSlice = createSlice({
     resetPosts: (state) => {
       state.posts = []
       state.totalPostsCount = 1
-      state.pageNumber = 1
+      state.pageNumber = 0
       state.searchKeyword = ''
     },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload
       state.posts = []
-      state.pageNumber = 1
+      state.pageNumber = 0
     },
     incrementPostLoveCount: (state, action) => {
       const postId = action.payload
@@ -84,13 +79,11 @@ export const postsSlice = createSlice({
         state.post.love_count = +state.post.love_count - 1 || 0
       }
     },
-    incrementPageNumber: (state) => {
-      state.pageNumber++
-    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state: postsState) => {
+        state.pageNumber++
         state.isLoading = true
       })
       .addCase(
@@ -133,10 +126,12 @@ export const postsSlice = createSlice({
         },
       )
       .addCase(getPostDetails.rejected, (state: postsState) => {
+        state.pageNumber--
         state.isLoading = true
       })
 
       .addCase(getPostsByTagId.pending, (state: postsState) => {
+        state.pageNumber++
         state.isLoading = true
       })
       .addCase(
@@ -151,6 +146,7 @@ export const postsSlice = createSlice({
         },
       )
       .addCase(getPostsByTagId.rejected, (state: postsState) => {
+        state.pageNumber--
         state.isLoading = true
       })
   },
@@ -161,6 +157,5 @@ export const {
   setSearchKeyword,
   incrementPostLoveCount,
   decrementPostLoveCount,
-  incrementPageNumber,
 } = postsSlice.actions
 export default postsSlice.reducer
