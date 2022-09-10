@@ -29,14 +29,13 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (posts.length < totalPostsCount)
-      dispatch(
-        getPosts({
-          pageNumber,
-          ...(searchKeyword && { search: searchKeyword }),
-        }),
-      )
-  }, [pageNumber, searchKeyword, totalPostsCount])
+    dispatch(
+      getPosts({
+        pageNumber,
+        ...(searchKeyword && { search: searchKeyword }),
+      }),
+    )
+  }, [pageNumber, searchKeyword])
 
   useEffect(() => {
     if (!tags || !tags.length) dispatch(getTags())
