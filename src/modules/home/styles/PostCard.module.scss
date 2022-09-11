@@ -139,6 +139,12 @@
   }
 }
 
+@media screen and (max-width: 750px) {
+  .container {
+    width: calc(100vw - 2rem);
+  }
+}
+
 @media screen and (max-width: 360px) {
   .readingInfo {
     display: none;
