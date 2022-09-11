@@ -67,7 +67,7 @@
 @media screen and(max-width:750px) {
   .card {
     max-width: unset;
-    width: unset;
+    width: calc(100vw - 2rem);
     margin-bottom: 1rem;
   }
   .BtnContainer {

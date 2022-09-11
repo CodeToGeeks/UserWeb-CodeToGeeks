@@ -61,7 +61,7 @@ const Navigation = () => {
             </li>
             <li>
               <button onClick={handleOpenSignUpModal} className={styles.signUp}>
-                Create Account
+                Sign Up
               </button>
             </li>
           </>

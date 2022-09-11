@@ -12,7 +12,6 @@ export const lovePost = createAsyncThunk(
       await axios.post(`/post/love/${postId}`)
       return postId
     } catch (e) {
-      console.log({ e })
       const errorMessage = apiErrorHandler(e as Error | AxiosError)
       dispatch(decrementPostLoveCount(postId))
       dispatch(showToastError(errorMessage))
@@ -29,7 +28,6 @@ export const unlovePost = createAsyncThunk(
       dispatch(decrementPostLoveCount(postId))
       await axios.post(`/post/unlove/${postId}`)
     } catch (e) {
-      console.log({ e })
       const errorMessage = apiErrorHandler(e as Error | AxiosError)
       dispatch(incrementPostLoveCount(postId))
       dispatch(showToastError(errorMessage))

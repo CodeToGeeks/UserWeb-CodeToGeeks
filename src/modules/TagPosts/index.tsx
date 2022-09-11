@@ -11,7 +11,6 @@ import {
   resetPosts,
   getPostsByTagId,
   postsSelector,
-  incrementPageNumber,
   getTags,
 } from '@store/posts'
 import TagHeader from './components/TagHeader'
@@ -20,21 +19,15 @@ import { Tag } from '@models/Tag.model'
 const TagPosts = ({ router }: { router: NextRouter }) => {
   const [tag, setTag] = useState({} as Tag)
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount, tags, pageNumber } =
-    useAppSelector(postsSelector)
+  const { posts, totalPostsCount, tags } = useAppSelector(postsSelector)
   const { _id } = router.query
   useEffect(() => {
     dispatch(resetPosts())
   }, [_id])
 
   useEffect(() => {
-    dispatch(
-      getPostsByTagId({
-        query: { pageNumber },
-        tagId: `${_id}`,
-      }),
-    )
-  }, [pageNumber, _id])
+    getMoreTagPosts()
+  }, [_id])
 
   useEffect(() => {
     if (!tags || !tags.length) dispatch(getTags())
@@ -46,6 +39,13 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
   }, [tags, _id])
 
   const getCurrentTag = () => tags.find((tag: Tag) => tag._id === _id)
+
+  const getMoreTagPosts = () =>
+    dispatch(
+      getPostsByTagId({
+        tagId: `${_id}`,
+      }),
+    )
 
   return (
     <>
@@ -59,7 +59,7 @@ const TagPosts = ({ router }: { router: NextRouter }) => {
           </div>
           <PostsList
             posts={posts}
-            incrementPageNumber={() => dispatch(incrementPageNumber())}
+            hasMoreHandler={getMoreTagPosts}
             totalPostsCount={totalPostsCount}
           />
         </main>

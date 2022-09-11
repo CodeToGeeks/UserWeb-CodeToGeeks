@@ -6,21 +6,23 @@ import PopularTags from './components/PopularTags'
 import SEO from '@components/SEO/SEO'
 import styles from './styles/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
-import {
-  getPosts,
-  getTags,
-  postsSelector,
-  incrementPageNumber,
-} from '@store/posts'
+import { resetPosts, getPosts, getTags, postsSelector } from '@store/posts'
 
 import { getUserInteractions } from '@store/interactions'
 import { authSelector } from '@store/auth'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { posts, totalPostsCount, pageNumber, searchKeyword, tags } =
+  const { posts, totalPostsCount, searchKeyword, tags } =
     useAppSelector(postsSelector)
   const { isAuthenticated, token } = useAppSelector(authSelector)
+
+  useEffect(() => {
+    dispatch(resetPosts())
+    return () => {
+      dispatch(resetPosts())
+    }
+  }, [])
 
   useEffect(() => {
     if (isAuthenticated && token) {
@@ -29,18 +31,19 @@ const Home = () => {
   }, [isAuthenticated, token])
 
   useEffect(() => {
-    if (posts.length < totalPostsCount)
-      dispatch(
-        getPosts({
-          pageNumber,
-          ...(searchKeyword && { search: searchKeyword }),
-        }),
-      )
-  }, [pageNumber, searchKeyword])
+    getMorePosts()
+  }, [searchKeyword])
 
   useEffect(() => {
     if (!tags || !tags.length) dispatch(getTags())
   }, [])
+
+  const getMorePosts = () =>
+    dispatch(
+      getPosts({
+        ...(searchKeyword && { search: searchKeyword }),
+      }),
+    )
 
   return (
     <div>
@@ -53,7 +56,7 @@ const Home = () => {
           </div>
           <PostsList
             posts={posts}
-            incrementPageNumber={() => dispatch(incrementPageNumber())}
+            hasMoreHandler={getMorePosts}
             totalPostsCount={totalPostsCount}
           />
         </main>

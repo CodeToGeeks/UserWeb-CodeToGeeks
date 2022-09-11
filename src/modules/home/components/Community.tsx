@@ -37,7 +37,7 @@ const Community = () => {
             className={styles.signUp}
             onClick={() => dispatch(openSignUpModal())}
           >
-            Create account
+            Sign Up
           </button>
           <button
             className={styles.logIn}

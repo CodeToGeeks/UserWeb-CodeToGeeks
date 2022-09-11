@@ -124,7 +124,7 @@ const SignUp = () => {
             onClick={onSignUpHandler}
             disabled={!isValidForm || isLoading}
           >
-            {isLoading ? <Spinner /> : `Create Account`}
+            {isLoading ? <Spinner /> : `Sign Up`}
           </button>
           <div className={styles.signUpContainer}>
             <span> Do you have an account? </span>
