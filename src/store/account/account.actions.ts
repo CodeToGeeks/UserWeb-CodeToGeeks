@@ -4,20 +4,20 @@ import { showToastError, showToastSuccess } from '@store/ui'
 import { setUser } from '@store/auth'
 import { apiErrorHandler } from '@utils/apiErrorHandler'
 import { User } from '@models/user.model'
+import { RootState } from '@store/store'
 interface Query {
-  pageNumber: number
   search?: string
 }
 // TODO: Add types for API response
 export const getSavedPosts = createAsyncThunk(
   'posts/getSavedPosts',
-  async (payload: Query, { dispatch }) => {
+  async (payload: Query, { dispatch, getState }) => {
     try {
-      const { pageNumber } = payload
+      const { account } = getState() as RootState
       const res = await axios.get('/post/save', {
         params: {
           pageSize: 3,
-          pageNumber,
+          pageNumber: account.pageNumber,
         },
       })
       return res.data

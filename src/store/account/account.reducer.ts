@@ -21,7 +21,7 @@ export const initialState: accountState = {
   isLoading: false,
   isUpdateAccountLoading: false,
   isUploadingImage: false,
-  pageNumber: 1,
+  pageNumber: 0,
 }
 
 export const accountSlice = createSlice({
@@ -30,16 +30,14 @@ export const accountSlice = createSlice({
   reducers: {
     resetSavedPosts: (state) => {
       state.savedPosts = []
-      state.pageNumber = 1
-    },
-    incrementPageNumber: (state) => {
-      state.pageNumber++
+      state.pageNumber = 0
     },
   },
   extraReducers: (builder) => {
     builder
 
       .addCase(getSavedPosts.pending, (state: accountState) => {
+        state.pageNumber++
         state.isLoading = true
       })
       .addCase(
@@ -54,6 +52,7 @@ export const accountSlice = createSlice({
         },
       )
       .addCase(getSavedPosts.rejected, (state: accountState) => {
+        state.pageNumber--
         state.isLoading = false
       })
 
@@ -79,6 +78,6 @@ export const accountSlice = createSlice({
   },
 })
 
-export const { resetSavedPosts, incrementPageNumber } = accountSlice.actions
+export const { resetSavedPosts } = accountSlice.actions
 
 export default accountSlice.reducer
