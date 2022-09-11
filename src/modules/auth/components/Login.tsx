@@ -88,9 +88,7 @@ const Login = () => {
           <GoogleLogin />
           <div className={styles.signUpContainer}>
             <span> Do not Have an account? </span>
-            <button onClick={() => dispatch(openSignUpModal())}>
-              Create Account
-            </button>
+            <button onClick={() => dispatch(openSignUpModal())}>Sign Up</button>
           </div>
         </form>
       </>
