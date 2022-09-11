@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import styles from '../styles/SocialMedia.module.scss'
 import { useAppDispatch, useAppSelector } from '@store/hooks'
@@ -25,12 +25,21 @@ const linkImage = '/assets/post/link.svg'
 const SocialMedia = () => {
   const dispatch = useAppDispatch()
   const { post } = useAppSelector(postsSelector)
-  const commonProps = {
+  const [commonProps, setCommonProps] = useState({
     url: `${baseLink}/${post?.slug}`,
     title: post?.title,
     windowWidth: windowWidth,
     windowHeight: windowHeight,
-  }
+  })
+
+  useEffect(() => {
+    setCommonProps({
+      url: `${baseLink}/${post?.slug}`,
+      title: post?.title,
+      windowWidth: windowWidth,
+      windowHeight: windowHeight,
+    })
+  }, [post])
 
   const onCopyLinkHandler = () => {
     dispatch(showToastSuccess('Link copied to clipboard'))
