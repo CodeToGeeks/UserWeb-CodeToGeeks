@@ -18,8 +18,10 @@ const ArticleContainer = ({ post }: ArticleContainerProps) => {
   return (
     <main className={styles.main}>
       <PostHeader
+        _id={post._id}
         coverImage={post.cover_image_link}
         title={post.title}
+        slug={post.slug}
         date={post.created_at}
         author={author}
         tags={[]}

@@ -8,14 +8,23 @@ import styles from '../styles/PostHeader.module.scss'
 import { Tag } from '@models/Tag.model'
 
 type PostHeaderProps = {
+  _id: string
   coverImage: string
   title: string
+  slug: string
   author: Author
   tags: Tag[]
   date: Date
 }
 
-const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
+const PostHeader = ({
+  _id,
+  coverImage,
+  title,
+  slug,
+  author,
+  date,
+}: PostHeaderProps) => {
   return (
     <header className={styles.container}>
       {coverImage && (
@@ -35,8 +44,9 @@ const PostHeader = ({ coverImage, title, author, date }: PostHeaderProps) => {
             profileImage={author.profile_image}
           />
           <div className={styles.socialWrapper}>
-            <Interactions />
-            <SocialMedia />
+            <Interactions postId={_id} />
+
+            <SocialMedia slug={slug} title={title} />
           </div>
         </div>
         <div>
