@@ -10,7 +10,6 @@ export const getPosts = createAsyncThunk(
   async (payload: Query, { getState }) => {
     try {
       const { posts } = getState() as RootState
-
       const requestParams = {
         pageSize: 3,
         pageNumber: posts.pageNumber,
