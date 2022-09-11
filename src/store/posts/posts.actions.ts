@@ -11,7 +11,6 @@ export const getPosts = createAsyncThunk(
     try {
       const { posts } = getState() as RootState
 
-      console.log(posts.pageNumber)
       const requestParams = {
         pageSize: 3,
         pageNumber: posts.pageNumber,
