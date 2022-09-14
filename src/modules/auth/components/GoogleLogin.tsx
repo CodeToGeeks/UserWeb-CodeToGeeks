@@ -8,11 +8,13 @@ declare const google: any
 type googleLoginProps = {
   onGoogleSignIn?: (response: any) => void
   text?: string
+  firstLoad: boolean
 }
 
 export default function GoogleLogin({
   onGoogleSignIn,
   text = 'signin_with',
+  firstLoad,
 }: googleLoginProps) {
   const googleSignInButton = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
@@ -21,18 +23,22 @@ export default function GoogleLogin({
     dispatch(googleLogin({ token: response.credential }))
   }
 
-  useScript('https://accounts.google.com/gsi/client', () => {
-    google.accounts.id.initialize({
-      client_id: process.env.APP_GOOGLE_CLIENT_ID,
-      callback: onGoogleSignIn,
-    })
-    google.accounts.id.renderButton(googleSignInButton.current, {
-      theme: 'outline',
-      size: 'large',
-      width: googleSignInButton?.current?.clientWidth,
-      text,
-    })
-  })
+  useScript(
+    'https://accounts.google.com/gsi/client',
+    () => {
+      google.accounts.id.initialize({
+        client_id: process.env.APP_GOOGLE_CLIENT_ID,
+        callback: onGoogleSignIn,
+      })
+      google.accounts.id.renderButton(googleSignInButton.current, {
+        theme: 'outline',
+        size: 'large',
+        width: googleSignInButton?.current?.clientWidth,
+        text,
+      })
+    },
+    firstLoad,
+  )
 
   return <div className={styles.googleLogin} ref={googleSignInButton}></div>
 }

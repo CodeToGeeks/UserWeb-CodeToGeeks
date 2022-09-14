@@ -14,7 +14,7 @@ import { openSignUpModal, resetModals } from '@store/ui'
 const Login = () => {
   const dispatch = useAppDispatch()
   const router = useRouter()
-
+  const [firstLoad, setFirstLoad] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isValidForm, setIsValidForm] = useState(false)
@@ -48,7 +48,7 @@ const Login = () => {
     >
       <>
         <div className="d-flex">
-          <h1 className="title-underline">Welcome Back!</h1>
+          <h1 className="title-underline">Welcome Back</h1>
         </div>
         <form className={styles.form}>
           <CustomInput
@@ -57,9 +57,10 @@ const Login = () => {
             label={'Email'}
             autoComplete="off"
             placeholder="Enter your email"
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
               setEmail(e.currentTarget.value)
-            }
+              if (firstLoad) setFirstLoad(false)
+            }}
             value={email}
           />
           <PasswordInput
@@ -67,9 +68,10 @@ const Login = () => {
             label={'Password'}
             autoComplete="new-password"
             placeholder="Enter your password"
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              if (firstLoad) setFirstLoad(false)
               setPassword(e.currentTarget.value)
-            }
+            }}
             value={password}
           />
           <button
@@ -85,7 +87,7 @@ const Login = () => {
           >
             {isLoading ? <Spinner /> : `Login`}
           </button>
-          <GoogleLogin />
+          <GoogleLogin firstLoad={firstLoad} />
           <div className={styles.signUpContainer}>
             <span> Do not Have an account? </span>
             <button onClick={() => dispatch(openSignUpModal())}>Sign Up</button>
