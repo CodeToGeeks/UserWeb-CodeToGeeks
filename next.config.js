@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   // reactStrictMode: true,
+
   images: {
+    // loader: 'custom',
     domains: [
-      'lh3.googleusercontent.com',
       'codetogeeks.s3.me-south-1.amazonaws.com',
+      'lh3.googleusercontent.com',
     ],
   },
   env: {
