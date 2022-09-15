@@ -12,7 +12,7 @@ const Header = () => {
         <MobileMenu />
         <div>
           <div className={styles.logoContainer}>
-            <Logo styles={styles.logo} width="60" height="42" />
+            <Logo styles={styles.logo} width="52" height="42" />
             <span>CodeToGeeks</span>
           </div>
           <SearchBar />

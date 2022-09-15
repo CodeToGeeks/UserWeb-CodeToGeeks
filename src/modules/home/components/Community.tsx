@@ -25,11 +25,11 @@ const Community = () => {
         <Logo styles={styles.communityLogo} />
       </h2>
 
-      <div> Is the geeks developers community</div>
+      <div> It's a platform for geek developers</div>
 
       <p>
-        We are a place where coders share, stay up-to-date and grow their
-        careers.
+        We are just a group of software engineers who share their knowledge and
+        experience with the world.
       </p>
       {!isAuthenticated && (
         <div className={styles.BtnContainer}>

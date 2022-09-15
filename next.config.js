@@ -13,6 +13,7 @@ const nextConfig = {
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
     APP_GOOGLE_CLIENT_ID: process.env.APP_GOOGLE_CLIENT_ID,
+    APP_Google_Analytics_ID: process.env.APP_Google_Analytics_ID,
   },
 }
 
