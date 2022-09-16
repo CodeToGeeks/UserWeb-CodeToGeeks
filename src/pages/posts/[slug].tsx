@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     }))
     return {
       paths: slugs,
-      fallback: true,
+      fallback: 'blocking',
     }
   } catch (err) {
     console.log(err)
@@ -32,6 +32,7 @@ export async function getStaticProps({ params }: any) {
       props: {
         post: response.data.post,
       },
+      revalidate: 60,
     }
   } catch (err) {
     console.log(err)

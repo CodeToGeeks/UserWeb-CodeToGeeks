@@ -34,6 +34,7 @@ const PostHeader = ({
           alt={title}
           width="920"
           height="400"
+          loading="eager"
         />
       )}
       <div className={styles.headerContainer}>
