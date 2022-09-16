@@ -74,6 +74,7 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
           height={'250'}
           priority={true}
           objectFit={'cover'}
+          loading="eager"
         />
       )}
       <section
