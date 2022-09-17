@@ -22,6 +22,7 @@ const PostDetails = ({ post }: any) => {
               _id: '',
               name: post.author_name,
               profile_image: post.author_profile_image,
+              bio: post.author_bio,
             }}
             date={new Date(post.created_at)}
           />
