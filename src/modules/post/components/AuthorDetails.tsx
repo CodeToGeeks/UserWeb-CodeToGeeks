@@ -21,8 +21,8 @@ const AuthorDetails = ({ author }: AuthorDetailsProps) => {
         objectFit="cover"
       />
       <h3>{author.name}</h3>
-      <div>56 Followers</div>
-      <p>{about}</p>
+      {/* <div>56 Followers</div> */}
+      <p>{author.bio}</p>
     </aside>
   )
 }
