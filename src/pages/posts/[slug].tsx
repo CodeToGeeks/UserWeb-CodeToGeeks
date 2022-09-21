@@ -9,7 +9,7 @@ const Post: NextPage = ({ post }: any) => {
 }
 export async function getStaticPaths() {
   try {
-    const res = await axios.get('http://13.37.123.41/api/v1/sys/post/slugs')
+    const res = await axios.get('https://codetogeeks.com/api/v1/sys/post/slugs')
 
     const slugs = res.data.payload.posts.map((post: Post) => ({
       params: { slug: post.slug },
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   try {
     const response = await axios.get(
-      `http://13.37.123.41/api/v1/post/${params.slug}`,
+      `https://codetogeeks.com/api/v1/post/${params.slug}`,
     )
     return {
       props: {
