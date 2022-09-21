@@ -90,8 +90,11 @@ const PostCard = ({ post, hasCover }: PostCardProps) => {
 
         <div className={styles.blogBody}>
           <div className={styles.blogTitle}>
-            <Link href={`/posts/${post.slug}`}>
-              <a href="#">{post.title}</a>
+            <Link
+              href={`${window.location.origin}/posts/${post.slug}`}
+              title={post.title}
+            >
+              {post.title}
             </Link>
           </div>
           <PostTags tags={postTags} />
